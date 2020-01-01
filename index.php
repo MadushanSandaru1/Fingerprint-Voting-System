@@ -5,41 +5,31 @@
      require_once("connection/connection.php");
      
 
-     $err = "";
+    $err = "";
 
-     if(isset($_POST['submit'])){
-
-            //Get avilable elections
-            $get_current_election = "SELECT `id`,`type`,`date_to` FROM `election_schedule` WHERE  '{$curent_datetime}' between `date_from` and `date_to` and `is_deleted`= 0";
-            $get_current_election_result = mysqli_query($con,$get_current_election);
-
-            if(mysqli_num_rows($get_current_election_result)==1){
-                //////
-            }
+    if(isset($_POST['submit'])){
 
 
-            $upper_nic = strtoupper($_POST['usr_nic']);
-            $enc_pwd = sha1($_POST['usr_pwd']);
-            $get_inspectors = "SELECT * FROM `inspector` WHERE `nic`='{$upper_nic}' AND `password`='{$enc_pwd}' ";
-            $result_inspectors = mysqli_query($con,$get_inspectors);
+        $upper_nic = strtoupper($_POST['usr_nic']);
+        $enc_pwd = sha1($_POST['usr_pwd']);
+        $get_inspectors = "SELECT * FROM `inspector` WHERE `nic`='{$upper_nic}' AND `password`='{$enc_pwd}'";
+        $result_inspectors = mysqli_query($con,$get_inspectors);
 
-           
-            if (mysqli_num_rows($result_inspectors)==1) {
+       
+        if (mysqli_num_rows($result_inspectors)==1) {
 
-                //add inspector id to sessions
-                $_SESSION['inspector_nic'] = mysqli_fetch_assoc($result_inspectors)['nic'];
+            //add inspector id to sessions
+            $_SESSION['inspector_schedule_id'] = mysqli_fetch_assoc($result_inspectors)['schedule_id'];
+            $_SESSION['inspector_nic'] = mysqli_fetch_assoc($result_inspectors)['nic'];
 
-                header("location:/FVS/html/scan.php");
-            }
-            else{
-                $err = "Incorrect NIC or Password. Try again.";
-            }
-           
-     }
-
-   
-
-
+            header("location:/FVS/html/scan.php");
+        }
+        else{
+            $err = "Incorrect NIC or Password. Try again.";
+        }
+       
+    }
+    
 
 
 ?>
@@ -96,9 +86,9 @@
                 </div>
                 <div class="col-5 mt-5">
                     <form class="text-center p-5" action="index.php" method="post">
-                        <input type="text" id="nic" class="form-control mb-4" placeholder="NIC" name="usr_nic">
-                        <input type="password" id="pwd" class="form-control mb-4" placeholder="Password" name="usr_pwd">
-                        <input type="submit" class="btn btn-primary" name="submit" value="ඇතුල් වන්න | உள்நுழைய | Log in">
+                        <input type="text" id="nic" class="form-control mb-4" placeholder="NIC" name="usr_nic" >
+                        <input type="password" id="pwd" class="form-control mb-4" placeholder="Password" name="usr_pwd" >
+                        <input type="submit" class="btn btn-primary" name="submit" value="ඇතුල් වන්න | உள்நுழைய | Log in" >
                         <p class="mt-4 text-danger"><?php echo $err; ?></p>
                     </form>
 
