@@ -1,0 +1,86 @@
+.logo {
+    width: 127px;
+    margin-top: 10%;
+}
+
+.row {
+    height: 100vh;
+}
+
+.login-area {
+    background-color: #0d1428;
+}
+
+.image-area {
+    background: linear-gradient(to right, rgba(111, 44, 145, 0.2), rgba(0, 0, 0, 0.0)),url(../img/back.jpg);
+	background-repeat: no-repeat;
+    background-position: right;
+	background-size: auto 100%;
+    text-align: center;
+}
+
+#ecslLogo {
+    width: 80%;
+    margin-top: 38%;
+}
+
+.title {
+    font-family: 'Baloo Chettan';
+    font-size: 200%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+input.input-field {
+    width: 100%;
+    padding: 10px 10px;
+    margin-bottom: 14px;
+    background: #0d1428;
+    border: 1px solid #424a52;
+    position: relative;
+    transition: all .3s;
+    -webkit-transition: all 0.3s;
+    display: block;
+    box-sizing: border-box;
+	color:#fff;
+}
+
+input.input-field:focus {
+    outline: none;
+    border: 1px solid #bec8d2;
+    background: #121b37;
+    color: #fff;
+}
+
+button.btn.btn-outline-primary {
+    width: 100%;
+    padding: 10px 10px;
+    color: #6F2C91;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 0;
+}
+
+button.btn.btn-outline-primary:hover {
+    color: #fff;
+}
+
+.login-bottom-links a {
+    display: block;
+    color: #72818e;
+}
+
+.login-bottom-links a.link:hover {
+    color: #fff;
+}
+
+.login-bottom-links a.link i {
+    margin-right: 10px;
+    font-size: 14px;
+}
