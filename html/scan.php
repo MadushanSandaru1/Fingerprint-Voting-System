@@ -47,7 +47,7 @@
     <body>
         <?php
                                             
-            $query = "SELECT es.*, e.`name_si`, e.`name_ta`, e.`name_en` FROM `election_schedule` es,`election` e WHERE es.`id` = {$_SESSION['inspector_schedule_id']} AND es.`type` = e.`id`";
+            /*$query = "SELECT es.*, e.`name_si`, e.`name_ta`, e.`name_en` FROM `election_schedule` es,`election` e WHERE es.`id` = {$_SESSION['inspector_schedule_id']} AND es.`type` = e.`id`";
 
             $result_set = mysqli_query($con,$query);
 
@@ -58,7 +58,10 @@
                 $_SESSION['election_name_ta'] = $eName['name_ta'];
                 $_SESSION['election_name_en'] = $eName['name_en'];
 
-            }
+            }*/
+            $_SESSION['election_name_si'] = $current_elec_name_array['name_en'];
+            $_SESSION['election_name_ta'] = $current_elec_name_array['name_ta'];
+            $_SESSION['election_name_en'] = $current_elec_name_array['name_en'];
 
         ?>
         <nav class="navbar navbar-expand-sm navbar-dark justify-content-center">

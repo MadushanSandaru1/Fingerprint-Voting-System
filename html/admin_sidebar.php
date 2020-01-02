@@ -66,6 +66,24 @@
                         </div>
                     </li>
 
+                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addElectionSchedule.php">Add Election Schedule</a></li>
+                                <li><a href="admin_electionScheduleList">Election Schedule</a></li>
+                             </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Division Officer</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addDivisionOfficer.php">Add Division Officer</a></li>
+                                <li><a href="admin_divisionOfficerList.php">Division Officer</a></li>
+                             </ul>
+                        </div>
+                    </li>
+
                     <li class="sidebar-dropdown"><a href="#"><i class="fas fa-user-tie"></i><span>Candidate</span></a>
                         <div class="sidebar-submenu">
                             <ul>
@@ -93,11 +111,20 @@
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
+                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Inspector</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-                                <li><a href="admin_addElectionSchedule.php">Add Election Scedule</a></li>
-                                <li><a href="admin_electionScheduleList.php">Election Scedule List</a></li>
+                                <li><a href="admin_addInspector.php">Add Inspector</a></li>
+                                <li><a href="admin_inspectorList.php">Inspector List</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    
+                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Assistant Election Officer</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
+                                <li><a href="admin_assistantElectionOfficerList.php">Assistant Election Officer List</a></li>
                             </ul>
                         </div>
                     </li>

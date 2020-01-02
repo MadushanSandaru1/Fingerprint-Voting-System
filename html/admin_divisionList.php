@@ -124,7 +124,7 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT dv.id as id, p.name as p_name,d.name as d_name, dv.name as dv_name from `province` p, `district` d, `division` dv WHERE p.`id` = d.`prov_id` AND d.`id` = dv.`dist_id` AND dv.`is_deleted`=0 AND dv.`name`='$search%'";
+                                        $query = "SELECT dv.id as id, p.name as p_name,d.name as d_name, dv.name as dv_name from `province` p, `district` d, `division` dv WHERE p.`id` = d.`prov_id` AND d.`id` = dv.`dist_id` AND dv.`is_deleted`=0 AND dv.`name` LIKE '$search%'";
                                     } else {
                                         $query = "SELECT dv.id as id, p.name as p_name,d.name as d_name, dv.name as dv_name from `province` p, `district` d, `division` dv WHERE p.id=d.prov_id AND d.id=dv.dist_id AND dv.is_deleted=0";
                                     }

@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 01, 2020 at 07:35 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 02, 2020 at 01:40 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `fvs`
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
+DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -42,9 +45,25 @@ INSERT INTO `admin` (`nic`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `assistant_election_officer`
+--
+
+DROP TABLE IF EXISTS `assistant_election_officer`;
+CREATE TABLE IF NOT EXISTS `assistant_election_officer` (
+  `nic` char(12) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `dist_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`nic`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `candidate`
 --
 
+DROP TABLE IF EXISTS `candidate`;
 CREATE TABLE IF NOT EXISTS `candidate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nic` varchar(12) NOT NULL,
@@ -55,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `candidate` (
   `schedule_id` int(11) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `candidate`
@@ -70,12 +89,13 @@ INSERT INTO `candidate` (`id`, `nic`, `party_id`, `image`, `name_si`, `name_ta`,
 -- Table structure for table `district`
 --
 
+DROP TABLE IF EXISTS `district`;
 CREATE TABLE IF NOT EXISTS `district` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `prov_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `district`
@@ -111,13 +131,14 @@ INSERT INTO `district` (`id`, `name`, `prov_id`) VALUES
 -- Table structure for table `division`
 --
 
+DROP TABLE IF EXISTS `division`;
 CREATE TABLE IF NOT EXISTS `division` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `dist_id` int(11) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=161 ;
+) ENGINE=MyISAM AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `division`
@@ -291,20 +312,21 @@ INSERT INTO `division` (`id`, `name`, `dist_id`, `is_deleted`) VALUES
 -- Table structure for table `election`
 --
 
+DROP TABLE IF EXISTS `election`;
 CREATE TABLE IF NOT EXISTS `election` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name_en` varchar(255) NOT NULL,
   `name_si` varchar(255) CHARACTER SET utf8 NOT NULL,
   `name_ta` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `election`
 --
 
 INSERT INTO `election` (`id`, `name_en`, `name_si`, `name_ta`) VALUES
-(1, 'Presidential Election', 'ජනාධිපතිවරණය', 'ஜனாதிபதித் தேர்தல்'),
+(1, 'Presidential Election', 'à¶¢à¶±à·à¶°à·’à¶´à¶­à·’à·€à¶»à¶«à¶º', 'à®œà®©à®¾à®¤à®¿à®ªà®¤à®¿à®¤à¯ à®¤à¯‡à®°à¯à®¤à®²à¯'),
 (2, 'Parliamentary Election', 'පාර්ලිමේන්තු මැතිවරණය', 'பாராளுமன்றத் தேர்தல்கள்'),
 (3, 'Provincial Council Elections', 'පළාත් සභා ඡන්ද විමසීම', 'மாகாண சபைகள் தேர்தல்கள்'),
 (4, 'Local Authorities Election', 'පළාත් පාලන ආයතන ඡන්ද විමසීම', 'உள்ளூர் அதிகார சபைகள் தேர்தல்கள்');
@@ -315,6 +337,7 @@ INSERT INTO `election` (`id`, `name_en`, `name_si`, `name_ta`) VALUES
 -- Table structure for table `election_schedule`
 --
 
+DROP TABLE IF EXISTS `election_schedule`;
 CREATE TABLE IF NOT EXISTS `election_schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) NOT NULL,
@@ -322,14 +345,14 @@ CREATE TABLE IF NOT EXISTS `election_schedule` (
   `date_to` datetime NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `election_schedule`
 --
 
 INSERT INTO `election_schedule` (`id`, `type`, `date_from`, `date_to`, `is_deleted`) VALUES
-(1, 2, '2019-09-03 08:00:00', '2019-09-03 16:00:00', 0);
+(1, 2, '2020-01-01 08:00:00', '2020-01-03 01:30:00', 0);
 
 -- --------------------------------------------------------
 
@@ -337,10 +360,13 @@ INSERT INTO `election_schedule` (`id`, `type`, `date_from`, `date_to`, `is_delet
 -- Table structure for table `grama_niladhari`
 --
 
+DROP TABLE IF EXISTS `grama_niladhari`;
 CREATE TABLE IF NOT EXISTS `grama_niladhari` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `divi_id` int(11) NOT NULL
+  `work_divi_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`nic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -349,11 +375,20 @@ CREATE TABLE IF NOT EXISTS `grama_niladhari` (
 -- Table structure for table `inspector`
 --
 
+DROP TABLE IF EXISTS `inspector`;
 CREATE TABLE IF NOT EXISTS `inspector` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `schedule_id` int(11) NOT NULL
+  `schedule_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `inspector`
+--
+
+INSERT INTO `inspector` (`nic`, `password`, `schedule_id`, `is_deleted`) VALUES
+('542893419V', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -361,12 +396,13 @@ CREATE TABLE IF NOT EXISTS `inspector` (
 -- Table structure for table `participate`
 --
 
+DROP TABLE IF EXISTS `participate`;
 CREATE TABLE IF NOT EXISTS `participate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `schedule_id` int(11) NOT NULL,
   `voter_nic` char(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `participate`
@@ -382,6 +418,7 @@ INSERT INTO `participate` (`id`, `schedule_id`, `voter_nic`) VALUES
 -- Table structure for table `party`
 --
 
+DROP TABLE IF EXISTS `party`;
 CREATE TABLE IF NOT EXISTS `party` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name_en` varchar(255) NOT NULL,
@@ -395,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `party` (
   `symbol` varchar(255) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `party`
@@ -403,20 +440,21 @@ CREATE TABLE IF NOT EXISTS `party` (
 
 INSERT INTO `party` (`id`, `name_en`, `name_si`, `name_ta`, `secretary_name`, `contact`, `start_date`, `address`, `color`, `symbol`, `is_deleted`) VALUES
 (1, 'Ilankai Tamil Arasu Kadchi', 'ඉලංකෙයි තමිල් අරසු කච්චි', 'இலங்கைத் தமிழ் அரசுக் கட்சி', 'Suresh Premachandran', '0212228776', '1949-12-18', '30, Martin Road, Jaffna.', '#FFFF00', '../img/partySymbol/1.png', 0),
-(2, 'United People''s Freedom Alliance', 'එක්සත් ජනතා නිදහස් සන්ධානය', 'ஐக்கிய மக்கள் சுதந்திர முன்னணி\r\n ', 'Mahinda Amaraweera', '0112686077', '2004-01-20', '301, T. B. Jayah Mawatha, Colombo 10.', '', '../img/partySymbol/2.png', 0),
+(2, 'United People\'s Freedom Alliance', 'එක්සත් ජනතා නිදහස් සන්ධානය', 'ஐக்கிய மக்கள் சுதந்திர முன்னணி\r\n ', 'Mahinda Amaraweera', '0112686077', '2004-01-20', '301, T. B. Jayah Mawatha, Colombo 10.', '', '../img/partySymbol/2.png', 0),
 (3, 'United National Party ', 'එක්සත් ජාතික පක්ෂය', 'ஐக்கிய தேசியக் கட்சி', 'Akila Viraj Kariyawasam ', '0112865374', '1946-09-06', '“Sirikotha”, 400, Kotte Road, Pitakotte', '', '../img/partySymbol/3.png', 0),
 (4, 'United Socialist Party\r\n', 'එක්සත් සමාජවාදී පක්ෂය', 'ஐக்கிய சோசலிச கட்சி\r\n', 'Sirithunga Jayasuriya', '0112586199', '2007-03-24', '53/6, E. D. Dabare Mawatha, Narahenpita, Colombo 05', '', '../img/partySymbol/4.png', 0),
 (5, 'Workers National Front', 'කම්කරු ජාතික පෙරමුණ', 'தொழிலாளர் தேசிய முன்னணி', 'M.Thilakaraja', '0112982998', '2015-07-05', '187 A, Dimbula Road, Hatton', '', '../img/partySymbol/5.png', 0),
-(6, 'People''s Liberation Front', 'ජනතා විමුක්ති පෙරමුණ', 'மக்கள் விடுதலை முன்னணி', 'M.T.Silva', '0112785612', '1965-05-14', '464/20, Pannipitiya Road, Pelawatte, Battaramulla', '', '../img/partySymbol/6.png', 0),
+(6, 'People\'s Liberation Front', 'ජනතා විමුක්ති පෙරමුණ', 'மக்கள் விடுதலை முன்னணி', 'M.T.Silva', '0112785612', '1965-05-14', '464/20, Pannipitiya Road, Pelawatte, Battaramulla', '', '../img/partySymbol/6.png', 0),
 (7, 'Jathika Hela Urumaya', 'ජාතික හෙළ උරුමය', 'ஜாதிக ஹெல உறுமய ', 'Patalie Champika Ranawaka', '011 286612', '2004-04-02', '964/2, Pannipitiya Road, Battaramulla', '', '../img/partySymbol/7.png', 0),
 (8, 'New Democratic Front', 'නව ප්‍රජාතන්ත්‍රවාදී පෙරමුණ', 'புதிய ஜனநாயக முன்னணி ', 'Shamila Perera', '0112785531', '1995-05-15', '9/6, Jayanthi Mawatha, Pelawatte, Battaramulla', '', '../img/partySymbol/8.png', 0),
 (9, 'Nawa Sama Samaja Party ', 'නව සමසමාජ පක්ෂය', 'நவ சம சமாஜக் கட்சி', 'Wickramabahu Karunaratne', '0112430621', '1997-12-15', '17, Barracks Lane, Colombo 02', '', '../img/partySymbol/9.png', 0),
 (10, 'Frontline Socialist Party', 'පෙරටුගාමී සමාජවාදී පක්ෂය', 'முன்னிலை சோஷலிஸ கட்சி ', 'Senadheera Gunathilake', '  01128374', '2012-04-09', '553/B2, Gemunu Mavatha, Udumulla Road, Battaramulla', '', '../img/partySymbol/10.png', 0),
 (11, 'Muslim National Alliance', 'මුස්ලිම් ජාතික සන්ධානය', 'முஸ்லிம் தேசிய கூட்டமைப்பு', 'Masihudeen Naeemullah', '0112697505', '2018-09-12', '258, Katugastota Road, Kandy', '', '../img/partySymbol/11.png', 0),
-(12, 'Ceylon Worker''s Congress ', 'ලංකා කම්කරු කොංග්‍රසය ', 'இலங்கை தொழிலாளர் காங்கிரஸ் ', 'Anusha Sivaraja', '0112574524', '1939-05-04', '72, Ananda Coomaraswamy Mawatha, Colombo 07', '', '../img/partySymbol/12.png', 0),
+(12, 'Ceylon Worker\'s Congress ', 'ලංකා කම්කරු කොංග්‍රසය ', 'இலங்கை தொழிலாளர் காங்கிரஸ் ', 'Anusha Sivaraja', '0112574524', '1939-05-04', '72, Ananda Coomaraswamy Mawatha, Colombo 07', '', '../img/partySymbol/12.png', 0),
 (13, 'Sri Lanka Podujana Peramuna ', 'ශ්‍රී ලංකා පොදුජන පෙරමුණ', 'ஸ்ரீ லங்கா பொதுஜன பெரமுன', 'Sagara Kariyawasam', '0112518565', '2016-11-06', '8/11, Robert Alwis Mawatha, Boralesgamuwa', '', '../img/partySymbol/13.png', 0),
 (14, 'Sri Lanka Muslim Congress', 'ශ්‍රී ලංකා මුස්ලිම් කොංග්‍රසය', 'Sri Lanka Muslim Congress', 'M. Nizam Kariappar', '0112436752', '1981-09-11', '“Darus Salam” 51, Vauxhall Lane, Colombo 02', '', '../img/partySymbol/14.png', 0),
-(15, 'Socialist Alliance', 'සමාජවාදී ජනතා පෙරමුණ', 'சோஷலிஸ மக்கள் முன்னணி', 'D.C. Raja Collure', '0112695328', '2006-07-08', '91, Dr. N.M. Perera Mawatha, Colombo 08', '', '../img/partySymbol/15.png', 0);
+(15, 'Socialist Alliance', 'සමාජවාදී ජනතා පෙරමුණ', 'சோஷலிஸ மக்கள் முன்னணி', 'D.C. Raja Collure', '0112695328', '2006-07-08', '91, Dr. N.M. Perera Mawatha, Colombo 08', '', '../img/partySymbol/15.png', 0),
+(27, 'Th', 'à¶¢à¶±à·à¶°à·’à¶´à¶­à·’à·€à¶»à¶«à¶º', 'à®œà®©à®¾à®¤à®¿à®ªà®¤à®¿à®¤à¯ à®¤à¯‡à®°à¯à®¤à®²à¯', 'Akila Viraj Kariyawasam', '0775236985', '2020-01-02', 'jdfh', '#c7017f', '../img/partySymbol/', 0);
 
 -- --------------------------------------------------------
 
@@ -424,11 +462,12 @@ INSERT INTO `party` (`id`, `name_en`, `name_si`, `name_ta`, `secretary_name`, `c
 -- Table structure for table `province`
 --
 
+DROP TABLE IF EXISTS `province`;
 CREATE TABLE IF NOT EXISTS `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `province`
@@ -451,13 +490,14 @@ INSERT INTO `province` (`id`, `name`) VALUES
 -- Table structure for table `vote`
 --
 
+DROP TABLE IF EXISTS `vote`;
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `schedule_id` varchar(255) NOT NULL,
   `candidate_id` varchar(255) NOT NULL,
   `preference` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`,`schedule_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=965421728 ;
+) ENGINE=MyISAM AUTO_INCREMENT=965421728 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vote`
@@ -473,6 +513,7 @@ INSERT INTO `vote` (`id`, `schedule_id`, `candidate_id`, `preference`) VALUES
 -- Table structure for table `voter`
 --
 
+DROP TABLE IF EXISTS `voter`;
 CREATE TABLE IF NOT EXISTS `voter` (
   `nic` varchar(12) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -498,6 +539,7 @@ INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fing
 ('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'S', 0, 0, 0),
 ('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', '', '', '', 5, '', 0, 0, 0),
 ('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', '', '', '', 7, '', 0, 0, 0);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
