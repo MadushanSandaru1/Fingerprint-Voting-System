@@ -16,6 +16,9 @@
         <!-- refresh -->
         <!--meta http-equiv="refresh" content="10;url=../index.php" /-->
         
+        <!--title icon-->
+        <link rel="icon" type="image/ico" href="../img/logo.png"/>
+        
         <!-- bootstrap css -->
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         
@@ -51,7 +54,7 @@
     
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark justify-content-center">
-            <marquee class="navbar-brand lead" href="#"><img src="../img/elections.png"> | Election Commission  &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | මැතිවරණ කොමිෂන් සභාව &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | தேர்தல் ஆணையம் </marquee>
+            <marquee class="navbar-brand lead" href="#"><img src="../img/elections.png"> | ශ්‍රී ලංකා මැතිවරණ කොමිෂන් සභාව &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | இலங்கை தேர்தல் ஆணையம்  &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | Election Commission of Sri Lanka</marquee>
         </nav>
         <div class="container">
             <div class="row rowCenter align-items-center">

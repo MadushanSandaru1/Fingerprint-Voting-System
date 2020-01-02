@@ -38,29 +38,22 @@
         
         $partyColor =  trim($_POST['partyColor']);
         
-        $partySymbol =  trim($_POST['partySymbol']);
-        
-        if(!isset($_FILES['partySymbol'])){
-            $targetDir = "../img/partySymbol/";
+        if(isset($_FILES['partySymbol'])){
+            $target_dir = "../img/partySymbol/";
             $fileName = $_FILES['partySymbol']['name'];
             $tmpFileName = $_FILES['partySymbol']['tmp_name'];
-            $pathForSave = $targetDir.$fileName;
-
-            $status = 0;
-
-            $status = move_uploaded_file($tmpFileName, $pathForSave);
-
-            if($status){
-                $qurey = "INSERT INTO `party`(`name_en`, `name_si`, `name_ta`, `secretary_name`, `contact`, `start_date`, `address`, `color`, `symbol`, `is_deleted`) VALUES ('{$nameEn}','{$nameSi}','{$nameTa}','{$secretaryName}','{$partyContact}','{$startDate}','{$partyAddress}','{$partyColor}','{$pathForSave}',0)";
-            }
-            else {
-                $qurey = "INSERT INTO `party`(`name_en`, `name_si`, `name_ta`, `secretary_name`, `contact`, `start_date`, `address`, `color`, `is_deleted`) VALUES ('{$nameEn}','{$nameSi}','{$nameTa}','{$secretaryName}','{$partyContact}','{$startDate}','{$partyAddress}','{$partyColor}',0)";
-            }
+            $pathForSave = $target_dir.$fileName;
+            $upload_pict= move_uploaded_file($_FILES["partySymbol"]["tmp_name"], "$target_dir".$_FILES["partySymbol"]["name"]);
+            
+            $query = "INSERT INTO `party`(`name_en`, `name_si`, `name_ta`, `secretary_name`, `contact`, `start_date`, `address`, `color`, `symbol`, `is_deleted`) VALUES ('{$nameEn}','{$nameSi}','{$nameTa}','{$secretaryName}','{$partyContact}','{$startDate}','{$partyAddress}','{$partyColor}','{$pathForSave}',0)";
+            
         } else {
-            $qurey = "INSERT INTO `party`(`name_en`, `name_si`, `name_ta`, `secretary_name`, `contact`, `start_date`, `address`, `color`, `is_deleted`) VALUES ('{$nameEn}','{$nameSi}','{$nameTa}','{$secretaryName}','{$partyContact}','{$startDate}','{$partyAddress}','{$partyColor}',0)";
+            
         }
+        
+        echo $query;
 
-        $result = mysqli_query($con,$qurey);
+        $result = mysqli_query($con,$query);
 
         if ($result) {
 

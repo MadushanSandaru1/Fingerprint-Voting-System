@@ -13,17 +13,19 @@
 ?>
 
 <?php
+
+
     if(isset($_GET['id'])) {
 	    
         $id =  mysqli_real_escape_string($con,$_GET['id']);
         
         //deleting record
-        $query = "UPDATE `division` SET is_deleted = 1 WHERE id = '{$id}' LIMIT 1";
+        $query = "UPDATE `candidate` SET is_deleted = 1 WHERE id = '{$id}' LIMIT 1";
 
         $result = mysqli_query($con,$query);
 
         if($result) {
-            header("location:admin_DivisionList.php");
+            header("location:admin_candidateList.php");
         }
         
 	} 
@@ -33,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Voter List | FVS</title>
+        <title>Election Schedule List | FVS</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -82,10 +84,10 @@
                     
                     <div class="row topic">
                         <div class="col-md-1 topic-logo">
-                            <i class="fas fa-project-diagram"></i>
+                            <i class="far fa-calendar-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Division List</big><br><small>Division</small></span>
+                            <span class="font-weight-bold"><big>Election Schedule List</big><br><small>Election Schedule</small></span>
                         </div>
                     </div>
 
@@ -93,12 +95,12 @@
                         <div class="col-md-12 form">
                             <div class="row">
                                 <div class='col-md-8'>
-                                    <a href='admin_addDivision.php' ><button type='button' class='btn btn-outline-primary'><i class='fas fa-plus'></i>  Add Division</button></a>
+                                    <a href='admin_addElectionSchedule.php' ><button type='button' class='btn btn-outline-primary'><i class='fas fa-plus'></i>  Add Election Schedule</button></a>
                                 </div>
                                 <div class="col-md-4">
-                                    <form action="admin_DivisionList.php" method="get">
+                                    <form action="admin_electionScheduleList.php" method="get">
                                         <div class="input-group">
-                                            <input type="search" name="searchTxt" class="form-control" placeholder="Search Division">
+                                            <input type="search" name="searchTxt" class="form-control" placeholder="Search">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-primary" type="submit" name="search"><i class="fas fa-search"></i> Search</button>
                                             </div>
@@ -112,9 +114,9 @@
                               <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Division</th>
-                                    <th scope="col">District</th>
-                                    <th scope="col">Province</th>                  
+                                    <th scope="col">Election Type</th>
+                                    <th scope="col">Date - From</th>
+                                    <th scope="col">Date - To</th>
                                     <th scope='col'>Action</th>
                                 </tr>
                               </thead>
@@ -124,24 +126,25 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT dv.id as id, p.name as p_name,d.name as d_name, dv.name as dv_name from `province` p, `district` d, `division` dv WHERE p.`id` = d.`prov_id` AND d.`id` = dv.`dist_id` AND dv.`is_deleted`=0 AND dv.`name`='$search%'";
+                                        $query = "SELECT s.*, e.`name_en` FROM `election_schedule` s, `election` e WHERE s.`is_deleted` = 0 AND s.`type` = e.`id` AND s.`date_from` >= '2020-01-01 08:00:00' AND e.`name_en` LIKE '{$search}%' ORDER BY s.`date_from` ASC";
                                     } else {
-                                        $query = "SELECT dv.id as id, p.name as p_name,d.name as d_name, dv.name as dv_name from `province` p, `district` d, `division` dv WHERE p.id=d.prov_id AND d.id=dv.dist_id AND dv.is_deleted=0";
+                                        $query = "SELECT s.*, e.`name_en` FROM `election_schedule` s, `election` e WHERE s.`is_deleted` = 0 AND s.`type` = e.`id` AND s.`date_from` >= '2020-01-01 08:00:00' ORDER BY s.`date_from` ASC";
                                     }
 
                                     $result_set = mysqli_query($con,$query);
 
                                     if (mysqli_num_rows($result_set) >= 1) {
-                                        $count=1;
-                                        while($division = mysqli_fetch_assoc($result_set)){
+
+                                        while($elecSchedule = mysqli_fetch_assoc($result_set)){
                                             echo "<tr>";
-                                            echo "<td>".$count."</td>";
-                                            echo "<td>".$division['dv_name']."</td>";
-                                            echo "<td>".$division['d_name']."</td>";
-                                            echo "<td>".$division['p_name']."</td>";
-                                            echo "<td><a href='admin_DivisionList.php?id={$division['id']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
+                                            echo "<td>".$elecSchedule['id']."</td>";
+                                            echo "<td>".$elecSchedule['name_en']."</td>";
+                                            echo "<td>".$elecSchedule['date_from']."</td>";
+                                            echo "<td>".$elecSchedule['date_to']."</td>";
+                                            
+                                            echo "<td><a href='admin_editElectionSchedule.php?id={$elecSchedule['id']}'><i class='fas fa-edit mr-3' data-toggle='tooltip' title='Edit'></i></a><a href='admin_electionScheduleList.php?id={$elecSchedule['id']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
+                                            
                                             echo "</tr>";
-                                            $count++;
                                             
                                         }
 

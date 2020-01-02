@@ -84,7 +84,7 @@
                     
                     <div class="row topic">
                         <div class="col-md-1 topic-logo">
-                            <i class="fas fa-user-tie fa-2x"></i>
+                            <i class="far fa-calendar-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
                             <span class="font-weight-bold"><big>Candidate List</big><br><small>Candidate</small></span>

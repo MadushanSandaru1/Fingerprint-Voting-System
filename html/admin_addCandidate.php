@@ -40,13 +40,13 @@
             $pathForSave = $target_dir.$fileName;
             $upload_pict= move_uploaded_file($_FILES["image"]["tmp_name"], "$target_dir".$_FILES["image"]["name"]);
             
-            $qurey = "INSERT INTO `candidate`(`nic`, `party_id`, `image`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$pathForSave}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
+            $query = "INSERT INTO `candidate`(`nic`, `party_id`, `image`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$pathForSave}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
             
         } else {
             
         }
 
-        $result = mysqli_query($con,$qurey);
+        $result = mysqli_query($con,$query);
 
         if ($result) {
 
@@ -215,14 +215,14 @@
                                         <select class="form-control" name="scheduleId">
                                             <?php
                                             
-                                                $query = "SELECT s.`id`, e.`name_en`, s.`from` FROM `election_schedule` s, `election` e WHERE e.`id` = s.`type` ORDER BY `from` DESC";
+                                                $query = "SELECT s.`id`, e.`name_en`, s.`date_from` FROM `election_schedule` s, `election` e WHERE e.`id` = s.`type` ORDER BY s.`date_from` DESC";
 
                                                 $result_set = mysqli_query($con,$query);
 
                                                 if (mysqli_num_rows($result_set) >= 1) {
                                                     
                                                     while($schedule = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$schedule['id']."'>".strtok($schedule['from'], " ")." - ".$schedule['name_en']."</option>";
+                                                        echo "<option value='".$schedule['id']."'>".strtok($schedule['date_from'], " ")." - ".$schedule['name_en']."</option>";
                                                     }
 
                                                 } else {

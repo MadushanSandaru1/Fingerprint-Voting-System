@@ -44,16 +44,16 @@
             $status = move_uploaded_file($tmpFileName, $pathForSave);
 
             if($status){
-                $qurey = "INSERT INTO `voter`(`nic`, `party_id`, `image`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$pathForSave}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
+                $query = "INSERT INTO `voter`(`nic`, `party_id`, `image`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$pathForSave}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
             }
             else {
-                $qurey = "INSERT INTO `voter`(`nic`, `party_id`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
+                $query = "INSERT INTO `voter`(`nic`, `party_id`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
             }
         } else {
-            $qurey = "INSERT INTO `voter`(`nic`, `party_id`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
+            $query = "INSERT INTO `voter`(`nic`, `party_id`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES ('{$nic}','{$party}','{$nameSi}','{$nameTa}','{$scheduleId}',0)";
         }
 
-        $result = mysqli_query($con,$qurey);
+        $result = mysqli_query($con,$query);
 
         if ($result) {
 

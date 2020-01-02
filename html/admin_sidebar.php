@@ -92,6 +92,15 @@
                             </ul>
                         </div>
                     </li>
+                    
+                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addElectionSchedule.php">Add Election Scedule</a></li>
+                                <li><a href="admin_electionScheduleList.php">Election Scedule List</a></li>
+                            </ul>
+                        </div>
+                    </li>
 
                 </ul>
             </div>

@@ -34,8 +34,8 @@
 			$_SESSION = array();
             $_SESSION['nic'] = $details['nic'];
             
-            $qurey = "SELECT * FROM `voter` WHERE `nic` = '{$_SESSION['nic']}' LIMIT 1";
-            $result_set = mysqli_query($con,$qurey);
+            $query = "SELECT * FROM `voter` WHERE `nic` = '{$_SESSION['nic']}' LIMIT 1";
+            $result_set = mysqli_query($con,$query);
             $user_details = mysqli_fetch_assoc($result_set);
             /* if user available, user info load to session array */
 			

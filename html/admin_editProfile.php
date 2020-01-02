@@ -28,9 +28,9 @@
         
         $gender = trim($_POST['gender']);
         
-        $qurey = "UPDATE `voter` SET `name`='{$fName}',`contact`='{$contact}',`b_day`='{$b_day}',`gender`='{$gender}' WHERE `nic` = '{$_SESSION['nic']}'";
+        $query = "UPDATE `voter` SET `name`='{$fName}',`contact`='{$contact}',`b_day`='{$b_day}',`gender`='{$gender}' WHERE `nic` = '{$_SESSION['nic']}'";
 
-        $result = mysqli_query($con,$qurey);
+        $result = mysqli_query($con,$query);
 
         if ($result) {
 
@@ -55,9 +55,9 @@
         $p = trim($_POST['pwd']);
         $pwd = sha1($p);
         
-        $qurey = "UPDATE `admin` SET `password` = '{$pwd}' WHERE `nic` = '{$_SESSION['nic']}'";
+        $query = "UPDATE `admin` SET `password` = '{$pwd}' WHERE `nic` = '{$_SESSION['nic']}'";
 
-        $result = mysqli_query($con,$qurey);
+        $result = mysqli_query($con,$query);
 
         if ($result) {
 
