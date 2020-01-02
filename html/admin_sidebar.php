@@ -124,7 +124,7 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
-                                <li><a href="admin_assistantElectionOfficerList.php">Assistant Election Officer List</a></li>
+                                <li><a href="admin_assistantElectionOfficerList..php">Assistant Election Officer List</a></li>
                             </ul>
                         </div>
                     </li>
