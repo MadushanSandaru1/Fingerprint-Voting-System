@@ -59,7 +59,7 @@
                 $_SESSION['election_name_en'] = $eName['name_en'];
 
             }*/
-            $_SESSION['election_name_si'] = $current_elec_name_array['name_en'];
+            $_SESSION['election_name_si'] = $current_elec_name_array['name_si'];
             $_SESSION['election_name_ta'] = $current_elec_name_array['name_ta'];
             $_SESSION['election_name_en'] = $current_elec_name_array['name_en'];
 
