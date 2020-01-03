@@ -21,29 +21,34 @@
 		$h_pwd = sha1($pwd);
         
         /* login query */
-		$login_qurey = "SELECT * FROM `admin` WHERE `nic` = '$username' AND `password` = '$h_pwd '";
+		$login_query = "SELECT * FROM `voter` WHERE `nic` = '{$username}' AND `role` <> 'voter'";
 
         /* query execute */
-		$result_set = mysqli_query($con,$login_qurey);
+		$result_set = mysqli_query($con,$login_query);
 
         /* query result */
 		if (mysqli_num_rows($result_set)==1) {
 			$details = mysqli_fetch_assoc($result_set);
             
-            /* if user available, user info load to session array */
-			$_SESSION = array();
             $_SESSION['nic'] = $details['nic'];
-            $_SESSION['role'] = "DO";//$details['role'];
+            $_SESSION['name'] = $details['name'];
+            $_SESSION['role'] = $details['role'];
+            $_SESSION['name'] = $details['name'];
+            $_SESSION['contact'] = $details['contact'];
+            $_SESSION['b_day'] = $details['b_day'];
+            $_SESSION['gender'] = $details['gender'];
             
-            $query = "SELECT * FROM `voter` WHERE `nic` = '{$_SESSION['nic']}' LIMIT 1";
+            if($_SESSION['role']=='admin'){
+                $query = "SELECT * FROM `admin` WHERE `nic` = '{$_SESSION['nic']}' AND `password` = '{$h_pwd}' LIMIT 1";
+            } else if($_SESSION['role']=='Assistant Election Officer'){
+                $query = "SELECT * FROM `assistant_election_officer` WHERE `nic` = '{$_SESSION['nic']}' AND `password` = '{$pwd}' LIMIT 1";
+            } else if($_SESSION['role']=='Division Officer'){
+                $query = "SELECT * FROM `division_officer` WHERE `nic` = '{$_SESSION['nic']}' AND `password` = '{$pwd}' LIMIT 1";
+            }
+            
             $result_set = mysqli_query($con,$query);
             $user_details = mysqli_fetch_assoc($result_set);
             /* if user available, user info load to session array */
-			
-			$_SESSION['name'] = $user_details['name'];
-            $_SESSION['contact'] = $user_details['contact'];
-            $_SESSION['b_day'] = $user_details['b_day'];
-            $_SESSION['gender'] = $user_details['gender'];
             
             /* redirect to dashboard page */
             header("location:admin_dashboard.php");

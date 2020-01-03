@@ -126,9 +126,9 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `division` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
+                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `district` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
                                     }else{
-                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `division` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0";
+                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `district` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0";
                                     }
 
                                     $result_set = mysqli_query($con,$query);

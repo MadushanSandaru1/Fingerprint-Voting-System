@@ -73,9 +73,6 @@
                 <div class="user-info">
                     <!-- display user's name -->
                     <span class="user-name">
-                        <?php
-                            echo "Mr. ";
-                        ?>
                         <strong>
                             <?php
                                 echo $_SESSION['name'];
