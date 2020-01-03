@@ -137,25 +137,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>NIC Number <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="nic">
-                                            <?php
-                                            
-                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 ORDER BY `nic`";
-
-                                                $result_set = mysqli_query($con,$query);
-
-                                                if (mysqli_num_rows($result_set) >= 1) {
-                                                    
-                                                    while($nic = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$nic['nic']."'>".$nic['nic']."</option>";
-                                                    }
-
-                                                } else {
-                                                    echo "<option value='".null."'>empty</option>";
-                                                }
-
-                                            ?>
-                                        </select>
+                                        <input type="text" class="form-control" name="nic" placeholder="NIC Number"pattern="[0-9]{9}[Vv]"  required>
                                     </div>
                                 </div>
                                 
