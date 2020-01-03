@@ -98,9 +98,9 @@
                                     <a href='admin_addDivisionOfficer.php' ><button type='button' class='btn btn-outline-primary'><i class='fas fa-plus'></i> Add Division Officer</button></a>
                                 </div>
                                 <div class="col-md-4">
-                                    <form action="admin_voterList.php" method="get">
+                                    <form action="admin_divisionOfficerList.php" method="get">
                                         <div class="input-group">
-                                            <input type="search" name="searchTxt" class="form-control" placeholder="Search">
+                                            <input type="search" name="searchTxt" class="form-control" placeholder="Search NIC OR Name">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-primary" type="submit" name="search"><i class="fas fa-search"></i> Search</button>
                                             </div>
@@ -126,7 +126,7 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT v.`nic`, v.`name`, v.`contact`, v.`b_day`, v.`gender`, d.`name` as 'divi' FROM `voter` v, `division` d WHERE `divi_id` = `id` AND v.`name` LIKE '{$search}%' OR v.`nic` LIKE '{$search}%' ORDER BY v.`name`";
+                                        $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `grama_niladhari` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
                                     }else{
                                         $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `grama_niladhari` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0";
                                     }
@@ -134,18 +134,21 @@
                                     $result_set = mysqli_query($con,$query);
 
                                     if ($result_set){
+                                        if(mysqli_num_rows($result_set)>=1){
+                                            while($d_officer = mysqli_fetch_assoc($result_set)){
+                                                echo "<tr>";
+                                                echo "<td>".$d_officer['nic']."</td>";
+                                                echo "<td>".$d_officer['name']."</td>";
+                                                echo "<td>".$d_officer['contact']."</td>";
+                                                echo "<td>".$d_officer['divis']."</td>";
 
-                                        while($d_officer = mysqli_fetch_assoc($result_set)){
-                                            echo "<tr>";
-                                            echo "<td>".$d_officer['nic']."</td>";
-                                            echo "<td>".$d_officer['name']."</td>";
-                                            echo "<td>".$d_officer['contact']."</td>";
-                                            echo "<td>".$d_officer['divis']."</td>";
-                                            
-                                            echo "<td><a href='admin_divisionOfficerList.php?id={$d_officer['nic']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
-                                            
-                                            echo "</tr>";
-                                            
+                                                echo "<td><a href='admin_divisionOfficerList.php?id={$d_officer['nic']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
+
+                                                echo "</tr>";
+
+                                            }
+                                        }else{
+                                             echo "<tr><td><h4 class='text-danger'>No records</h4></td></tr>";
                                         }
 
                                     } else {
