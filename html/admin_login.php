@@ -31,6 +31,7 @@
 			$details = mysqli_fetch_assoc($result_set);
             
             $_SESSION['nic'] = $details['nic'];
+<<<<<<< HEAD
             $_SESSION['name'] = $details['name'];
             $_SESSION['role'] = $details['role'];
             $_SESSION['name'] = $details['name'];
@@ -45,6 +46,13 @@
             } else if($_SESSION['role']=='Division Officer'){
                 $query = "SELECT * FROM `division_officer` WHERE `nic` = '{$_SESSION['nic']}' AND `password` = '{$pwd}' LIMIT 1";
             }
+=======
+<<<<<<< HEAD
+            $_SESSION['role'] = "AEO";//$details['nic'];
+=======
+            $_SESSION['role'] = "DO";//$details['role'];
+>>>>>>> 9c551c6b95f3e0c45a92fa136d4d2fd6f74ae516
+>>>>>>> 102c951395df3451115ea7c59f37e09b72a58433
             
             $result_set = mysqli_query($con,$query);
             $user_details = mysqli_fetch_assoc($result_set);
