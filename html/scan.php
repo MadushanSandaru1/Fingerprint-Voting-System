@@ -21,7 +21,7 @@
 			$details = mysqli_fetch_assoc($result_set);
             
             /* if user available, user info load to session array */
-			$_SESSION = array();
+			
             $_SESSION['nic'] = $details['nic'];
             $_SESSION['divi_id'] = $details['divi_id'];
             $_SESSION['language'] = $details['language'];
