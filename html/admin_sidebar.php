@@ -85,7 +85,13 @@
                     <!-- display user's role -->
                     <span class="user-role">
                         <?php
-                            echo 'Administrator';
+                            if($_SESSION['role']=='admin'){
+                                echo 'Administrator';
+                            }else if($_SESSION['role']=='AEO'){
+                                echo 'Assistant Election Officer';
+                            }else if($_SESSION['role']=='DO'){
+                                echo 'Division Officer';
+                            }
                         
                             echo " | ".$_SESSION['nic'];
                         
