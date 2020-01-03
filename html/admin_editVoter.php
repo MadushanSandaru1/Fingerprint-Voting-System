@@ -18,34 +18,53 @@
     $altScs = 'none';
     $altReq = 'none';
 
-	if(isset($_POST['saveBtn'])) {
+    if(isset($_GET['id'])){
+        $_SESSION['editCandidateId'] = $_GET['id'];
+    }
 
-        /*$ne = trim($_POST['partyNameEn']);
-		$nameEn =  ucfirst($ne);*/
+    $query = "SELECT c.*, v.`name` FROM `candidate` c, `voter` v WHERE c.`id` = {$_SESSION['editCandidateId']} AND c.`nic` = v.`nic` LIMIT 1";
+
+    $result_set = mysqli_query($con,$query);
+
+    if (mysqli_num_rows($result_set) >= 1) {
+
+        while($candidate = mysqli_fetch_assoc($result_set)){
+            $nic = $candidate['nic'];
+            $image = $candidate['image'];
+            $nameEn = $candidate['name'];
+            $nameSi = $candidate['name_si'];
+            $nameTa = $candidate['name_ta'];
+        }
+    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
+	if(isset($_POST['saveBtn'])) {
         
-        $nic =  trim($_POST['nic']);
+        $nic = trim($_POST['nic']);
         
-        $name =  trim($_POST['name']);
+        $ne = trim($_POST['nameEn']);
+		$nameEn =  ucfirst($ne);
         
-        $contact =  trim($_POST['contact']);
+        $nameSi =  trim($_POST['nameSi']);
         
-        $bDay =  $_POST['bDay'];
+        $nameTa =  trim($_POST['nameTa']);
         
-        $gender =  trim($_POST['gender']);
+        $party =  trim($_POST['party']);
         
-        $email =  trim($_POST['email']);
+        $scheduleId =  trim($_POST['scheduleId']);
         
-        $fingerprintR =  trim($_POST['fingerprintR']);
-        
-        $fingerprintL =  trim($_POST['fingerprintL']);
-        
-        $diviId =  $_POST['diviId'];
-        
-        $language =  trim($_POST['language']);
-        
-        $disable = 0;
-     
-        $query = "INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fingerprint_R`, `fingerprint_L`, `divi_id`, `language`, `is_disabled`, `is_died`, `is_deleted`) VALUES ('{$nic}','{$name}','{$contact}','{$bDay}','{$gender}','{$email}','{$fingerprintR}','{$fingerprintL}',{$diviId},'{$language}',{$disable},0,0)";
+        if(isset($_FILES['image'])){
+            $target_dir = "../img/candidate/";
+            $fileName = $_FILES['image']['name'];
+            $tmpFileName = $_FILES['image']['tmp_name'];
+            $pathForSave = $target_dir.$fileName;
+            $upload_pict= move_uploaded_file($_FILES["image"]["tmp_name"], "$target_dir".$_FILES["image"]["name"]);
+            
+            $query = "UPDATE `candidate` SET `nic` = '{$nic}', `party_id` = '{$party}', `image` = '{$pathForSave}', `name_si` = '{$nameSi}', `name_ta` = '{$nameTa}', `schedule_id` = '{$scheduleId}' WHERE `id` = {$_SESSION['editCandidateId']}";
+            
+        } else {
+            $query = "UPDATE `candidate` SET `nic` = '{$nic}', `party_id` = '{$party}',  `name_si` = '{$nameSi}', `name_ta` = '{$nameTa}', `schedule_id` = '{$scheduleId}' WHERE `id` = {$_SESSION['editCandidateId']}";
+        }
 
         $result = mysqli_query($con,$query);
 
@@ -62,12 +81,16 @@
 
 	}
 
+    if(isset($_POST['resetBtn'])) {
+        header("location:admin_candidateList.php");
+    }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Add Voter | FVS</title>
+        <title>Edit Candidate | FVS</title>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -116,24 +139,24 @@
                     
                     <div class="row topic">
                         <div class="col-md-1 topic-logo">
-                            <i class="fas fa-user fa-2x"></i>
+                            <i class="fas fa-user-tie fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Add Voter</big><br><small>Voter</small></span>
+                            <span class="font-weight-bold"><big>Edit Candidate</big><br><small>Candidate</small></span>
                         </div>
                     </div>
                     <div class="row alert alert-primary successAlt" style="display: <?php echo $altScs; ?>;">
-                        Save Successfully..!
+                        Update Successfully..!
                     </div>
                     <div class="row alert alert-danger requiredAlt" style="display: <?php echo $altReq; ?>;">
-                        Save Unsuccessfully..!
+                        Update Unsuccessfully..!
                     </div>
                     <div class="row">
                         <div class="col-md-12 form">
-                            <a href="admin_voterList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>  Voter List</button></a>
+                            <a href="admin_candidateList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>  Candidate List</button></a>
                             <br><hr><br>
                             <!-- Form -->
-                            <form action="admin_addVoter.php" method="post">
+                            <form action="admin_editCandidate.php" method="post" enctype="multipart/form-data">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>NIC Number <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
@@ -160,62 +183,46 @@
                                 </div>
                                 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Name<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Name (English)<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="name" placeholder="Name" required>
+                                        <input type="text" class="form-control" name="nameEn" value="<?php echo $nameEn; ?>" placeholder="Name - English" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Contact<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Name (Sinhala)<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="contact" placeholder="Contact" pattern="0[0-9]{9}" required>
+                                        <input type="text" class="form-control" name="nameSi" value="<?php echo $nameSi; ?>" placeholder="Name - Sinhala" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Birth Day<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Name (Tamil)<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="date" class="form-control" name="bDay" required>
+                                        <input type="text" class="form-control" name="nameTa" value="<?php echo $nameTa; ?>" placeholder="Name - Tamil" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Gender<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Image <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <label class="radio-inline"><input type="radio" name="gender" value="Male" checked> Male</label>
-                                        <label class="radio-inline"><input type="radio" name="gender" value="Female"> Female</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="image">
+                                            <label class="custom-file-label">Choose .png file</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Email<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Party <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Fingerprint - Right<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="fingerprintR" placeholder="Fingerprint - Right" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Fingerprint - Left<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="fingerprintL" placeholder="Fingerprint - Left" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Division<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
-                                    <div class="col-sm-7">
-                                        <select class="form-control" name="diviId">
+                                        <select class="form-control" name="party">
                                             <?php
                                             
-                                                $query = "SELECT * FROM `division` WHERE `is_deleted` = 0 ORDER BY `name`";
+                                                $query = "SELECT * FROM `party` WHERE `is_deleted` = 0 ORDER BY `name_en`";
 
                                                 $result_set = mysqli_query($con,$query);
 
                                                 if (mysqli_num_rows($result_set) >= 1) {
                                                     
-                                                    while($diviId = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$diviId['id']."'>".$diviId['name']."</option>";
+                                                    while($party = mysqli_fetch_assoc($result_set)){
+                                                        echo "<option value='".$party['id']."'>".$party['name_en']."</option>";
                                                     }
 
                                                 } else {
@@ -227,28 +234,35 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Language<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>Schedule Id <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="language">
-                                            <option value='S'>Sinhala</option>
-                                            <option value='T'>Tamil</option>
-                                            <option value='E'>English</option>
+                                        <select class="form-control" name="scheduleId">
+                                            <?php
+                                            
+                                                $query = "SELECT s.`id`, e.`name_en`, s.`from` FROM `election_schedule` s, `election` e WHERE e.`id` = s.`type` ORDER BY `from` DESC";
+
+                                                $result_set = mysqli_query($con,$query);
+
+                                                if (mysqli_num_rows($result_set) >= 1) {
+                                                    
+                                                    while($schedule = mysqli_fetch_assoc($result_set)){
+                                                        echo "<option value='".$schedule['id']."'>".strtok($schedule['from'], " ")." - ".$schedule['name_en']."</option>";
+                                                    }
+
+                                                } else {
+                                                    echo "<option value='".null."'>empty</option>";
+                                                }
+
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Disable<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
-                                    <div class="col-sm-7">
-                                        <label class="radio-inline"><input type="radio" name="disable" value="1"></label>
-                                    </div>
-                                </div>
-                                
                                 
                                 <div class="form-group row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-7">
-                                        <button type="reset" class="btn btn-secondary resetBtn">Reset</button>
-                                        <button type="submit" class="btn btn-success saveBtn" name="saveBtn">Save</button>
+                                        <button type="submit" class="btn btn-secondary resetBtn" name="resetBtn">Cancel</button>
+                                        <button type="submit" class="btn btn-success saveBtn" name="saveBtn">Update</button>
                                     </div>
                                 </div>
                             </form>

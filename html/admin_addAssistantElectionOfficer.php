@@ -22,11 +22,22 @@
 
         
         $nic =  trim($_POST['nic']);
-        $email =  trim($_POST['email']);
-        $division_id=  trim($_POST['Division']);
+        //$email =  trim($_POST['email']);
+        $division_id=  trim($_POST['district']);
         $pwd=rand(10000,99999);
         
-        $query="INSERT INTO `grama_niladhari`(nic,password,work_divi_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
+	$email_query="SELECT email FROM `voter` WHERE nic='{$nic}'";
+	$take_emial=mysqli_query($con,$email_query);
+	
+	if($take_emial){
+		$recode=mysqli_fetch_assoc($take_emial));
+		$emial=$recode['email'];
+		
+	}elae{
+		echo "query error";
+	}
+		
+        $query="INSERT INTO `assistant_election_officer`(nic,password,dist_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
         $result=mysqli_query($con,$query);
         
         if ($result){
@@ -50,10 +61,6 @@
             $mail->addAddress($email);             // Name is optional
 
             $mail->addReplyTo('hello');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-            //$mail->addAttachment('a.txt');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $send1="";
@@ -150,7 +157,7 @@
                             <i class="fas fa-user fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Add Division Officer</big><br><small>Division Officer</small></span>
+                            <span class="font-weight-bold"><big>Add Assistant Election Officer</big><br><small>Assistant Election Officer</small></span>
                         </div>
                     </div>
                     <div class="row alert alert-primary successAlt" style="display: <?php echo $altScs; ?>;">
@@ -161,10 +168,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form">
-                            <a href="admin_divisionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Division Officer List</button></a>
+                            <a href="admin_assistantElectionOfficerList..php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Assistant Election Officer List</button></a>
                             <br><hr><br>
                             <!-- Form -->
-                            <form action="admin_addDivisionOfficer.php" method="post">
+                            <form action="admin_addAssistantElectionOfficer.php" method="post">
                                 
                                 
                                 <div class="form-group row">
@@ -193,12 +200,12 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group row">
+                               <!-- <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Email Address<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
                                         <select class="form-control" name="email">
                                             <?php
-                                                $query = "SELECT * FROM `voter`";
+                                             	/* $query = "SELECT * FROM `voter`";
                                                 
                                                 $result_set = mysqli_query($con,$query);
 
@@ -210,27 +217,27 @@
 
                                                 } else {
                                                     echo "<option value='".null."'>empty</option>";
-                                                }
+                                                }*/
 
                                             ?>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Division<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
+                                    <label class="col-sm-3 col-form-label"><strong>District<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="Division">
+                                        <select class="form-control" name="district">
                                             <?php
                                             
-                                                $query = "SELECT * FROM `division`";
+                                                $query = "SELECT * FROM `district`";
 
                                                 $result_set = mysqli_query($con,$query);
 
                                                 if (mysqli_num_rows($result_set) >= 1){
-                                                     echo "<option value=''>Divsion</option>";
-                                                    while($division = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$division['id']."'>".$division['name']."</option>";
+                                                     echo "<option value=''>District</option>";
+                                                    while($district = mysqli_fetch_assoc($result_set)){
+                                                        echo "<option value='".$district['id']."'>".$district['name']."</option>";
                                                     }
 
                                                 } else {
