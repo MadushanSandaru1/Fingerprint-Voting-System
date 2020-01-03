@@ -81,18 +81,31 @@
              }
             }
 
-     
+
+            mark_vote_btn.vote_count = [3,2,1];
+            
             function mark_vote_btn(btn_id)
             {
-                static 
+                
                 if (document.getElementById(btn_id).value==" ") {
-                    document.getElementById(btn_id).value="X";
+
+                    if (mark_vote_btn.vote_count.length>=1) {
+                        document.getElementById(btn_id).value=mark_vote_btn.vote_count.pop();
+                        document.getElementById(btn_id).className = "btn btn-outline-danger";
+                    }
+    
                 }
                 else{
+              
+                    mark_vote_btn.vote_count.push(document.getElementById(btn_id).value);
                     document.getElementById(btn_id).value=" ";
+                    document.getElementById(btn_id).className = "btn btn-outline-secondary";
+                    mark_vote_btn.vote_count.sort();
+                    mark_vote_btn.vote_count.reverse();
+                   
+                    
                 }
-                //alert(document.getElementById(btn_id).value);
-                //document.getElementById(btn_id).value="Close Curtain";
+                
             }
 
 
@@ -117,10 +130,77 @@
                                 echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
                                 while ($party = mysqli_fetch_assoc($resultset)) {
                                     
+                                    echo "<tr onclick='highlight()'>";
+                                    echo "<td scope='row'><img src={$party['symbol']} class='card-img' style='width:100px;'></td>";
+                                    echo "<td class='align-middle'><h5>{$party['name_en']}</h5></td>";
+                                    echo " <td class='align-middle text-center' style='width:130px;color:rgba(0, 0, 0, 0.0);'><font class='display-3 font-weight-bolder' id='a'>X</font></td>";
+                                    echo "</tr>";
+
                                 }
                                 echo "</table>";
 
                             }elseif ($_SESSION['election_name_en']=='Parliamentary Election') {
+                                
+                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
+                                while ($party = mysqli_fetch_assoc($resultset)) {
+
+                                     /*echo "<tr onclick='highlight()'>
+                                    <td scope='row'><img src={$party['symbol']} class='card-img' style='width:100px;'></td>
+                                    <td class='align-middle'><h5>{$party['name_en']}</h5></td>
+                                    <td class='align-middle text-center' style='width:130px;color:rgba(0, 0, 0, 0.0);'><font class='display-3 font-weight-bolder' id='a'>X</font></td>
+                                    </tr>";*/
+
+                                }
+                                echo "</table>";
+
+                                //
+                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
+                                
+                                    for ($i=1; $i < 30; $i++) { 
+
+                                        if($i%6==1){echo "<tr>";}
+                                        echo "<div class=\"btn-group\">";
+                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}' onclick='mark_vote_btn({$i})'>";
+                                        echo "<input class=\"btn btn-outline-secondary\" type='button' id={$i} name='vote_btn' value=' ' onclick='mark_vote_btn({$i})' > </td>";
+                                        echo "</div>";
+                                        if($i%6==0){echo "</tr>";}
+
+                                    } 
+                                
+                                echo "</table>";
+
+
+                            }elseif ($_SESSION['election_name_en']=='Provincial Council Elections') {
+                               
+                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
+                                while ($party = mysqli_fetch_assoc($resultset)) {
+
+                                     echo "<tr onclick='highlight()'>
+                                    <td scope='row'><img src={$party['symbol']} class='card-img' style='width:100px;'></td>
+                                    <td class='align-middle'><h5>{$party['name_en']}</h5></td>
+                                    <td class='align-middle text-center' style='width:130px;color:rgba(0, 0, 0, 0.0);'><font class='display-3 font-weight-bolder' id='a'>X</font></td>
+                                    </tr>";
+
+                                }
+                                echo "</table>";
+
+                                //
+                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
+                                
+                                    for ($i=1; $i < 30; $i++) { 
+
+                                        if($i%6==1){echo "<tr>";}
+                                        echo "<div class=\"btn-group\">";
+                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}' onclick='mark_vote_btn({$i})'>";
+                                        echo "<input class=\"btn btn-outline-secondary\" type='button' id={$i} name='vote_btn' value=' ' onclick='mark_vote_btn({$i})' > </td>";
+                                        echo "</div>";
+                                        if($i%6==0){echo "</tr>";}
+
+                                    } 
+                                
+                                echo "</table>";
+
+                            }elseif ($_SESSION['election_name_en']=='Local Authorities Election') {
                                 
                                 echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
                                 while ($party = mysqli_fetch_assoc($resultset)) {
@@ -141,32 +221,13 @@
 
                                         if($i%6==1){echo "<tr>";}
                                         echo "<div class=\"btn-group\">";
-                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}'>";
+                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}' onclick='mark_vote_btn({$i})'>";
                                         echo "<input class=\"btn btn-outline-secondary\" type='button' id={$i} name='vote_btn' value=' ' onclick='mark_vote_btn({$i})' > </td>";
                                         echo "</div>";
                                         if($i%6==0){echo "</tr>";}
 
                                     } 
                                 
-                                echo "</table>";
-
-
-                            }elseif ($_SESSION['election_name_en']=='Provincial Council Elections') {
-                               
-                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
-                                while ($party = mysqli_fetch_assoc($resultset)) {
-                                    
-
-
-                                }
-                                echo "</table>";
-
-                            }elseif ($_SESSION['election_name_en']=='Local Authorities Election') {
-                                
-                                echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
-                                while ($party = mysqli_fetch_assoc($resultset)) {
-                                    
-                                }
                                 echo "</table>";
                             }
 
