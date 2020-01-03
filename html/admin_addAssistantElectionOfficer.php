@@ -22,10 +22,21 @@
 
         
         $nic =  trim($_POST['nic']);
-        $email =  trim($_POST['email']);
+        //$email =  trim($_POST['email']);
         $division_id=  trim($_POST['district']);
         $pwd=rand(10000,99999);
         
+	$email_query="SELECT email FROM `voter` WHERE nic='{$nic}'";
+	$take_emial=mysqli_query($con,$email_query);
+	
+	if($take_emial){
+		$recode=mysqli_fetch_assoc($take_emial));
+		$emial=$recode['email'];
+		
+	}elae{
+		echo "query error";
+	}
+		
         $query="INSERT INTO `assistant_election_officer`(nic,password,dist_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
         $result=mysqli_query($con,$query);
         
@@ -50,10 +61,6 @@
             $mail->addAddress($email);             // Name is optional
 
             $mail->addReplyTo('hello');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-            //$mail->addAttachment('a.txt');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $send1="";
@@ -193,12 +200,12 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group row">
+                               <!-- <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Email Address<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
                                         <select class="form-control" name="email">
                                             <?php
-                                                $query = "SELECT * FROM `voter`";
+                                             	/* $query = "SELECT * FROM `voter`";
                                                 
                                                 $result_set = mysqli_query($con,$query);
 
@@ -210,12 +217,12 @@
 
                                                 } else {
                                                     echo "<option value='".null."'>empty</option>";
-                                                }
+                                                }*/
 
                                             ?>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>District<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
