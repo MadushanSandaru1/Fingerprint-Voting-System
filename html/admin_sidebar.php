@@ -1,4 +1,50 @@
 <html>
+    <body onload="showLink();"></body>
+    
+    <script type="text/javascript">
+        function showLink()
+        {
+            var value = "<?php echo $_SESSION['role'] ?>"
+            switch(value){
+                case 'admin':
+                
+                    document.getElementById('partyLink').style.display = 'block';
+                    document.getElementById('scheduleLink').style.display = 'block';
+                    //document.getElementById('doLink').style.display = 'block';
+                    //document.getElementById('candidateLink').style.display = 'block';
+                    //document.getElementById('voterLink').style.display = 'block';
+                    //document.getElementById('divisionLink').style.display = 'block';
+                    //document.getElementById('inspectorLink').style.display = 'block';
+                    document.getElementById('aeoLink').style.display = 'block';
+                    break;
+                    
+                case 'AEO':
+                
+                    //document.getElementById('partyLink').style.display = 'block';
+                    //document.getElementById('scheduleLink').style.display = 'block';
+                    document.getElementById('doLink').style.display = 'block';
+                    document.getElementById('candidateLink').style.display = 'block';
+                    //document.getElementById('voterLink').style.display = 'block';
+                    document.getElementById('divisionLink').style.display = 'block';
+                    document.getElementById('inspectorLink').style.display = 'block';
+                    //document.getElementById('aeoLink').style.display = 'block';
+                    break;
+                    
+                case 'DO':
+                
+                    //document.getElementById('partyLink').style.display = 'block';
+                    //document.getElementById('scheduleLink').style.display = 'block';
+                    //document.getElementById('doLink').style.display = 'block';
+                    //document.getElementById('candidateLink').style.display = 'block';
+                    document.getElementById('voterLink').style.display = 'block';
+                    //document.getElementById('divisionLink').style.display = 'block';
+                    //document.getElementById('inspectorLink').style.display = 'block';
+                    //document.getElementById('aeoLink').style.display = 'block';
+                    break;
+                
+            }
+        }
+    </script>
     
     <!-- icon that shows when the sidebar is hidden -->
     <a id="show-sidebar" class="btn btn-sm" href="#">
@@ -55,7 +101,7 @@
                 <ul>                            
                     <li><a href="admin_dashboard.php"><i class="fa fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="fas fa-building"></i><span>Party</span></a>
+                    <li class="sidebar-dropdown" id="partyLink" style="display:none;"><a href="#"><i class="fas fa-building"></i><span>Party</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <?php
@@ -66,7 +112,7 @@
                         </div>
                     </li>
 
-                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
+                    <li class="sidebar-dropdown" id="scheduleLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addElectionSchedule.php">Add Election Schedule</a></li>
@@ -75,7 +121,7 @@
                         </div>
                     </li>
 
-                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Division Officer</span></a>
+                    <li class="sidebar-dropdown" id="doLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Division Officer</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addDivisionOfficer.php">Add Division Officer</a></li>
@@ -84,7 +130,7 @@
                         </div>
                     </li>
 
-                    <li class="sidebar-dropdown"><a href="#"><i class="fas fa-user-tie"></i><span>Candidate</span></a>
+                    <li class="sidebar-dropdown" id="candidateLink" style="display:none;"><a href="#"><i class="fas fa-user-tie"></i><span>Candidate</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addCandidate.php">Add Candidate</a></li>
@@ -93,7 +139,7 @@
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="fas fa-user"></i><span>Voter</span></a>
+                    <li class="sidebar-dropdown" id="voterLink" style="display:none;"><a href="#"><i class="fas fa-user"></i><span>Voter</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addVoter.php">Add Voter</a></li>
@@ -102,7 +148,7 @@
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="fas fa-project-diagram"></i><span>Division</span></a>
+                    <li class="sidebar-dropdown" id="divisionLink" style="display:none;"><a href="#"><i class="fas fa-project-diagram"></i><span>Division</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addDivision.php">Add Division</a></li>
@@ -111,7 +157,7 @@
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Inspector</span></a>
+                    <li class="sidebar-dropdown" id="inspectorLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Inspector</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addInspector.php">Add Inspector</a></li>
@@ -120,7 +166,7 @@
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown"><a href="#"><i class="far fa-calendar-alt"></i><span>Assistant Election Officer</span></a>
+                    <li class="sidebar-dropdown" id="aeoLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Assistant Election Officer</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
