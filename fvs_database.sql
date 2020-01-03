@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 03, 2020 at 03:45 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.18
+-- Generation Time: Jan 03, 2020 at 04:45 PM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -63,7 +63,9 @@ CREATE TABLE IF NOT EXISTS `assistant_election_officer` (
 
 INSERT INTO `assistant_election_officer` (`nic`, `password`, `dist_id`, `is_deleted`) VALUES
 ('827152364v', '60465', 2, 0),
-('802360140v', '97466', 4, 0);
+('802360140v', '97466', 4, 0),
+('542893419v', '20934', 1, 0),
+('980171329v', '61556', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -329,6 +331,15 @@ CREATE TABLE IF NOT EXISTS `division_officer` (
   PRIMARY KEY (`nic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `division_officer`
+--
+
+INSERT INTO `division_officer` (`nic`, `password`, `work_divi_id`, `is_deleted`) VALUES
+('542893419v', '63767', 36, 0),
+('802360140v', '35109', 36, 0),
+('975215236v', '45551', 36, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -534,6 +545,7 @@ CREATE TABLE IF NOT EXISTS `voter` (
   `fingerprint_L` varchar(255) NOT NULL,
   `divi_id` int(11) NOT NULL,
   `language` char(1) NOT NULL,
+  `role` varchar(6) NOT NULL DEFAULT 'voter',
   `is_disabled` tinyint(4) NOT NULL DEFAULT '0',
   `is_died` tinyint(4) NOT NULL DEFAULT '0',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
@@ -544,13 +556,14 @@ CREATE TABLE IF NOT EXISTS `voter` (
 -- Dumping data for table `voter`
 --
 
-INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fingerprint_R`, `fingerprint_L`, `divi_id`, `language`, `is_disabled`, `is_died`, `is_deleted`) VALUES
-('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'T', 0, 0, 0),
-('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', 'akila@gmail.com', '', '', 5, 'S', 0, 0, 0),
-('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', 'mahi@gmail.com', '', '', 7, 'S', 0, 0, 0),
-('980171329v', 'Madushan Sandaruwan', '0771637551', '1998-01-17', 'Male', 'tg2017233@gmail.com', '', '', 26, 'S', 0, 0, 0),
-('975215236v', 'Aruna Perera', '0702536412', '1997-05-27', 'Male', 'aruna@gmail.com', '', '', 3, 'S', 0, 0, 0),
-('882531027v', 'Ravindu Madhishanka', '0728541236', '1988-01-17', 'Male', 'ravindu@gmail.com', '', '', 72, 'S', 0, 0, 0);
+INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fingerprint_R`, `fingerprint_L`, `divi_id`, `language`, `role`, `is_disabled`, `is_died`, `is_deleted`) VALUES
+('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'T', 'admin', 0, 0, 0),
+('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', 'akila@gmail.com', '', '', 5, 'S', 'AEO', 0, 0, 0),
+('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', 'mahi@gmail.com', '', '', 7, 'S', 'DO', 0, 0, 0),
+('980171329v', 'Madushan Sandaruwan', '0771637551', '1998-01-17', 'Male', 'tg2017233@gmail.com', '', '', 26, 'S', 'admin', 0, 0, 0),
+('975215236v', 'Aruna Perera', '0702536412', '1997-05-27', 'Male', 'aruna@gmail.com', '', '', 3, 'S', 'voter', 0, 0, 0),
+('882531027v', 'Ravindu Madhishanka', '0728541236', '1988-01-17', 'Male', 'ravindu@gmail.com', '', '', 72, 'S', 'voter', 0, 0, 0),
+('980250849V', 'sampath', '0763304183', '1998-01-25', 'Male', 'lahirusampath8899@gmail.com', 'a', 'a', 106, 'S', 'admin', 0, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
