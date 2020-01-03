@@ -1,11 +1,41 @@
 <?php
+
+    /* database connection page include */
+    require_once('../connection/connection.php');
     
     require_once("time_scheduler.php");
 
-    /*if(isset($_POST['matched'])){
+    if(isset($_POST['login'])) {
 
+		/* data for login */
+		$code =  mysqli_real_escape_string($con,trim($_POST['code']));
+        
+        /* login query */
+		$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
 
-    }*/
+        /* query execute */
+		$result_set = mysqli_query($con,$login_qurey);
+
+        /* query result */
+		if (mysqli_num_rows($result_set)==1) {
+			$details = mysqli_fetch_assoc($result_set);
+            
+            /* if user available, user info load to session array */
+			$_SESSION = array();
+            $_SESSION['nic'] = $details['nic'];
+            $_SESSION['divi_id'] = $details['divi_id'];
+            $_SESSION['language'] = $details['language'];
+            
+            /* redirect to dashboard page */
+            header("location:ballotPaper.php");
+            
+		}
+        /* if user not available, displayerror msg */
+		else{
+            /* redirect to dashboard page */
+            header("location:try_again.php");
+		}
+    }
 
 ?>
 
@@ -80,15 +110,13 @@
                     <h1 class="fingerprint mt-4 mb-4">உங்கள் கைரேகையைச் செருகவும்</h1>
                     <h1 class="fingerprint mt-4 mb-5">Insert your fingerprint</h1>
                     <hr>
-                    <a href="ballotPaper.php">
                     <form action="scan.php" method="post">
                         
                         <img src="../img/fingerprint.png" class="mt-5"><br>
 
-                        <!--input type="text" name="code" placeholder="Test code" class="mt-3"><br-->
+                        <input type="text" name="code" placeholder="Test code" class="mt-3"><br>
                         
-                        <input type="submit" class="btn btn-success mt-3" name="matched" value="Matched" style="width:150px"><br>
-                        <input type="submit" class="btn btn-danger mt-2" name="not-match" value="Not matched" style="width:150px">
+                        <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
                     </form>
                 </div>
             </div>
