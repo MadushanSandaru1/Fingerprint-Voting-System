@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 02, 2020 at 01:40 PM
+-- Generation Time: Jan 03, 2020 at 03:45 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -56,6 +56,14 @@ CREATE TABLE IF NOT EXISTS `assistant_election_officer` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nic`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `assistant_election_officer`
+--
+
+INSERT INTO `assistant_election_officer` (`nic`, `password`, `dist_id`, `is_deleted`) VALUES
+('827152364v', '60465', 2, 0),
+('802360140v', '97466', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -309,6 +317,21 @@ INSERT INTO `division` (`id`, `name`, `dist_id`, `is_deleted`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `division_officer`
+--
+
+DROP TABLE IF EXISTS `division_officer`;
+CREATE TABLE IF NOT EXISTS `division_officer` (
+  `nic` char(12) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `work_divi_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`nic`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `election`
 --
 
@@ -327,9 +350,9 @@ CREATE TABLE IF NOT EXISTS `election` (
 
 INSERT INTO `election` (`id`, `name_en`, `name_si`, `name_ta`) VALUES
 (1, 'Presidential Election', 'à¶¢à¶±à·à¶°à·’à¶´à¶­à·’à·€à¶»à¶«à¶º', 'à®œà®©à®¾à®¤à®¿à®ªà®¤à®¿à®¤à¯ à®¤à¯‡à®°à¯à®¤à®²à¯'),
-(2, 'Parliamentary Election', 'පාර්ලිමේන්තු මැතිවරණය', 'பாராளுமன்றத் தேர்தல்கள்'),
-(3, 'Provincial Council Elections', 'පළාත් සභා ඡන්ද විමසීම', 'மாகாண சபைகள் தேர்தல்கள்'),
-(4, 'Local Authorities Election', 'පළාත් පාලන ආයතන ඡන්ද විමසීම', 'உள்ளூர் அதிகார சபைகள் தேர்தல்கள்');
+(2, 'Parliamentary Election', 'à¶´à·à¶»à·Šà¶½à·’à¶¸à·šà¶±à·Šà¶­à·” à¶¸à·à¶­à·’à·€à¶»à¶«à¶º', 'à®ªà®¾à®°à®¾à®³à¯à®®à®©à¯à®±à®¤à¯ à®¤à¯‡à®°à¯à®¤à®²à¯à®•à®³à¯'),
+(3, 'Provincial Council Elections', 'à¶´à·…à·à¶­à·Š à·ƒà¶·à· à¶¡à¶±à·Šà¶¯ à·€à·’à¶¸à·ƒà·“à¶¸', 'à®®à®¾à®•à®¾à®£ à®šà®ªà¯ˆà®•à®³à¯ à®¤à¯‡à®°à¯à®¤à®²à¯à®•à®³à¯'),
+(4, 'Local Authorities Election', 'à¶´à·…à·à¶­à·Š à¶´à·à¶½à¶± à¶†à¶ºà¶­à¶± à¶¡à¶±à·Šà¶¯ à·€à·’à¶¸à·ƒà·“à¶¸', 'à®‰à®³à¯à®³à¯‚à®°à¯ à®…à®¤à®¿à®•à®¾à®° à®šà®ªà¯ˆà®•à®³à¯ à®¤à¯‡à®°à¯à®¤à®²à¯à®•à®³à¯');
 
 -- --------------------------------------------------------
 
@@ -357,21 +380,6 @@ INSERT INTO `election_schedule` (`id`, `type`, `date_from`, `date_to`, `is_delet
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grama_niladhari`
---
-
-DROP TABLE IF EXISTS `grama_niladhari`;
-CREATE TABLE IF NOT EXISTS `grama_niladhari` (
-  `nic` char(12) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `work_divi_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`nic`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `inspector`
 --
 
@@ -380,7 +388,8 @@ CREATE TABLE IF NOT EXISTS `inspector` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
   `schedule_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`nic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -536,9 +545,12 @@ CREATE TABLE IF NOT EXISTS `voter` (
 --
 
 INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fingerprint_R`, `fingerprint_L`, `divi_id`, `language`, `is_disabled`, `is_died`, `is_deleted`) VALUES
-('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'S', 0, 0, 0),
-('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', '', '', '', 5, '', 0, 0, 0),
-('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', '', '', '', 7, '', 0, 0, 0);
+('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'T', 0, 0, 0),
+('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', 'akila@gmail.com', '', '', 5, 'S', 0, 0, 0),
+('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', 'mahi@gmail.com', '', '', 7, 'S', 0, 0, 0),
+('980171329v', 'Madushan Sandaruwan', '0771637551', '1998-01-17', 'Male', 'tg2017233@gmail.com', '', '', 26, 'S', 0, 0, 0),
+('975215236v', 'Aruna Perera', '0702536412', '1997-05-27', 'Male', 'aruna@gmail.com', '', '', 3, 'S', 0, 0, 0),
+('882531027v', 'Ravindu Madhishanka', '0728541236', '1988-01-17', 'Male', 'ravindu@gmail.com', '', '', 72, 'S', 0, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
