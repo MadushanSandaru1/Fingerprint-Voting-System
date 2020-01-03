@@ -22,14 +22,33 @@
 
         
         $nic =  trim($_POST['nic']);
-        $email =  trim($_POST['email']);
+       // $email =  trim($_POST['email']);
         $division_id=  trim($_POST['Division']);
         $pwd=rand(10000,99999);
+        
+        
+        $email_query="SELECT email FROM `voter` WHERE nic='{$nic}' LIMIT 1";
+        $take_email=mysqli_query($con,$email_query);
+
+        if($take_email){
+            if(mysqli_num_rows($take_email)==1){
+                $recode=mysqli_fetch_assoc($take_email);
+                $email=$recode['email'];
+                //echo $email;
+            }
+
+        }else{
+            echo "query error";
+        }
         
         $query="INSERT INTO `division_officer`(nic,password,work_divi_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
         $result=mysqli_query($con,$query);
         
         if ($result){
+            
+            $update_post="UPDATE `voter` SET role='DO' WHERE nic='{$nic}'";
+            $result_update=mysqli_query($con,$update_post);
+            
             $altScs = 'block';
             $altReq = 'none';
             
@@ -50,10 +69,6 @@
             $mail->addAddress($email);             // Name is optional
 
             $mail->addReplyTo('hello');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-            //$mail->addAttachment('a.txt');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $send1="";
@@ -182,30 +197,6 @@
                                                     while($voter = mysqli_fetch_assoc($result_set)){
                                                         echo "<option value='".$voter['nic']."'>".$voter['nic']."</option>";
                                                         //$email=$voter[email];
-                                                    }
-
-                                                } else {
-                                                    echo "<option value='".null."'>empty</option>";
-                                                }
-
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"><strong>Email Address<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
-                                    <div class="col-sm-7">
-                                        <select class="form-control" name="email">
-                                            <?php
-                                                $query = "SELECT * FROM `voter`";
-                                                
-                                                $result_set = mysqli_query($con,$query);
-
-                                                if (mysqli_num_rows($result_set) >= 1){
-                                                     echo "<option value=''>Email Search</option>";
-                                                    while($division = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$division['email']."'>".$division['email']."</option>";
                                                     }
 
                                                 } else {
