@@ -30,10 +30,10 @@
 	$take_emial=mysqli_query($con,$email_query);
 	
 	if($take_emial){
-		$recode=mysqli_fetch_assoc($take_emial));
+		$recode=mysqli_fetch_assoc($take_emial);
 		$emial=$recode['email'];
 		
-	}elae{
+	}else{
 		echo "query error";
 	}
 		
@@ -168,7 +168,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form">
-                            <a href="admin_assistantElectionOfficerList..php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Assistant Election Officer List</button></a>
+                            <a href="admin_assistantElectionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Assistant Election Officer List</button></a>
                             <br><hr><br>
                             <!-- Form -->
                             <form action="admin_addAssistantElectionOfficer.php" method="post">
