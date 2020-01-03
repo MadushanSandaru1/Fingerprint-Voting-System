@@ -33,7 +33,7 @@
             /* if user available, user info load to session array */
 			$_SESSION = array();
             $_SESSION['nic'] = $details['nic'];
-            $_SESSION['role'] = "admin";//$details['nic'];
+            $_SESSION['role'] = "DO";//$details['role'];
             
             $query = "SELECT * FROM `voter` WHERE `nic` = '{$_SESSION['nic']}' LIMIT 1";
             $result_set = mysqli_query($con,$query);
