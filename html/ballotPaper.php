@@ -76,7 +76,7 @@
                         else{
                             this.style.backgroundColor=this.origColor;
                             this.hilite = false;
-               }
+                    }
                 }
              }
             }
@@ -130,10 +130,14 @@
                                 echo "<table class=\"table table-bordered table-responsive\" id=\"dataTable\">";
                                 while ($party = mysqli_fetch_assoc($resultset)) {
                                     
-                                    echo "<tr onclick='highlight()'>";
-                                    echo "<td scope='row'><img src={$party['symbol']} class='card-img' style='width:100px;'></td>";
-                                    echo "<td class='align-middle'><h5>{$party['name_en']}</h5></td>";
-                                    echo " <td class='align-middle text-center' style='width:130px;color:rgba(0, 0, 0, 0.0);'><font class='display-3 font-weight-bolder' id='a'>X</font></td>";
+                                    echo "<tr>";
+                                    echo "<td><img src={$party['symbol']} class='card-img' style='width:100px;'> </td>";
+                                    echo "<td class='align-middle'> 
+                                            <h5> {$party['name_si']} </h5>
+                                            <h5> {$party['name_ta']} </h5>
+                                            <h5> {$party['name_en']} </h5>
+                                         </td>";
+                                    echo " <td class='align-middle text-center'> </td>";
                                     echo "</tr>";
 
                                 }

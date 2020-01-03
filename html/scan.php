@@ -2,6 +2,11 @@
     
     require_once("time_scheduler.php");
 
+    /*if(isset($_POST['matched'])){
+
+
+    }*/
+
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +80,16 @@
                     <h1 class="fingerprint mt-4 mb-4">உங்கள் கைரேகையைச் செருகவும்</h1>
                     <h1 class="fingerprint mt-4 mb-5">Insert your fingerprint</h1>
                     <hr>
-                    <a href="ballotPaper.php"><button type="button" class="btn btn-success">Matched</button></a><img src="../img/fingerprint.png" class="mt-5"><a href="try_again.php"><button type="button" class="btn btn-danger">Not matched</button></a>
-                    <a href="#" class="setting" data-toggle="modal" data-target="#setting"><img src="../img/settings.png"></a>
+                    <a href="ballotPaper.php">
+                    <form action="scan.php" method="post">
+                        
+                        <img src="../img/fingerprint.png" class="mt-5"><br>
+
+                        <!--input type="text" name="code" placeholder="Test code" class="mt-3"><br-->
+                        
+                        <input type="submit" class="btn btn-success mt-3" name="matched" value="Matched" style="width:150px"><br>
+                        <input type="submit" class="btn btn-danger mt-2" name="not-match" value="Not matched" style="width:150px">
+                    </form>
                 </div>
             </div>
         </div>
