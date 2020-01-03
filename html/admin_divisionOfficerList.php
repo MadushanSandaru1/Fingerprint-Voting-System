@@ -20,7 +20,7 @@
         $nic = $_GET['id'];
         
         //deleting record
-        $query = "UPDATE `grama_niladhari` SET is_deleted = 1 WHERE nic='{$nic}'";
+        $query = "UPDATE `division_officer` SET is_deleted = 1 WHERE nic='{$nic}'";
 
         $result = mysqli_query($con,$query);
 
@@ -126,9 +126,9 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `grama_niladhari` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
+                                        $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `division_officer` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
                                     }else{
-                                        $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `grama_niladhari` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0";
+                                        $query = "SELECT divi.name as divis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `division_officer` g, `division` divi WHERE g.nic=v.nic AND g.work_divi_id=divi.id AND g.is_deleted=0";
                                     }
 
                                     $result_set = mysqli_query($con,$query);

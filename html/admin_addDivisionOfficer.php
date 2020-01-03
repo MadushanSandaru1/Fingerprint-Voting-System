@@ -26,7 +26,7 @@
         $division_id=  trim($_POST['Division']);
         $pwd=rand(10000,99999);
         
-        $query="INSERT INTO `grama_niladhari`(nic,password,work_divi_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
+        $query="INSERT INTO `division_officer`(nic,password,work_divi_id) VALUES('{$nic}','{$pwd}','{$division_id}')";
         $result=mysqli_query($con,$query);
         
         if ($result){
