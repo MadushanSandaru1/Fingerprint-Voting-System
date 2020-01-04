@@ -8,13 +8,10 @@
     if(isset($_POST['login'])) {
 
 		/* data for login */
-		$nic_code =  mysqli_real_escape_string($con,trim($_POST['nic_code']));
+		$code =  mysqli_real_escape_string($con,trim($_POST['code']));
         
         /* login query */
-		//$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
-
-        $login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}'";
-
+		$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0  AND `is_disabled`= 1 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
 
         /* query execute */
 		$result_set = mysqli_query($con,$login_qurey);
@@ -109,29 +106,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="fingerprint mt-5">ඔබගේ ඇඟිලි සලකුණ ඇතුළත් කරන්න</h1>
-                    <h1 class="fingerprint mt-4 mb-4">உங்கள் கைரேகையைச் செருகவும்</h1>
-                    <h1 class="fingerprint mt-4 mb-5">Insert your fingerprint</h1>
+                    <h1 class="fingerprint mt-5">ඔබගේ පින් කේතය ඇතුළත් කරන්න</h1>
+                    <h1 class="fingerprint mt-4 mb-4">உங்கள் முள் குறியீட்டை உள்ளிடவும்</h1>
+                    <h1 class="fingerprint mt-4 mb-5">Insert your pin code</h1>
                     <hr>
                     <form action="scan.php" method="post">
                         
-                        <img src="../img/fingerprint.png" class="mt-5"><br>
-
-                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-3"><br>
-                        
+                        <input type="text" name="code" placeholder="Pin code" class="mt-3"><br>
                         <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
                     </form>
-
-                    <center>
-                    <a href="disabled_persons_login.php" >
-                        <div class="mt-5 mb-5" style="border:2px solid #555; font-size:24px; width: 600px; padding:5px;">
-                            ඔබ ආබාධිත පුද්ගලයෙක් නම්<br>
-                            If you are disabled person<br>
-                            நீங்கள் ஊனமுற்ற நபராக இருந்தால்
-                        </div>
-                    </a>
-                    </center>
-
                 </div>
             </div>
         </div>
