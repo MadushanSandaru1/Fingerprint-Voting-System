@@ -175,7 +175,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form">
-                            <a href="admin_assistantElectionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Assistant Election Officer List</button></a>
+                            <a href="admin_assistantElectionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i> Assistant Election Officer List</button></a>
                             <br><hr><br>
                             <!-- Form -->
                             <form action="admin_addAssistantElectionOfficer.php" method="post">
@@ -184,10 +184,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>NIC<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="nic">
+                                        <select class="form-control" name="nic" required>
                                             <?php
                                             
-                                                $query = "SELECT * FROM `voter`";
+                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `is_disabled` = 0 AND `role` != 'admin' AND `role` != 'AEO'";
 
                                                 $result_set = mysqli_query($con,$query);
 
@@ -211,10 +211,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>District<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="district">
+                                        <select class="form-control" name="district" required>
                                             <?php
                                             
-                                                $query = "SELECT * FROM `district`";
+                                                $query = "SELECT d.id, d.`name` FROM `assistant_election_officer` a, `district` d WHERE a.`is_deleted` = 1 AND d.`id` = a.`dist_id`";
 
                                                 $result_set = mysqli_query($con,$query);
 
