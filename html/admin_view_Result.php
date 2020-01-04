@@ -151,10 +151,29 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    $desable_query="Select count(preference) as cot from `vote` where preference=0";
+                                    $desable_result=mysqli_query($con,$desable_query);
+                                
+                                    if($desable_result){
+                                        $recode=mysqli_fetch_assoc($desable_result);
+                                        $desable=$recode['cot'];
+                                    }
+                                
+                                    $divi_query="SELECT count(divi_id) as cot_divi FROM `voter` WHERE divi_id={$divi_id};";
+                                    $divi_result=mysqli_query($con,$divi_query);
+                                
+                                    if($divi_result){
+                                        $recode=mysqli_fetch_assoc($divi_result);
+                                        $all=$recode['cot_divi'];
+                                        
+                                        
+                                    }
+                                
                                     $dis_query="SELECT vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
+                                        $count_vort=0;
                                         while($recode=mysqli_fetch_assoc($dis_result)){
                                             echo "<tr>";
                                             echo "<td>".$c."</td>";
@@ -163,7 +182,30 @@
                                             echo "<td>".$recode['vote']."</td>";
                                             echo "</tr>";
                                             $c++;
+                                            $count_vort=$count_vort+$recode['vote'];
+                                            
                                         }
+                                        $presentag=($count_vort/$all)*100;
+                                        $last_pr=number_format($presentag, 2,'.','');
+                                        echo "<tr>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Total number of votes in Division</td>";
+                                        echo "<td style='background-color:#caaee8;'> $all</td>";
+                                         echo "</tr>";
+                                        
+                                        echo "<tr>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Total number of votes castPercentage of votes cast</td>";
+                                        echo "<td style='background-color:#caaee8;'>$count_vort</td>";
+                                         echo "</tr>";
+                                        
+                                        echo "<tr>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Number of invalid election results</td>";
+                                        echo "<td style='background-color:#caaee8;'>$desable</td>";
+                                         echo "</tr>";
+                                        
+                                        echo "<tr>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Percentage of votes cast</td>";
+                                        echo "<td style='background-color:#caaee8;'>$last_pr%</td>";
+                                         echo "</tr>"; 
                                     }
                                 ?>
                             </tbody>
