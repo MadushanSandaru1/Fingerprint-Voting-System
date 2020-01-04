@@ -17,6 +17,108 @@
     $party_query="SELECT vt.name as name ,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
     $party_result=$con->query($party_query);
 
+     
+
+?>
+
+<?php
+     if(isset($_POST['pdf'])){
+         
+         $query="SELECT * FROM `division` WHERE id={$divi_id}";
+    $divi_result=mysqli_query($con,$query);
+      if($divi_result){
+        $recode=mysqli_fetch_assoc($divi_result);
+        $division=$recode['name'];
+          Header($divistion);
+    }else{
+            echo "error";
+     }
+         
+        require('../fpdf/fpdf.php');
+
+        class PDF extends FPDF
+        {
+            // Load data
+            function LoadData($file)
+            {
+                // Read file lines
+                $lines = file($file);
+                $data = array();
+                foreach($lines as $line)
+                    $data[] = explode(';',trim($line));
+                return $data;
+            }
+            
+            function Header($division)
+            {
+                // Logo
+                $this->Image('../img/i.jpg',10,12,30,0,'','');
+                $this->Ln(25);
+                $this->Cell(20,10,$division);
+                date_default_timezone_set("Asia/colomb");
+                $this->Ln(6);
+                $date=date("Y-m-d H:i:s");
+                $this->Cell(20,10,$date);
+                // Line break
+                $this->Ln(20);
+            }
+            
+            // Colored table
+            function FancyTable($header, $data)
+            {   
+                // Colors, line width and bold font
+                $this->SetFillColor(191, 153, 247);
+                $this->SetTextColor(255);
+                $this->SetDrawColor(128,0,0);
+                $this->SetLineWidth(.3);
+                $this->SetFont('','');
+                
+                
+                // Header
+                $w = array(87, 65,25);
+                for($i=0;$i<count($header);$i++)
+                    $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
+                $this->Ln();
+                // Color and font restoration
+                $this->SetFillColor(214, 190, 250);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                // Data
+                $fill = false;
+                foreach($data as $row)
+                {
+                    $this->Cell($w[0],6,$row[0],'LR',0,'L',$fill);
+                    $this->Cell($w[1],6,$row[1],'LR',0,'L',$fill);
+                    $this->Cell($w[2],6,$row[2],'LR',0,'R',$fill);
+                    //$this->Cell($w[3],6,number_format($row[3]),'LR',0,'R',$fill);
+                    $this->Ln();
+                    $fill = !$fill;
+                }
+                // Closing line
+                $this->Cell(array_sum($w),0,'','T');
+            }
+            function Footer()
+            {
+                // Position at 1.5 cm from bottom
+                $this->SetY(-15);
+                // Arial italic 8
+                $this->SetFont('Arial','I',8);
+                // Page number
+                $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
+            }
+        }
+
+        $pdf = new PDF();
+        // Column headings
+        $header = array('Name', 'Party', 'Vote');
+        // Data loading
+        $data = $pdf->LoadData("a.txt");
+        $pdf->SetFont('Arial','',12);
+        $pdf->AddPage();
+        $pdf->FancyTable($header,$data);
+        $pdf->Output('statment.pdf','I');
+     }
+       
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +230,7 @@
                                     if($divi_result){
                                         $recode=mysqli_fetch_assoc($divi_result);
                                         echo "$recode[name]";
+                                        $division=$recode['name'];
                                     }else{
                                         echo "error";
                                     }
@@ -139,7 +242,7 @@
                       <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                     
                    <!--result table -->
-                   <form>
+                   <form action="<?php echo "admin_view_Result.php?id=$divi_id" ?>" method="POST">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -151,6 +254,8 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    $fp=fopen("a.txt","w");
+                                
                                     $desable_query="Select count(preference) as cot from `vote` where preference=0";
                                     $desable_result=mysqli_query($con,$desable_query);
                                 
@@ -174,6 +279,7 @@
                                     if($dis_result){
                                         $c=1;
                                         $count_vort=0;
+                                       
                                         while($recode=mysqli_fetch_assoc($dis_result)){
                                             echo "<tr>";
                                             echo "<td>".$c."</td>";
@@ -184,6 +290,9 @@
                                             $c++;
                                             $count_vort=$count_vort+$recode['vote'];
                                             
+                                        fwrite($fp,$recode['name'].';'.$recode['p_name'].';'.$recode['vote']);
+                            fwrite($fp,"\n");
+                                            
                                         }
                                         $presentag=($count_vort/$all)*100;
                                         $last_pr=number_format($presentag, 2,'.','');
@@ -192,22 +301,36 @@
                                         echo "<td style='background-color:#caaee8;'> $all</td>";
                                          echo "</tr>";
                                         
+                                        fwrite($fp,"Total number of votes in Division".';'.';'.$all);
+                                        fwrite($fp,"\n");
+                                        
                                         echo "<tr>";
                                         echo "<td colspan='3' style='background-color:#caaee8;'>Total number of votes castPercentage of votes cast</td>";
                                         echo "<td style='background-color:#caaee8;'>$count_vort</td>";
-                                         echo "</tr>";
+                                        echo "</tr>";
+                                        
+                                        fwrite($fp,"Total number of votes castPercentage of votes cast".';'.';'.$count_vort);
+                                        fwrite($fp,"\n");
                                         
                                         echo "<tr>";
                                         echo "<td colspan='3' style='background-color:#caaee8;'>Number of invalid election results</td>";
                                         echo "<td style='background-color:#caaee8;'>$desable</td>";
-                                         echo "</tr>";
+                                        echo "</tr>";
+                                        
+                                        fwrite($fp,"Number of invalid election results".';'.';'.$desable);
+                                        fwrite($fp,"\n");
                                         
                                         echo "<tr>";
                                         echo "<td colspan='3' style='background-color:#caaee8;'>Percentage of votes cast</td>";
                                         echo "<td style='background-color:#caaee8;'>$last_pr%</td>";
-                                         echo "</tr>"; 
+                                         echo "</tr>";
+                                        
+                                        fwrite($fp,"Percentage of votes cast".';'.';'.$last_pr.'%');
+                                        fwrite($fp,"\n");
+                                        
                                     }
                                 ?>
+                                <input type="submit" name="pdf">
                             </tbody>
                         </table>
                     </form>   
