@@ -120,14 +120,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="fingerprint mt-5">ඔබගේ පින් කේතය ඇතුළත් කරන්න</h1>
+                    <h1 class="fingerprint mt-5">ඔබගේ රහස් කේතය ඇතුළත් කරන්න</h1>
                     <h1 class="fingerprint mt-4 mb-4">உங்கள் முள் குறியீட்டை உள்ளிடவும்</h1>
                     <h1 class="fingerprint mt-4 mb-5">Insert your pin code</h1>
                     <hr>
                     <form action="scan.php" method="post">
 
                         <img src="../img/barcode.png" class="mt-5"><br>
-                        
+
                         <input type="text" name="nic_code" placeholder="NIC number" class="mt-3"><br>
                         
                         <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">

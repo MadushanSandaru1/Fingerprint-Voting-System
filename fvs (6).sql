@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 04, 2020 at 12:28 PM
+-- Generation Time: Jan 04, 2020 at 01:53 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -467,17 +467,20 @@ CREATE TABLE IF NOT EXISTS `participate` (
   `schedule_id` int(11) NOT NULL,
   `voter_nic` char(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `participate`
 --
 
 INSERT INTO `participate` (`id`, `schedule_id`, `voter_nic`) VALUES
+(52, 1, '763832058v'),
+(51, 1, '965803229v'),
 (50, 1, '506712485v'),
 (49, 1, '643564942v'),
 (48, 1, '652122117v'),
-(47, 1, '597310362v');
+(47, 1, '597310362v'),
+(53, 1, '678733517v');
 
 -- --------------------------------------------------------
 
@@ -561,19 +564,23 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `schedule_id` varchar(255) NOT NULL,
   `candidate_id` varchar(255) DEFAULT NULL,
+  `divi_id` int(11) NOT NULL,
   `preference` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`,`schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=965421737 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=965421740 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vote`
 --
 
-INSERT INTO `vote` (`id`, `schedule_id`, `candidate_id`, `preference`) VALUES
-(965421736, '1', '452248157v', 1),
-(965421735, '1', '555859822v', 1),
-(965421734, '1', NULL, 0),
-(965421733, '1', '452248157v', 1);
+INSERT INTO `vote` (`id`, `schedule_id`, `candidate_id`, `divi_id`, `preference`) VALUES
+(965421736, '1', '452248157v', 0, 1),
+(965421735, '1', '555859822v', 0, 1),
+(965421734, '1', NULL, 0, 0),
+(965421733, '1', '452248157v', 0, 1),
+(965421737, '1', NULL, 0, 0),
+(965421738, '1', NULL, 0, 0),
+(965421739, '1', '506712485v', 0, 1);
 
 -- --------------------------------------------------------
 
