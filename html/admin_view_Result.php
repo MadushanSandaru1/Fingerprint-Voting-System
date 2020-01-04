@@ -14,9 +14,8 @@
 
 <?php
     $divi_id=$_GET['id'];
-    $party_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
+    $party_query="SELECT vt.name as name ,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
     $party_result=$con->query($party_query);
-    //$party_result=mysqli_query($con,$party_query);
 
 ?>
 
@@ -65,10 +64,10 @@
             var data = google.visualization.arrayToDataTable([
                 ['name','vote'],
                 <?php
-                  /* while($row=$party_result->fetch_assoc()){
+                   while($row=$party_result->fetch_assoc()){
                         echo  "[' ".$row['name']."' ,".$row['vote']."],";
                    }
-                   */
+                   
                 ?>
                 
                /* ['Task', 'Hours per Day'],
@@ -81,7 +80,7 @@
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Result',
           is3D: true,
         };
 
@@ -115,16 +114,29 @@
                     <?php
                         require_once('admin_logoutbar.php');
                     ?><!-- logout bar  -->  
-                    
+                   
                     
                     <div class="row topic mb-4">
                         <div class="col-md-1 topic-logo">
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Division Result</big><br><small>Result</small></span>
+                            <span class="font-weight-bold"><big>
+                                <?php
+                                    $query="SELECT * FROM `division` WHERE id={$divi_id}";
+                                    $divi_result=mysqli_query($con,$query);
+                                    if($divi_result){
+                                        $recode=mysqli_fetch_assoc($divi_result);
+                                        echo "$recode[name]";
+                                    }else{
+                                        echo "error";
+                                    }
+                                ?>
+                                Division Result</big><br><small>Result</small></span>
                         </div>
                     </div>
+                    
+                      <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                     
                    <!--result table -->
                    <form>
@@ -133,15 +145,13 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Party</th>
                                     <th scope="col">Vote</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    
-                                    
-                                    
-                                    $dis_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
+                                    $dis_query="SELECT vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
@@ -149,8 +159,8 @@
                                             echo "<tr>";
                                             echo "<td>".$c."</td>";
                                             echo "<td>".$recode['name']."</td>";
+                                            echo "<td>".$recode['p_name']."</td>";
                                             echo "<td>".$recode['vote']."</td>";
-                                           
                                             echo "</tr>";
                                             $c++;
                                         }
