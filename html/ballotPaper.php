@@ -137,6 +137,11 @@
         
         <!-- javascript -->
         <script src="../js/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  
+
         
         <style>
             body {
@@ -280,10 +285,42 @@
                                     echo "</tr>";
 
                                 }
+        
 
-                                echo "<tr>";
-                                    echo "<td colspan='3'><input class='btn btn-outline-danger' type='submit' name='cancel_vote' value='ඡන්දය අවලංගු කරන්න | cancel vote | வாக்குகளை ரத்துசெய்'></td>";
-                                    echo "</tr>";
+                               echo "<tr>";
+
+                                echo "<td colspan='3'> <input type=\"button\" class=\"btn btn-outline-danger\" data-toggle=\"modal\" data-target=\"#myModal\" value='ඡන්දය අවලංගු කරන්න | cancel vote | வாக்குகளை ரத்துசெய்'> </td>";
+                                echo "</tr>";
+
+
+                                        echo "<!-- The Modal -->
+                                          <div class=\"modal fade\" id=\"myModal\">
+                                            <div class=\"modal-dialog modal-dialog-centered\">
+                                              <div class=\"modal-content\">
+                                              
+                                                <!-- Modal Header -->
+                                                <div class=\"modal-header\">
+                                                  <h4 class=\"modal-title\">Message</h4>
+                                                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
+                                                </div>
+                                                
+                                                <!-- Modal body -->
+                                                <div class=\"modal-body\">
+                                                  ඔබේ ඡන්දය අවලංගු කිරීමට තහවුරු කරන්න<br>
+                                                  confirm to cancel your vote<br>
+                                                  உங்கள் வாக்குகளை ரத்து செய்ய உறுதிப்படுத்தவும்
+                                                </div>
+                                                
+                                                <!-- Modal footer -->
+                                                <div class=\"modal-footer\">
+                                                  <input type=\"submit\" class=\"btn btn-danger\" value='Yes' name='cancel_vote' >
+                                                  <input type=\"button\" class=\"btn btn-info\" data-dismiss=\"modal\" value='No'>
+                                                </div>
+                                                
+                                              </div>
+                                            </div>
+                                          </div>";
+
 
                                 echo "</table>";
 
