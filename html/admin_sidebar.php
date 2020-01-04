@@ -16,6 +16,7 @@
                     //document.getElementById('divisionLink').style.display = 'block';
                     //document.getElementById('inspectorLink').style.display = 'block';
                     document.getElementById('aeoLink').style.display = 'block';
+                    document.getElementById('resultLink').style.display = 'block';
                     break;
                     
                 case 'AEO':
@@ -174,6 +175,13 @@
                             <ul>
                                 <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
                                 <li><a href="admin_assistantElectionOfficerList.php">Assistant Election Officer List</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown" id="resultLink" style="display:none;"><a href="#"><i class="fas fa-user-tie"></i><span>Election Results</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_electionResult.php">Election Results</a></li>
                             </ul>
                         </div>
                     </li>
