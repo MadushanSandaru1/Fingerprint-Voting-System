@@ -84,7 +84,7 @@
                     
                     <div class="row topic">
                         <div class="col-md-1 topic-logo">
-                            <i class="fas fa-user fa-2x"></i>
+                            <i class="fas fa-user-tag fa-2x"></i>
                         </div>
                         <div class="col-md-11">
                             <span class="font-weight-bold"><big>Division officer List</big><br><small>Division officer</small></span>

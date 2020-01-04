@@ -16,20 +16,35 @@
             //$enc_cand_nic_as_key = ($cand_nic_as_key);
             $voter_nic =  ($_SESSION['nic']);
 
-            
-
            $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
 
            $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `divi_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , {$_SESSION['divi_id']} , 1)";
 
 
-
             $recode_participate_result = mysqli_query($con,$recode_participate);
             $recode_vote_result = mysqli_query($con,$recode_vote);
 
+
+            /*Maintain logfile*/
+
+                // Ideitify current date
+            date_default_timezone_set("Asia/Colombo");
+            $curent_datetime = date('Y-m-d H:i:s');
+
+            $logfile = fopen(date('Y-m-d')."-".$_SESSION['election_name_en']."-log.txt", "a+");
+            $log = "{$curent_datetime} {$_SESSION['inspector_schedule_id']} {$cand_nic_as_key} {$voter_nic} {$_SESSION['divi_id']} 1";
+            
+            
+
+            /*________________*/
+
             if ($recode_participate_result && $recode_vote_result) {
+                fwrite($logfile, $log . "\n");
+                fclose($logfile);
                 header("location:vote_success_and_logout.php");
             }else{
+                fwrite($logfile, $log . " ERR\n");
+                fclose($logfile);
                 header("location:try_again.php");
             }
         }
@@ -50,9 +65,27 @@
                 $recode_participate_result = mysqli_query($con,$recode_participate);
                 $recode_vote_result = mysqli_query($con,$recode_vote);
 
+
+                /*Maintain logfile*/
+
+                // Ideitify current date
+                date_default_timezone_set("Asia/Colombo");
+                $curent_datetime = date('Y-m-d H:i:s');
+
+                $logfile = fopen(date('Y-m-d')."-".$_SESSION['election_name_en']."-canceled-log.txt", "a+");
+                $log = "{$curent_datetime} {$_SESSION['inspector_schedule_id']} NULL {$voter_nic} {$_SESSION['divi_id']} 0";
+                
+                /*________________*/
+
+
+
                 if ($recode_participate_result && $recode_vote_result) {
+                    fwrite($logfile, $log . "\n");
+                    fclose($logfile);
                     header("location:vote_canceld.php");
                 }else{
+                    fwrite($logfile, $log . " ERR\n");
+                    fclose($logfile);
                     header("location:try_again.php");
                 }
          }
@@ -359,7 +392,7 @@
                          ?>
                     
                     
-                    <button type="submit" class="btn btn-primary vote float-right mb-5" name="submit"><img src="../img/elections.png"></button>
+                    <button type="submit" class="btn btn-primary vote float-right mb-5" name="submit"><img src="../img/elections1.png" width="80px" height="80px"></button>
                 </form>
             
             </div>
