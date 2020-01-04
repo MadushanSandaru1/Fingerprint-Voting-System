@@ -3,10 +3,10 @@
     require_once("../connection/connection.php") ;
 
     session_start();
-
+    $email=$_SESSION['voter_mail'] ;
     
     //calculate_votes
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])){
         
         if ($_SESSION['election_name_en']=='Presidential Election') {
 
@@ -41,6 +41,42 @@
             if ($recode_participate_result && $recode_vote_result) {
                 fwrite($logfile, $log . "\n");
                 fclose($logfile);
+                //***************************
+                
+                require '../email/PHPMailerAutoload.php';
+            $credential = include('../email/credential.php');   //credentials import
+            
+            $mail = new PHPMailer;
+                //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $credential['user']  ;           // SMTP username
+            $mail->Password = $credential['pass']  ;                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                                    // TCP port to connect to
+
+            $mail->setFrom($email);
+            $mail->addAddress($email);             // Name is optional
+
+            $mail->addReplyTo('hello');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $send1="";
+            $send2="";
+            $mail->Subject = "Election";
+            $mail->Body    = "Has been successfully voted on";
+            $mail->AltBody = 'If you see this mail. please reload the page.';
+
+            if(!$mail->send()) {
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            }else{
+                echo "<script>alert('Your password send your Email')</script>";
+            }
+                
+                //***************************
+                
                 header("location:vote_success_and_logout.php");
             }else{
                 fwrite($logfile, $log . " ERR\n");
