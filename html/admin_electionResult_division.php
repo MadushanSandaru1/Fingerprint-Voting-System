@@ -61,11 +61,10 @@
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                //document.write('<a href="http://www.w3schools.com/js/js_htmldom_html.asp">['name','visit']</a>');
-                ['name','visit'],
+                ['name','vote'],
                 <?php
                    while($row=$party_result->fetch_assoc()){
-                        echo  "[' ".$row['name']."' ,".$row['visit']."],";
+                        echo  "[' ".$row['name']."' ,".$row['vote']."],";
                    }            
                 ?>
                 

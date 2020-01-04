@@ -14,7 +14,7 @@
 
 <?php
     $divi_id=$_GET['id'];
-    $party_query="SELECT vt.name as name ,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id"; 
+    $party_query="SELECT vt.name as name ,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
     $party_result=$con->query($party_query);
 
 ?>
@@ -114,7 +114,7 @@
                     <?php
                         require_once('admin_logoutbar.php');
                     ?><!-- logout bar  -->  
-                    
+                   
                     
                     <div class="row topic mb-4">
                         <div class="col-md-1 topic-logo">
@@ -135,6 +135,8 @@
                                 Division Result</big><br><small>Result</small></span>
                         </div>
                     </div>
+                    
+                      <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                     
                    <!--result table -->
                    <form>
