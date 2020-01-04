@@ -97,7 +97,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Add Voter | FVS</title>
+        <title>Add Division Officer | FVS</title>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -176,7 +176,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form">
-                            <a href="admin_divisionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i>Division Officer List</button></a>
+                            <a href="admin_divisionOfficerList.php" ><button type="button" class="btn btn-outline-primary"><i class="fas fa-list"></i> Division Officer List</button></a>
                             <br><hr><br>
                             <!-- Form -->
                             <form action="admin_addDivisionOfficer.php" method="post">
@@ -185,7 +185,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>NIC<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="nic">
+                                        <select class="form-control" name="nic" required>
                                             <?php
                                             
                                                 $query = "SELECT * FROM `voter`";
@@ -193,7 +193,7 @@
                                                 $result_set = mysqli_query($con,$query);
 
                                                 if (mysqli_num_rows($result_set) >= 1) {
-                                                    echo "<option value=''>NIC Search</option>";
+                                                    echo "<option value=''>NIC</option>";
                                                     while($voter = mysqli_fetch_assoc($result_set)){
                                                         echo "<option value='".$voter['nic']."'>".$voter['nic']."</option>";
                                                         //$email=$voter[email];
@@ -211,7 +211,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Division<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="Division">
+                                        <select class="form-control" name="Division" required>
                                             <?php
                                             
                                                 $query = "SELECT * FROM `division`";

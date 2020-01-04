@@ -214,7 +214,7 @@
                                         <select class="form-control" name="district" required>
                                             <?php
                                             
-                                                $query = "SELECT d.id, d.`name` FROM `assistant_election_officer` a, `district` d WHERE a.`is_deleted` = 1 AND d.`id` = a.`dist_id`";
+                                                $query = "SELECT d.* FROM `division` d, `division_officer` dio WHERE d.`is_deleted` = 0 AND dio.`work_divi_id` != d.`id``";
 
                                                 $result_set = mysqli_query($con,$query);
 
