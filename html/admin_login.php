@@ -46,9 +46,6 @@
                 $query = "SELECT * FROM `division_officer` WHERE `nic` = '{$_SESSION['nic']}' AND `password` = '{$pwd}' LIMIT 1";
             }
             
-            $_SESSION['role'] = "AEO";//$details['nic'];
-            $_SESSION['role'] = "DO";//$details['role'];
-            
             $result_set = mysqli_query($con,$query);
             $user_details = mysqli_fetch_assoc($result_set);
             /* if user available, user info load to session array */
