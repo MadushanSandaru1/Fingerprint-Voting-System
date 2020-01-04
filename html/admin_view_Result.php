@@ -141,7 +141,7 @@
                                     
                                     
                                     
-                                    $dis_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
+                                    $dis_query="SELECT vt.name,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
