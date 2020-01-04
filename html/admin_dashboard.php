@@ -9,7 +9,6 @@
     if(!isset($_SESSION['nic'])) {
 	    header("admin_location:login.php");
 	}
-
 ?>
 
 <?php
@@ -114,6 +113,7 @@
         
         <!-- google font -->
         <link href='https://fonts.googleapis.com/css?family=Baloo Chettan' rel='stylesheet'>
+        
     </head>
 
     <body>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     
-                    <a href="#" class="btn" id="deptCount">
+                    <a href="#" class="btn" id="voterCount">
                         <div class="card img-fluid border-warning mb-3" style="width: 18rem;height: 10rem;box-shadow: 4px 4px 4px rgba(130,138,145, 0.5);">
                             <i  <?php
                                     echo "class='fas fa-user fa-7x'";
@@ -161,7 +161,7 @@
                         </div>
                     </a>                    
                     
-                    <a href="#" class="btn" id="deptCount">
+                    <a href="#" class="btn" id="partyCount">
                         <div class="card img-fluid border-secondary mb-3" style="width: 18rem;height: 10rem;box-shadow: 4px 4px 4px rgba(130,138,145, 0.5);">
                             <i  <?php
                                     echo "class='fas fa-building fa-7x'";
@@ -182,7 +182,7 @@
                         </div>
                     </a>
                     
-                    <a href="#" class="btn" id="deptCount">
+                    <a href="#" class="btn" id="doCount" style="display:<?php if($_SESSION['role'] == 'DO') echo "none"; ?>;">
                         <div class="card img-fluid border-info mb-3" style="width: 18rem;height: 10rem;box-shadow: 4px 4px 4px rgba(130,138,145, 0.5);">
                             <i  <?php
                                     echo "class='fas fa-user-tag fa-7x'";
@@ -203,14 +203,14 @@
                         </div>
                     </a>
                     
-                    <a href="#" class="btn" id="deptCount">
+                    <a href="#" class="btn" id="aeoCount" style="display:<?php if($_SESSION['role'] != 'admin') echo "none"; ?>;">
                         <div class="card img-fluid border-danger mb-3" style="width: 18rem;height: 10rem;box-shadow: 4px 4px 4px rgba(130,138,145, 0.5);">
                             <i  <?php
                                     echo "class='fas fa-user-tie fa-7x'";
                                 ?>
 
                                style="color:gainsboro;position:absolute; bottom:0; right:0;"></i>
-                            <div class="card-body card-img-overlay text-info">
+                            <div class="card-body card-img-overlay text-danger">
                                 <?php
                                     echo "<h4 class='card-title'>Assistant Election Officer</h4>";
                                 ?>
