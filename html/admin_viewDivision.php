@@ -13,9 +13,6 @@
 ?>
 
 <?php
-    $party_query="SELECT * FROM `test`";
-    $party_result=$con->query($party_query);
-    //$party_result=mysqli_query($con,$party_query);
 ?>
 
 <!DOCTYPE html>
@@ -53,42 +50,12 @@
         <link href='https://fonts.googleapis.com/css?family=Baloo Chettan' rel='stylesheet'>
         
         
-        <!--Chart-->
         
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                //document.write('<a href="http://www.w3schools.com/js/js_htmldom_html.asp">['name','visit']</a>');
-                ['name','visit'],
-                <?php
-                   while($row=$party_result->fetch_assoc()){
-                        echo  "[' ".$row['name']."' ,".$row['visit']."],";
-                   }            
-                ?>
-                
-               /* ['Task', 'Hours per Day'],
-                ['Wok',     11],
-                ['Eat',      2],
-                ['Commute',  2],
-                ['Watch TV', 2],
-                ['Sleep',    7]
-                */
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-    </script>
-        
-        <!--*****-->
+        <style>
+            .btn{
+                background-color: #8767db;
+            }
+        </style>
         
         
     </head>
@@ -113,43 +80,42 @@
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Election Result Province</big><br><small>Province</small></span>
+                            <span class="font-weight-bold"><big>Election Division</big><br><small>Division</small></span>
                         </div>
                     </div>
                     
-                    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-                    
-                    <!--result table -->
+                   <!--result table -->
+                   <form>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">P</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">District</th>
+                                    <th scope="col">View</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                <?php
+                                    
+                                    $divi_id=$_GET['id'];
+                                    
+                                    $dis_query="SELECT * FROM `division` WHERE dist_id={$divi_id}";
+                                    $dis_result=mysqli_query($con,$dis_query);
+                                    if($dis_result){
+                                        $c=1;
+                                        while($recode=mysqli_fetch_assoc($dis_result)){
+                                            echo "<tr>";
+                                            echo "<td>".$c."</td>";
+                                            echo "<td>".$recode['name']."</td>";
+                                            echo "<td>"."<a href='admin_view_Result.php?id={$recode['id']}'><input type='button' class='btn' value='View Result'></a>"."</td>";
+                                            echo "</tr>";
+                                            $c++;
+                                        }
+                                    }
+                                ?>
                             </tbody>
                         </table>
+                    </form>   
                     <!--result table -->
                     
                     
