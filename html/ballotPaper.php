@@ -226,6 +226,10 @@
                                     echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"text\" id=\"{$party['nic']}\" name=\"{$party['nic']}\" value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' readonly  >  </td>";
                                     echo "</tr>";
 
+                                   // echo "<tr>";
+                                    //echo "<td><input type='submit' name='cancel_vote' ></td>";
+                                    //echo "</tr>";
+
 
                                 }
                                 echo "</table>";
