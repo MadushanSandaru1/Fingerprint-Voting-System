@@ -4,12 +4,13 @@
 
     session_start();
 
-
+    
     //calculate_votes
     if (isset($_POST['submit'])) {
         
         if ($_SESSION['election_name_en']=='Presidential Election') {
 
+           
             $cand_nic_as_key = array_search('X', $_POST); 
 
             //$enc_cand_nic_as_key = ($cand_nic_as_key);
@@ -19,11 +20,9 @@
 
            $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
 
-           echo $recode_participate;
+           $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , 1)";
 
-            $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , 1)";
 
-            echo $recode_vote;
 
             $recode_participate_result = mysqli_query($con,$recode_participate);
             $recode_vote_result = mysqli_query($con,$recode_vote);
@@ -36,6 +35,27 @@
         }
 
 
+    }else if (isset($_POST['cancel_vote'])) {
+        
+         if ($_SESSION['election_name_en']=='Presidential Election') {
+
+                $voter_nic = ($_SESSION['nic']);
+
+                $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
+
+               $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, NULL , 0)";
+
+
+
+                $recode_participate_result = mysqli_query($con,$recode_participate);
+                $recode_vote_result = mysqli_query($con,$recode_vote);
+
+                if ($recode_participate_result && $recode_vote_result) {
+                    header("location:vote_canceld.php");
+                }else{
+                    header("location:try_again.php");
+                }
+         }
     }
 
 
@@ -226,13 +246,14 @@
                                     echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"text\" id=\"{$party['nic']}\" name=\"{$party['nic']}\" value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' readonly  >  </td>";
                                     echo "</tr>";
 
-                                   // echo "<tr>";
-                                    //echo "<td><input type='submit' name='cancel_vote' ></td>";
-                                    //echo "</tr>";
-
-
                                 }
+
+                                echo "<tr>";
+                                    echo "<td colspan='3'><input class='btn btn-outline-danger' type='submit' name='cancel_vote' value='ඡන්දය අවලංගු කරන්න | cancel vote | வாக்குகளை ரத்துசெய்'></td>";
+                                    echo "</tr>";
+
                                 echo "</table>";
+
 
                             }elseif ($_SESSION['election_name_en']=='Parliamentary Election') {
                                 
@@ -338,7 +359,7 @@
                          ?>
                     
                     
-                    <button type="submit" class="btn btn-primary vote float-right" name="submit"><img src="../img/elections.png"></button>
+                    <button type="submit" class="btn btn-primary vote float-right mb-5" name="submit"><img src="../img/elections.png"></button>
                 </form>
             
             </div>
