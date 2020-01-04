@@ -105,6 +105,16 @@
                 <ul>                            
                     <li><a href="admin_dashboard.php"><i class="fa fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     
+                    
+                    <li class="sidebar-dropdown" id="divisionLink" style="display:none;"><a href="#"><i class="fas fa-project-diagram"></i><span>Division</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addDivision.php">Add Division</a></li>
+                                <li><a href="admin_divisionList.php">Division List</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    
                     <li class="sidebar-dropdown" id="partyLink" style="display:none;"><a href="#"><i class="fas fa-building"></i><span>Party</span></a>
                         <div class="sidebar-submenu">
                             <ul>
@@ -115,22 +125,31 @@
                             </ul>
                         </div>
                     </li>
-
-                    <li class="sidebar-dropdown" id="scheduleLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
+                    
+                    <li class="sidebar-dropdown" id="aeoLink" style="display:none;"><a href="#"><i class="fas fa-user-tie"></i><span>Assistant Election Officer</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-                                <li><a href="admin_addElectionSchedule.php">Add Election Schedule</a></li>
-                                <li><a href="admin_electionScheduleList">Election Schedule</a></li>
-                             </ul>
+                                <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
+                                <li><a href="admin_assistantElectionOfficerList.php">Assistant Election Officer List</a></li>
+                            </ul>
                         </div>
                     </li>
 
-                    <li class="sidebar-dropdown" id="doLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Division Officer</span></a>
+                    <li class="sidebar-dropdown" id="doLink" style="display:none;"><a href="#"><i class="fas fa-user-tag"></i><span>Division Officer</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_addDivisionOfficer.php">Add Division Officer</a></li>
                                 <li><a href="admin_divisionOfficerList.php">Division Officer</a></li>
                              </ul>
+                        </div>
+                    </li>
+                    
+                    <li class="sidebar-dropdown" id="inspectorLink" style="display:none;"><a href="#"><i class="fas fa-user"></i><span>Inspector</span></a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="admin_addInspector.php">Add Inspector</a></li>
+                                <li><a href="admin_inspectorList.php">Inspector List</a></li>
+                            </ul>
                         </div>
                     </li>
 
@@ -151,34 +170,17 @@
                             </ul>
                         </div>
                     </li>
-                    
-                    <li class="sidebar-dropdown" id="divisionLink" style="display:none;"><a href="#"><i class="fas fa-project-diagram"></i><span>Division</span></a>
+
+                    <li class="sidebar-dropdown" id="scheduleLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Election Schedule</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-                                <li><a href="admin_addDivision.php">Add Division</a></li>
-                                <li><a href="admin_divisionList.php">Division List</a></li>
-                            </ul>
+                                <li><a href="admin_addElectionSchedule.php">Add Election Schedule</a></li>
+                                <li><a href="admin_electionScheduleList">Election Schedule</a></li>
+                             </ul>
                         </div>
                     </li>
                     
-                    <li class="sidebar-dropdown" id="inspectorLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Inspector</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="admin_addInspector.php">Add Inspector</a></li>
-                                <li><a href="admin_inspectorList.php">Inspector List</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    
-                    <li class="sidebar-dropdown" id="aeoLink" style="display:none;"><a href="#"><i class="far fa-calendar-alt"></i><span>Assistant Election Officer</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="admin_addAssistantElectionOfficer.php">Add Assistant Election Officer</a></li>
-                                <li><a href="admin_assistantElectionOfficerList.php">Assistant Election Officer List</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-dropdown" id="resultLink" style="display:none;"><a href="#"><i class="fas fa-user-tie"></i><span>Election Results</span></a>
+                    <li class="sidebar-dropdown" id="resultLink" style="display:none;"><a href="#"><i class="fas fa-chart-pie"></i><span>Election Results</span></a>
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="admin_electionResult_division.php">Division Results</a></li>
