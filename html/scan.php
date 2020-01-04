@@ -128,7 +128,7 @@
                         
                         <img src="../img/fingerprint.png" class="mt-5"><br>
 
-                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-3"><br>
+                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-3" autocomplete="off"><br>
                         
                         <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
                     </form>
