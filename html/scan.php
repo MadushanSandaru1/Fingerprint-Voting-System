@@ -34,7 +34,7 @@
                 $_SESSION['nic'] = $details['nic'];
                 $_SESSION['divi_id'] = $details['divi_id'];
                 $_SESSION['language'] = $details['language'];
-                
+                $_SESSION['voter_mail'] = $details['email'];
                 /* redirect to dashboard page */
                 header("location:ballotPaper.php");
                 
