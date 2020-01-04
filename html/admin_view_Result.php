@@ -80,7 +80,7 @@
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Result',
           is3D: true,
         };
 
@@ -145,15 +145,13 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Party</th>
                                     <th scope="col">Vote</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    
-                                    
-                                    
-                                    $dis_query="SELECT vt.name,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
+                                    $dis_query="SELECT vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
@@ -161,8 +159,8 @@
                                             echo "<tr>";
                                             echo "<td>".$c."</td>";
                                             echo "<td>".$recode['name']."</td>";
+                                            echo "<td>".$recode['p_name']."</td>";
                                             echo "<td>".$recode['vote']."</td>";
-                                           
                                             echo "</tr>";
                                             $c++;
                                         }
