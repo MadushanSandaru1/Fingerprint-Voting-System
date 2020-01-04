@@ -6,8 +6,22 @@
 
 
     //calculate_votes
-    if (isset($_POST)) {
+    if (isset($_POST['submit'])) {
         var_dump($_POST);
+
+        $cand_nic_as_key = array_search('X', $_POST); 
+
+        $enc_cand_nic_as_key = sha1($cand_nic_as_key);
+        $enc_voter_nic =  sha1($_SESSION['nic']);
+
+        echo $_SESSION['inspector_schedule_id'];
+        
+
+       $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$_SESSION['nic']}' )";
+
+        $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['$enc_voter_nic']}, {$enc_cand_nic_as_key} )";
+
+        //$recode_participate
     }
 
 
@@ -193,9 +207,9 @@
                                     }
                                     echo "</td>";
 
-                                    echo "<input type='hidden' name='cand_nic' value=\"{$party['nic']}\" >";
+                                    //echo "<input type='hidden' name='cand_nic' value=\"{$party['nic']}\" >";
 
-                                    echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"button\" id=\"{$party['nic']}\" name='vote_btn' value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' >  </td>";
+                                    echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"text\" id=\"{$party['nic']}\" name=\"{$party['nic']}\" value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' readonly  >  </td>";
                                     echo "</tr>";
 
 
@@ -306,7 +320,7 @@
                          ?>
                     
                     
-                    <input type="submit" class="btn btn-primary vote float-right" name="submit">
+                    <button type="submit" class="btn btn-primary vote float-right" name="submit"><img src="../img/elections.png"></button>
                 </form>
             
             </div>

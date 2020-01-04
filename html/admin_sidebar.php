@@ -181,7 +181,10 @@
                     <li class="sidebar-dropdown" id="resultLink" style="display:none;"><a href="#"><i class="fas fa-user-tie"></i><span>Election Results</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-                                <li><a href="admin_electionResult.php">Election Results</a></li>
+                                <li><a href="admin_electionResult_division.php">Division Results</a></li>
+                                <li><a href="admin_electionResult_district.php">District Results</a></li>
+                                <li><a href="admin_electionResult_province.php">Province Results</a></li>
+                                <li><a href="admin_electionResult.php">Overall Results</a></li>
                             </ul>
                         </div>
                     </li>
