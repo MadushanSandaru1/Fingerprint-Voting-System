@@ -9,6 +9,7 @@
     $tmp_election_name_si =  $_SESSION['election_name_si'];
     $tmp_election_name_ta =  $_SESSION['election_name_ta'];
     $tmp_election_name_en =  $_SESSION['election_name_en'];
+    
 
     $_SESSION = array();
 
