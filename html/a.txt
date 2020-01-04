@@ -6,3 +6,4 @@ Total number of votes in Division;;11
 Total number of votes castPercentage of votes cast;;9
 Number of invalid election results;;2
 Percentage of votes cast;;81.82%
+Kelaniya;;

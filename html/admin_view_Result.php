@@ -24,15 +24,6 @@
 <?php
      if(isset($_POST['pdf'])){
          
-         $query="SELECT * FROM `division` WHERE id={$divi_id}";
-    $divi_result=mysqli_query($con,$query);
-      if($divi_result){
-        $recode=mysqli_fetch_assoc($divi_result);
-        $division=$recode['name'];
-          Header($divistion);
-    }else{
-            echo "error";
-     }
          
         require('../fpdf/fpdf.php');
 
@@ -49,13 +40,13 @@
                 return $data;
             }
             
-            function Header($division)
+            function Header()
             {
                 // Logo
-                $this->Image('../img/i.jpg',10,12,30,0,'','');
-                $this->Ln(25);
-                $this->Cell(20,10,$division);
-                date_default_timezone_set("Asia/colomb");
+               // $this->Image('../img/banner.jpg',50,12,30);
+                $this->Ln(15);
+                $this->Cell(20,10,"Election Commission of Sri Lanka");
+                date_default_timezone_set("Asia/colombo");
                 $this->Ln(6);
                 $date=date("Y-m-d H:i:s");
                 $this->Cell(20,10,$date);
@@ -274,7 +265,7 @@
                                         
                                     }
                                 
-                                    $dis_query="SELECT vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
+                                    $dis_query="SELECT c.name_si as nameS ,vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
@@ -292,7 +283,6 @@
                                             
                                         fwrite($fp,$recode['name'].';'.$recode['p_name'].';'.$recode['vote']);
                             fwrite($fp,"\n");
-                                            
                                         }
                                         $presentag=($count_vort/$all)*100;
                                         $last_pr=number_format($presentag, 2,'.','');
@@ -327,6 +317,7 @@
                                         
                                         fwrite($fp,"Percentage of votes cast".';'.';'.$last_pr.'%');
                                         fwrite($fp,"\n");
+                                        fwrite($fp,$division.";".";");
                                         
                                     }
                                 ?>
