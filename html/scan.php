@@ -13,31 +13,42 @@
         /* login query */
 		//$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
 
-        $login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}'";
+        $login_qurey = " SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}' ";
 
+        $check_user_is_voted = " SELECT * FROM `participate` WHERE  `schedule_id` = {$_SESSION['inspector_schedule_id']} AND `voter_nic`= '{$nic_code}' ";
 
         /* query execute */
 		$result_set = mysqli_query($con,$login_qurey);
+        $check_user_is_voted_result = mysqli_query($con,$check_user_is_voted);
 
-        /* query result */
-		if (mysqli_num_rows($result_set)==1) {
-			$details = mysqli_fetch_assoc($result_set);
+        echo $check_user_is_voted;//mysqli_num_rows($check_user_is_voted_result);
+
+        if (mysqli_num_rows($check_user_is_voted_result)==0) {
             
-            /* if user available, user info load to session array */
-			
-            $_SESSION['nic'] = $details['nic'];
-            $_SESSION['divi_id'] = $details['divi_id'];
-            $_SESSION['language'] = $details['language'];
-            
-            /* redirect to dashboard page */
-            header("location:ballotPaper.php");
-            
-		}
-        /* if user not available, displayerror msg */
-		else{
-            /* redirect to dashboard page */
-            header("location:try_again.php");
-		}
+            /* query result */
+            if (mysqli_num_rows($result_set)==1) {
+                $details = mysqli_fetch_assoc($result_set);
+                
+                /* if user available, user info load to session array */
+                
+                $_SESSION['nic'] = $details['nic'];
+                $_SESSION['divi_id'] = $details['divi_id'];
+                $_SESSION['language'] = $details['language'];
+                
+                /* redirect to dashboard page */
+                header("location:ballotPaper.php");
+                
+            }
+            /* if user not available, displayerror msg */
+            else{
+                /* redirect to dashboard page */
+               header("location:try_again.php");
+            }
+
+        }else{
+            header("location:already_voted.php");
+        }
+        
     }
 
 ?>
