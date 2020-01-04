@@ -13,9 +13,11 @@
 ?>
 
 <?php
-    $party_query="SELECT * FROM `test`";
+    $divi_id=$_GET['id'];
+    $party_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
     $party_result=$con->query($party_query);
     //$party_result=mysqli_query($con,$party_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +54,7 @@
         <!-- google font -->
         <link href='https://fonts.googleapis.com/css?family=Baloo Chettan' rel='stylesheet'>
         
-        
+         
         <!--Chart-->
         
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -61,12 +63,12 @@
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                //document.write('<a href="http://www.w3schools.com/js/js_htmldom_html.asp">['name','visit']</a>');
-                ['name','visit'],
+                ['name','vote'],
                 <?php
-                   while($row=$party_result->fetch_assoc()){
-                        echo  "[' ".$row['name']."' ,".$row['visit']."],";
-                   }            
+                  /* while($row=$party_result->fetch_assoc()){
+                        echo  "[' ".$row['name']."' ,".$row['vote']."],";
+                   }
+                   */
                 ?>
                 
                /* ['Task', 'Hours per Day'],
@@ -91,6 +93,13 @@
         <!--*****-->
         
         
+        <style>
+            .btn{
+                background-color: #8767db;
+            }
+        </style>
+        
+        
     </head>
 
     <body>
@@ -113,43 +122,43 @@
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Election Result Province</big><br><small>Province</small></span>
+                            <span class="font-weight-bold"><big>Division Result</big><br><small>Result</small></span>
                         </div>
                     </div>
                     
-                    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-                    
-                    <!--result table -->
+                   <!--result table -->
+                   <form>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">P</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Vote</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                <?php
+                                    
+                                    
+                                    
+                                    $dis_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
+                                    $dis_result=mysqli_query($con,$dis_query);
+                                    if($dis_result){
+                                        $c=1;
+                                        while($recode=mysqli_fetch_assoc($dis_result)){
+                                            echo "<tr>";
+                                            echo "<td>".$c."</td>";
+                                            echo "<td>".$recode['name']."</td>";
+                                            echo "<td>".$recode['vote']."</td>";
+                                           
+                                            echo "</tr>";
+                                            $c++;
+                                        }
+                                    }
+                                ?>
                             </tbody>
                         </table>
+                    </form>   
                     <!--result table -->
                     
                     

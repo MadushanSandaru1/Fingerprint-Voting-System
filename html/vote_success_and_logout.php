@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <?php
+
     session_start();
 
     $tmp_inspector_schedule_id = $_SESSION['inspector_schedule_id'];
@@ -10,21 +12,22 @@
 
     $_SESSION = array();
 
-    session_destroy();
+    session_unset();
 
-    /*$_SESSION['inspector_schedule_id'] = $tmp_inspector_schedule_id;
+    $_SESSION['inspector_schedule_id'] = $tmp_inspector_schedule_id;
     $_SESSION['inspector_nic'] = $tmp_inspector_nic;
     $_SESSION['election_name_si'] = $tmp_election_name_si;
     $_SESSION['election_name_ta'] = $tmp_election_name_ta;
-    $_SESSION['election_name_en'] = $tmp_election_name_en;*/
-?>
+    $_SESSION['election_name_en'] = $tmp_election_name_en;
 
+?>
 <html>
     <head>
         <title>FVS</title>
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
+        <meta http-equiv="refresh" content="3;url=scan.php" />
         <!--title icon-->
         <link rel="icon" type="image/ico" href="../img/logo.png"/>
         
@@ -70,10 +73,10 @@
         <div class="container">
             <div class="row rowCenter align-items-center">
                 <div class="col-12 text-center mt-5">
-                    <h1 class="fingerprint mt-5">මැතිවරණය අවසන්</h1>
-                    <h1 class="fingerprint mt-4 mb-4">தேர்தல் முடிந்தது</h1>
-                    <h1 class="fingerprint mt-4 mb-5">The election is over</h1>
-                    <p class="mt-4"><a href="../index.php">Back to Home</a></p>
+                    <h1 class="fingerprint mt-5">ඔබ සාර්ථකව ඡන්දය ප්‍රකාශ කර ඇත</h1>
+                    <h1 class="fingerprint mt-4 mb-4">நீங்கள் வெற்றிகரமாக வாக்களித்துள்ளீர்கள்</h1>
+                    <h1 class="fingerprint mt-4 mb-5">You have successfully voted</h1>
+                    <p class="mt-4"><a href="scan.php">Back</a></p>
                 </div>
             </div>
         </div>

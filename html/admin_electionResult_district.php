@@ -113,7 +113,7 @@
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Election Result</big><br><small>Result</small></span>
+                            <span class="font-weight-bold"><big>Election Result District</big><br><small>District</small></span>
                         </div>
                     </div>
                     

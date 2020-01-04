@@ -7,21 +7,35 @@
 
     //calculate_votes
     if (isset($_POST['submit'])) {
-        var_dump($_POST);
-
-        $cand_nic_as_key = array_search('X', $_POST); 
-
-        $enc_cand_nic_as_key = sha1($cand_nic_as_key);
-        $enc_voter_nic =  sha1($_SESSION['nic']);
-
-        echo $_SESSION['inspector_schedule_id'];
         
+        if ($_SESSION['election_name_en']=='Presidential Election') {
 
-       $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$_SESSION['nic']}' )";
+            $cand_nic_as_key = array_search('X', $_POST); 
 
-        $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['$enc_voter_nic']}, {$enc_cand_nic_as_key} )";
+            //$enc_cand_nic_as_key = ($cand_nic_as_key);
+            $voter_nic =  ($_SESSION['nic']);
 
-        //$recode_participate
+                   
+
+           $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
+
+           echo $recode_participate;
+
+            $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , 1)";
+
+            echo $recode_vote;
+
+            $recode_participate_result = mysqli_query($con,$recode_participate);
+            $recode_vote_result = mysqli_query($con,$recode_vote);
+
+            if ($recode_participate_result && $recode_vote_result) {
+                header("location:vote_success_and_logout.php");
+            }else{
+                header("location:try_again.php");
+            }
+        }
+
+
     }
 
 
@@ -211,6 +225,10 @@
 
                                     echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"text\" id=\"{$party['nic']}\" name=\"{$party['nic']}\" value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' readonly  >  </td>";
                                     echo "</tr>";
+
+                                   // echo "<tr>";
+                                    //echo "<td><input type='submit' name='cancel_vote' ></td>";
+                                    //echo "</tr>";
 
 
                                 }

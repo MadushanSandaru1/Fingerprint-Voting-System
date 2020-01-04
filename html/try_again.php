@@ -1,5 +1,21 @@
 <?php
     session_start();
+
+    $tmp_inspector_schedule_id = $_SESSION['inspector_schedule_id'];
+    $tmp_inspector_nic = $_SESSION['inspector_nic'];
+    $tmp_election_name_si =  $_SESSION['election_name_si'];
+    $tmp_election_name_ta =  $_SESSION['election_name_ta'];
+    $tmp_election_name_en =  $_SESSION['election_name_en'];
+
+    $_SESSION = array();
+
+    session_unset();
+
+    $_SESSION['inspector_schedule_id'] = $tmp_inspector_schedule_id;
+    $_SESSION['inspector_nic'] = $tmp_inspector_nic;
+    $_SESSION['election_name_si'] = $tmp_election_name_si;
+    $_SESSION['election_name_ta'] = $tmp_election_name_ta;
+    $_SESSION['election_name_en'] = $tmp_election_name_en;
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +26,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <!-- refresh -->
-        <meta http-equiv="refresh" content="2;url=scan.php" />
+        <meta http-equiv="refresh" content="3;url=scan.php" />
         
         <!--title icon-->
         <link rel="icon" type="image/ico" href="../img/logo.png"/>
