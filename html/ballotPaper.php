@@ -16,11 +16,11 @@
             //$enc_cand_nic_as_key = ($cand_nic_as_key);
             $voter_nic =  ($_SESSION['nic']);
 
-                   
+            
 
            $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
 
-           $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , 1)";
+           $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `divi_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, '{$cand_nic_as_key}' , {$_SESSION['divi_id']} , 1)";
 
 
 
@@ -43,7 +43,7 @@
 
                 $recode_participate = "INSERT INTO `participate`(`schedule_id`, `voter_nic`) VALUES ({$_SESSION['inspector_schedule_id']} , '{$voter_nic}' )";
 
-               $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, NULL , 0)";
+               $recode_vote = "INSERT INTO `vote`(`schedule_id`, `candidate_id`, `divi_id`, `preference`) VALUES ({$_SESSION['inspector_schedule_id']}, NULL , {$_SESSION['divi_id']} , 0)";
 
 
 
