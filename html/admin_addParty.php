@@ -175,10 +175,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Secretary Name<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" name="secretaryName">
+                                        <select class="form-control" name="secretaryName" required>
                                             <?php
                                             
-                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 ORDER BY `name`";
+                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `is_disabled` = 0 AND `role` != 'admin'";
 
                                                 $result_set = mysqli_query($con,$query);
 
@@ -186,7 +186,7 @@
                                                     
                                                     echo "<option value=''>Name</option>";
                                                     while($secretaryName = mysqli_fetch_assoc($result_set)){
-                                                        echo "<option value='".$secretaryName['name']."'>".$secretaryName['name']." - ".$secretaryName['nic']."</option>";
+                                                        echo "<option value='".$secretaryName['nic']."'>".$secretaryName['nic']." - ".$secretaryName['name']."</option>";
                                                     }
 
                                                 } else {
@@ -206,7 +206,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Start Date<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="startDate" placeholder="Date" required>
+                                        <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="startDate" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -218,14 +218,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Color<sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
-                                        <input type="color" value="#C7017F" class="form-control" name="partyColor" placeholder="Color" required>
+                                        <input type="color" class="form-control" name="partyColor" placeholder="Color" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><strong>Symbol <sup><i class="fas fa-asterisk fa-xs"  style="color:red;"></i></sup></strong></label>
                                     <div class="col-sm-7">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="partySymbol">
+                                            <input type="file" class="custom-file-input" name="partySymbol" required>
                                             <label class="custom-file-label">Choose .png file</label>
                                         </div>
                                     </div>

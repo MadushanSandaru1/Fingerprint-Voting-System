@@ -20,12 +20,12 @@
         $nic = $_GET['id'];
         
         //deleting record
-        $query = "UPDATE `grama_niladhari` SET is_deleted = 1 WHERE nic='{$nic}'";
+        $query = "UPDATE `assistant_election_officer` SET is_deleted = 1 WHERE nic='{$nic}'";
 
         $result = mysqli_query($con,$query);
 
         if($result) {
-            header("location:admin_assistantElectionOfficerList..php");
+            header("location:admin_assistantElectionOfficerList.php");
         }
         
 	} 
@@ -35,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Voter List | FVS</title>
+        <title>Assistant Election Officer List | FVS</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,7 +87,7 @@
                             <i class="fas fa-user fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Assistant Election Officer</big><br><small>Assistant Election Officer</small></span>
+                            <span class="font-weight-bold"><big>Assistant Election Officer List</big><br><small>Assistant Election Officer</small></span>
                         </div>
                     </div>
 
@@ -126,9 +126,9 @@
                                     if(isset($_GET['search']) && (strlen($_GET['searchTxt'])!=0)){
                                         $search =  mysqli_real_escape_string($con,$_GET['searchTxt']);
                                         
-                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `district` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0 AND (v.name LIKE '{$search}%' OR v.nic LIKE '{$search}%')";
+                                        $query = "SELECT a.*, v.`name`, v.`contact`, d.`name` AS 'dist_id' FROM `assistant_election_officer` a, `district` d, `voter` v WHERE a.`is_deleted` = 0 AND a.`dist_id` = d.`id` AND v.`nic` = a.`nic` AND (v.`name` LIKE '{$search}%' OR v.`nic` LIKE '{$search}%' OR d.`name` LIKE '{$search}%') ORDER BY v.`nic`";
                                     }else{
-                                        $query = "SELECT dis.name as dis ,v.nic as nic,v.name as name, v.contact as contact FROM `voter` v, `assistant_election_officer` a, `district` dis WHERE a.nic=v.nic AND a.dist_id=dis.id AND a.is_deleted=0";
+                                        $query = "SELECT a.*, v.`name`, v.`contact`, d.`name` AS 'dist_id' FROM `assistant_election_officer` a, `district` d, `voter` v WHERE a.`is_deleted` = 0 AND a.`dist_id` = d.`id` AND v.`nic` = a.`nic` ORDER BY v.`nic`";
                                     }
 
                                     $result_set = mysqli_query($con,$query);
@@ -140,9 +140,9 @@
                                                 echo "<td>".$d_officer['nic']."</td>";
                                                 echo "<td>".$d_officer['name']."</td>";
                                                 echo "<td>".$d_officer['contact']."</td>";
-                                                echo "<td>".$d_officer['dis']."</td>";
+                                                echo "<td>".$d_officer['dist_id']."</td>";
 
-                                                echo "<td><a href='admin_divisionOfficerList.php?id={$d_officer['nic']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
+                                                echo "<td><a href='admin_assistantElectionOfficerList.php?id={$d_officer['nic']}' onclick=\"return confirm('Are you sure to delete this information ?');\"><i class='fas fa-trash-alt' data-toggle='tooltip' title='Delete' style='color:red;'></i></a></td>";
 
                                                 echo "</tr>";
 
