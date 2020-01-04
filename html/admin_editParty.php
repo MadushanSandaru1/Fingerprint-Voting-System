@@ -191,7 +191,7 @@
                                         <select class="form-control" name="secretaryName">
                                             <?php
                                             
-                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 ORDER BY `name`";
+                                                $query = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `is_disabled` = 0 AND `role` != 'admin'";
 
                                                 $result_set = mysqli_query($con,$query);
 
