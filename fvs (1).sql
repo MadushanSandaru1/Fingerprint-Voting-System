@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 03, 2020 at 04:45 PM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Generation Time: Jan 04, 2020 at 04:55 AM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`nic`, `password`) VALUES
-('542893419v', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+('123456789V', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 -- --------------------------------------------------------
 
@@ -62,10 +62,28 @@ CREATE TABLE IF NOT EXISTS `assistant_election_officer` (
 --
 
 INSERT INTO `assistant_election_officer` (`nic`, `password`, `dist_id`, `is_deleted`) VALUES
-('827152364v', '60465', 2, 0),
-('802360140v', '97466', 4, 0),
-('542893419v', '20934', 1, 0),
-('980171329v', '61556', 2, 0);
+('443116652v', '89339', 1, 0),
+('452094787v', '23665', 2, 0),
+('454139033v', '62512', 3, 0),
+('470346999v', '82745', 4, 0),
+('988710356v', '16320', 5, 0),
+('983535670v', '78303', 6, 0),
+('974688009v', '15000', 7, 0),
+('968601431v', '64897', 8, 0),
+('956244501v', '38832', 9, 0),
+('947767855v', '42224', 10, 0),
+('940490746v', '81384', 11, 0),
+('834667729v', '67475', 12, 0),
+('844246346v', '95638', 13, 0),
+('544717258v', '51550', 14, 0),
+('693507280v', '25961', 15, 0),
+('599405907v', '46654', 16, 0),
+('585186415v', '55638', 17, 0),
+('678733517v', '96175', 18, 0),
+('987830651v', '61485', 19, 0),
+('448404080v', '52587', 20, 0),
+('603838449v', '76636', 22, 0),
+('949438212v', '19411', 22, 0);
 
 -- --------------------------------------------------------
 
@@ -338,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `division_officer` (
 INSERT INTO `division_officer` (`nic`, `password`, `work_divi_id`, `is_deleted`) VALUES
 ('542893419v', '63767', 36, 0),
 ('802360140v', '35109', 36, 0),
-('975215236v', '45551', 36, 0);
+('827152364v', '45551', 36, 0);
 
 -- --------------------------------------------------------
 
@@ -386,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `election_schedule` (
 --
 
 INSERT INTO `election_schedule` (`id`, `type`, `date_from`, `date_to`, `is_deleted`) VALUES
-(1, 2, '2020-01-01 08:00:00', '2020-01-03 01:30:00', 0);
+(1, 2, '2020-01-01 00:00:00', '2020-01-10 01:30:00', 0);
 
 -- --------------------------------------------------------
 
@@ -557,13 +575,107 @@ CREATE TABLE IF NOT EXISTS `voter` (
 --
 
 INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fingerprint_R`, `fingerprint_L`, `divi_id`, `language`, `role`, `is_disabled`, `is_died`, `is_deleted`) VALUES
-('542893419v', 'Suresh Premachandran', '0714483674', '1954-10-14', 'Male', 'suresh@gmail.com', '', '', 88, 'T', 'admin', 0, 0, 0),
-('802360140v', 'Akila Viraj Kariyawasam', '0724512365', '1980-12-23', 'Male', 'akila@gmail.com', '', '', 5, 'S', 'AEO', 0, 0, 0),
-('827152364v', 'Mahinda Amaraweera', '0752368652', '1982-09-23', 'Male', 'mahi@gmail.com', '', '', 7, 'S', 'DO', 0, 0, 0),
-('980171329v', 'Madushan Sandaruwan', '0771637551', '1998-01-17', 'Male', 'tg2017233@gmail.com', '', '', 26, 'S', 'admin', 0, 0, 0),
-('975215236v', 'Aruna Perera', '0702536412', '1997-05-27', 'Male', 'aruna@gmail.com', '', '', 3, 'S', 'voter', 0, 0, 0),
-('882531027v', 'Ravindu Madhishanka', '0728541236', '1988-01-17', 'Male', 'ravindu@gmail.com', '', '', 72, 'S', 'voter', 0, 0, 0),
-('980250849V', 'sampath', '0763304183', '1998-01-25', 'Male', 'lahirusampath8899@gmail.com', 'a', 'a', 106, 'S', 'admin', 0, 0, 0);
+('597310362v', 'Diannne Podmore', '0712546325', '1962-06-14', 'Female', 'dpodmore28@ox.ac.uk', '7', 'ABC', 2, 'E', 'voter', 0, 0, 0),
+('652122117v', 'Tracee Sarfatti', '0712546325', '1957-09-28', 'Female', 'tsarfatti27@1und1.de', '57', 'ABC', 42, 'E', 'voter', 0, 0, 0),
+('914274741v', 'Selma Cowitz', '0712546325', '1981-12-15', 'Female', 'scowitz26@goo.ne.jp', '97', 'ABC', 110, 'E', 'voter', 0, 0, 0),
+('866484950v', 'Garreth Windeatt', '0712546325', '1961-01-06', 'Male', 'gwindeatt25@angelfire.com', '47', 'ABC', 4, 'E', 'voter', 0, 0, 0),
+('643564942v', 'Raine Delle', '0712546325', '1963-06-22', 'Female', 'rdelle24@facebook.com', '68', 'ABC', 101, 'T', 'voter', 0, 0, 0),
+('506712485v', 'Davidde Meltetal', '0712546325', '1973-04-29', 'Male', 'dmeltetal23@theguardian.com', '52', 'ABC', 160, 'E', 'voter', 0, 0, 0),
+('684102072v', 'Darcey Coytes', '0712546325', '1989-12-20', 'Female', 'dcoytes22@merriam-webster.com', '42', 'ABC', 114, 'E', 'voter', 0, 0, 0),
+('830459806v', 'Marlie Thunderman', '0712546325', '1982-05-09', 'Female', 'mthunderman21@stumbleupon.com', '96', 'ABC', 16, 'E', 'voter', 0, 0, 0),
+('678733517v', 'Emmott Bugg', '0712546325', '1995-06-06', 'Male', 'ebugg20@hud.gov', '20', 'ABC', 126, 'E', 'AEO', 0, 0, 0),
+('749605664v', 'Hilario Peek', '0712546325', '1953-06-23', 'Male', 'hpeek1z@jimdo.com', '40', 'ABC', 149, 'E', 'voter', 0, 0, 0),
+('727645780v', 'Xena Balazin', '0712546325', '1946-04-18', 'Female', 'xbalazin1y@ftc.gov', '76', 'ABC', 149, 'T', 'voter', 0, 0, 0),
+('985903536v', 'Jane Gee', '0712546325', '1996-09-26', 'Female', 'jgee1x@noaa.gov', '26', 'ABC', 94, 'E', 'voter', 0, 0, 0),
+('785474411v', 'Kristina Cadle', '0712546325', '1978-11-19', 'Female', 'kcadle1w@alibaba.com', '22', 'ABC', 152, 'E', 'voter', 0, 0, 0),
+('947767855v', 'Wade D\'Aguanno', '0712546325', '1963-06-14', 'Male', 'wdaguanno1v@bing.com', '24', 'ABC', 131, 'E', 'AEO', 0, 0, 0),
+('577005751v', 'Rockey Bettley', '0712546325', '1957-10-10', 'Male', 'rbettley1u@i2i.jp', '83', 'ABC', 67, 'T', 'voter', 0, 0, 0),
+('965803229v', 'Orazio Eddisford', '0712546325', '1994-05-12', 'Male', 'oeddisford1t@umich.edu', '99', 'ABC', 21, 'T', 'voter', 0, 0, 0),
+('763832058v', 'Waiter Olkowicz', '0712546325', '1984-07-06', 'Male', 'wolkowicz1s@newyorker.com', '9', 'ABC', 91, 'T', 'voter', 0, 0, 0),
+('949438212v', 'Frederich Dyter', '0712546325', '1987-12-28', 'Male', 'fdyter1r@flickr.com', '51', 'ABC', 35, 'E', 'AEO', 0, 0, 0),
+('677701039v', 'Elmer Luckin', '0712546325', '1987-04-02', 'Male', 'eluckin1q@addtoany.com', '90', 'ABC', 140, 'E', 'voter', 0, 0, 0),
+('454139033v', 'Wenona Shilburne', '0712546325', '1948-06-14', 'Female', 'wshilburne1p@tmall.com', '100', 'ABC', 16, 'T', 'AEO', 0, 0, 0),
+('711129498v', 'Jade Monro', '0712546325', '1985-09-04', 'Female', 'jmonro1o@umn.edu', '81', 'ABC', 131, 'E', 'voter', 0, 0, 0),
+('596579933v', 'Pavla Laurisch', '0712546325', '1976-12-09', 'Female', 'plaurisch1n@accuweather.com', '16', 'ABC', 8, 'T', 'voter', 0, 0, 0),
+('818915955v', 'Michelina Hurdiss', '0712546325', '1947-12-27', 'Female', 'mhurdiss1m@illinois.edu', '50', 'ABC', 8, 'T', 'voter', 0, 0, 0),
+('968601431v', 'Nehemiah MacCumeskey', '0712546325', '1964-06-21', 'Male', 'nmaccumeskey1l@istockphoto.com', '88', 'ABC', 38, 'T', 'AEO', 0, 0, 0),
+('443116652v', 'Elliott Pilfold', '0712546325', '1984-10-26', 'Male', 'epilfold1k@webnode.com', '92', 'ABC', 154, 'T', 'AEO', 0, 0, 0),
+('555859822v', 'Barret Moulds', '0712546325', '1956-09-23', 'Male', 'bmoulds1j@paypal.com', '12', 'ABC', 28, 'T', 'voter', 0, 0, 0),
+('940490746v', 'Bethany Brightling', '0712546325', '1986-04-05', 'Female', 'bbrightling1i@indiatimes.com', '88', 'ABC', 97, 'T', 'AEO', 0, 0, 0),
+('544717258v', 'Eward O\'Lenechan', '0712546325', '1980-06-29', 'Male', 'eolenechan1h@smugmug.com', '22', 'ABC', 54, 'T', 'AEO', 0, 0, 0),
+('603838449v', 'Cecile Shark', '0712546325', '1965-11-24', 'Female', 'cshark1g@bbc.co.uk', '96', 'ABC', 120, 'T', 'AEO', 0, 0, 0),
+('524437940v', 'Lula Counihan', '0712546325', '1944-09-27', 'Female', 'lcounihan1f@msu.edu', '93', 'ABC', 34, 'T', 'voter', 0, 0, 0),
+('872317118v', 'Norene Olifard', '0712546325', '1950-02-12', 'Female', 'nolifard1e@slashdot.org', '5', 'ABC', 21, 'T', 'voter', 0, 0, 0),
+('983535670v', 'Sharl Lezemere', '0712546325', '1976-05-21', 'Female', 'slezemere1d@yale.edu', '100', 'ABC', 115, 'T', 'AEO', 0, 0, 0),
+('943879394v', 'Dixie Syvret', '0712546325', '1971-03-23', 'Female', 'dsyvret1c@eepurl.com', '48', 'ABC', 70, 'T', 'voter', 0, 0, 0),
+('844246346v', 'Donall Mabbot', '0712546325', '1968-01-03', 'Male', 'dmabbot1b@newsvine.com', '79', 'ABC', 72, 'T', 'AEO', 0, 0, 0),
+('591377809v', 'Meredeth Maillard', '0712546325', '1952-11-14', 'Male', 'mmaillard1a@businesswire.com', '58', 'ABC', 72, 'T', 'voter', 0, 0, 0),
+('719081931v', 'Tracie Oram', '0712546325', '1997-02-27', 'Male', 'toram19@mysql.com', '76', 'ABC', 65, 'T', 'voter', 0, 0, 0),
+('470845149v', 'Bibbye Arlett', '0712546325', '1979-05-05', 'Female', 'barlett18@va.gov', '37', 'ABC', 100, 'T', 'voter', 0, 0, 0),
+('693507280v', 'Deeyn Jillis', '0712546325', '1985-01-01', 'Female', 'djillis17@printfriendly.com', '48', 'ABC', 20, 'T', 'AEO', 0, 0, 0),
+('634006397v', 'Humbert Fairlem', '0712546325', '1994-02-11', 'Male', 'hfairlem16@lulu.com', '94', 'ABC', 43, 'T', 'voter', 0, 0, 0),
+('868727971v', 'Junette Antonelli', '0712546325', '1988-01-15', 'Female', 'jantonelli15@prnewswire.com', '20', 'ABC', 124, 'T', 'voter', 0, 0, 0),
+('611863961v', 'Walker Kornalik', '0712546325', '1971-01-04', 'Male', 'wkornalik14@eepurl.com', '42', 'ABC', 159, 'T', 'voter', 0, 0, 0),
+('764874253v', 'Ephrayim Hotson', '0712546325', '1973-01-27', 'Male', 'ehotson13@twitter.com', '41', 'ABC', 17, 'T', 'voter', 0, 0, 0),
+('538026584v', 'Aleda Shapter', '0712546325', '1961-02-03', 'Female', 'ashapter12@purevolume.com', '34', 'ABC', 79, 'T', 'voter', 0, 0, 0),
+('834667729v', 'Alford Bene', '0712546325', '1949-08-08', 'Male', 'abene11@twitter.com', '26', 'ABC', 42, 'T', 'AEO', 0, 0, 0),
+('759343953v', 'Putnem Farres', '0712546325', '1966-09-01', 'Male', 'pfarres10@nba.com', '73', 'ABC', 60, 'T', 'voter', 0, 0, 0),
+('865539704v', 'Fleur Sill', '0712546325', '1944-06-26', 'Female', 'fsillz@tiny.cc', '13', 'ABC', 56, 'T', 'voter', 0, 0, 0),
+('830930394v', 'Tommi Wilgar', '0712546325', '1953-07-19', 'Female', 'twilgary@si.edu', '34', 'ABC', 21, 'T', 'voter', 0, 0, 0),
+('482897325v', 'Earl Oloshkin', '0712546325', '1975-04-16', 'Male', 'eoloshkinx@xing.com', '26', 'ABC', 78, 'T', 'voter', 0, 0, 0),
+('883735269v', 'Wyn Merryfield', '0712546325', '1960-05-14', 'Male', 'wmerryfieldw@moonfruit.com', '29', 'ABC', 62, 'T', 'voter', 0, 0, 0),
+('673431682v', 'Dulcie Fishbie', '0712546325', '1974-04-16', 'Female', 'dfishbiev@naver.com', '8', 'ABC', 51, 'T', 'voter', 0, 0, 0),
+('648921656v', 'Dominica Wildbore', '0712546325', '1991-05-05', 'Female', 'dwildboreu@multiply.com', '11', 'ABC', 107, 'T', 'voter', 0, 0, 0),
+('567921439v', 'Darice Vertigan', '0712546325', '1958-03-13', 'Female', 'dvertigant@bigcartel.com', '12', 'ABC', 13, 'T', 'voter', 0, 0, 0),
+('599405907v', 'Alva Prawle', '0712546325', '1970-10-12', 'Male', 'aprawles@smh.com.au', '2', 'ABC', 26, 'T', 'AEO', 0, 0, 0),
+('523165773v', 'Demetrius Didsbury', '0712546325', '1981-10-22', 'Male', 'ddidsburyr@washington.edu', '99', 'ABC', 55, 'T', 'voter', 0, 0, 0),
+('554943727v', 'Maribel McDougall', '0712546325', '1961-10-08', 'Female', 'mmcdougallq@scribd.com', '31', 'ABC', 125, 'T', 'voter', 0, 0, 0),
+('987830651v', 'Jemimah Hugonneau', '0712546325', '1997-11-09', 'Female', 'jhugonneaup@people.com.cn', '16', 'ABC', 45, 'T', 'AEO', 0, 0, 0),
+('520412498v', 'Thorsten Dunkinson', '0712546325', '1993-09-29', 'Male', 'tdunkinsono@jimdo.com', '50', 'ABC', 125, 'T', 'voter', 0, 0, 0),
+('988605107v', 'Baron Friskey', '0712546325', '1955-01-22', 'Male', 'bfriskeyn@auda.org.au', '54', 'ABC', 119, 'S', 'voter', 0, 0, 0),
+('894305972v', 'Arel Sayton', '0712546325', '1947-10-30', 'Male', 'asaytonm@patch.com', '70', 'ABC', 2, 'S', 'voter', 0, 0, 0),
+('923652223v', 'Pip Thyer', '0712546325', '1985-09-17', 'Male', 'pthyerl@miibeian.gov.cn', '93', 'ABC', 38, 'S', 'voter', 0, 0, 0),
+('472153996v', 'Elnore Bengoechea', '0712546325', '1993-09-07', 'Female', 'ebengoecheak@psu.edu', '7', 'ABC', 158, 'T', 'voter', 0, 0, 0),
+('795173537v', 'Genni Farnell', '0712546325', '1954-10-16', 'Female', 'gfarnellj@addtoany.com', '47', 'ABC', 121, 'S', 'voter', 0, 0, 0),
+('644008353v', 'Melosa Pulley', '0712546325', '1948-12-30', 'Female', 'mpulleyi@sourceforge.net', '16', 'ABC', 79, 'S', 'voter', 0, 0, 0),
+('674760741v', 'Caddric Surcombe', '0712546325', '1965-11-01', 'Male', 'csurcombeh@hibu.com', '63', 'ABC', 37, 'S', 'voter', 0, 0, 0),
+('967076386v', 'Malcolm Lintall', '0712546325', '1995-08-11', 'Male', 'mlintallg@godaddy.com', '58', 'ABC', 157, 'S', 'voter', 0, 0, 0),
+('452248157v', 'Adrian Golling', '0712546325', '1953-01-25', 'Female', 'agollingf@hao123.com', '73', 'ABC', 5, 'S', 'voter', 0, 0, 0),
+('956244501v', 'Christean Stenson', '0712546325', '1991-08-05', 'Female', 'cstensone@dedecms.com', '28', 'ABC', 121, 'S', 'AEO', 0, 0, 0),
+('806901427v', 'Meir Skin', '0712546325', '1954-09-02', 'Male', 'mskind@mapquest.com', '69', 'ABC', 79, 'S', 'voter', 0, 0, 0),
+('666951333v', 'Allard Wardell', '0712546325', '1947-10-27', 'Male', 'awardellc@cafepress.com', '71', 'ABC', 153, 'S', 'voter', 0, 0, 0),
+('675110692v', 'Eba Key', '0712546325', '1963-09-29', 'Female', 'ekeyb@geocities.jp', '18', 'ABC', 158, 'S', 'voter', 0, 0, 0),
+('524068270v', 'Ferguson Gillanders', '0712546325', '1976-08-17', 'Male', 'fgillandersa@comsenz.com', '27', 'ABC', 31, 'S', 'voter', 0, 0, 0),
+('600884328v', 'Fitz Dyott', '0712546325', '1948-09-18', 'Male', 'fdyott9@nih.gov', '74', 'ABC', 39, 'S', 'voter', 0, 0, 0),
+('920303618v', 'Francois Cresser', '0712546325', '1976-12-24', 'Male', 'fcresser8@behance.net', '78', 'ABC', 159, 'S', 'voter', 0, 0, 0),
+('984094551v', 'Jayne Curror', '0712546325', '1951-09-22', 'Female', 'jcurror7@nps.gov', '94', 'ABC', 10, 'S', 'voter', 0, 0, 0),
+('532854731v', 'Case Klemencic', '0712546325', '1984-02-10', 'Male', 'cklemencic6@example.com', '65', 'ABC', 95, 'S', 'voter', 0, 0, 0),
+('585186415v', 'Charisse Phelps', '0712546325', '1957-11-23', 'Female', 'cphelps5@delicious.com', '28', 'ABC', 141, 'S', 'AEO', 0, 0, 0),
+('470346999v', 'Daveen Lamdin', '0712546325', '1963-01-26', 'Female', 'dlamdin4@chicagotribune.com', '48', 'ABC', 100, 'S', 'AEO', 0, 0, 0),
+('582538870v', 'Rosamund Shilliday', '0712546325', '1950-08-03', 'Female', 'rshilliday3@prweb.com', '84', 'ABC', 128, 'S', 'voter', 0, 0, 0),
+('475696190v', 'Kasey Wills', '0712546325', '1965-07-27', 'Female', 'kwills2@linkedin.com', '57', 'ABC', 133, 'S', 'voter', 0, 0, 0),
+('836958912v', 'Harlan Shillaber', '0712546325', '1980-05-22', 'Male', 'hshillaber1@addthis.com', '16', 'ABC', 109, 'S', 'voter', 0, 0, 0),
+('676873731v', 'Caria Copozio', '0712546325', '1965-03-24', 'Female', 'ccopozio0@si.edu', '21', 'ABC', 94, 'S', 'voter', 0, 0, 0),
+('903009121v', 'Gwenette Dowey', '0712546325', '1989-09-19', 'Female', 'gdowey29@dmoz.org', '21', 'ABC', 35, 'E', 'voter', 0, 0, 0),
+('576536998v', 'Cherye Basterfield', '0712546325', '1954-05-02', 'Female', 'cbasterfield2a@china.com.cn', '7', 'ABC', 53, 'E', 'voter', 0, 0, 0),
+('624828269v', 'Skye Coils', '0712546325', '1945-08-29', 'Male', 'scoils2b@thetimes.co.uk', '97', 'ABC', 23, 'S', 'voter', 0, 0, 0),
+('780039396v', 'Allen Le Brun', '0712546325', '1996-03-06', 'Male', 'ale2c@umn.edu', '65', 'ABC', 157, 'E', 'voter', 0, 0, 0),
+('537689789v', 'Linc Squirrell', '0712546325', '1955-01-25', 'Male', 'lsquirrell2d@jugem.jp', '42', 'ABC', 53, 'E', 'voter', 0, 0, 0),
+('574483400v', 'Sib Merwe', '0712546325', '1996-01-09', 'Female', 'smerwe2e@blogspot.com', '17', 'ABC', 65, 'S', 'voter', 0, 0, 0),
+('479099544v', 'Wadsworth McNern', '0712546325', '1950-09-08', 'Male', 'wmcnern2f@zimbio.com', '74', 'ABC', 111, 'S', 'voter', 0, 0, 0),
+('525891517v', 'Ryan Merioth', '0712546325', '1982-07-27', 'Male', 'rmerioth2g@google.es', '63', 'ABC', 60, 'E', 'voter', 0, 0, 0),
+('709716149v', 'Tate Merdew', '0712546325', '1952-12-22', 'Female', 'tmerdew2h@sbwire.com', '99', 'ABC', 154, 'E', 'voter', 0, 0, 0),
+('966568770v', 'Melva Daintree', '0712546325', '1984-07-06', 'Female', 'mdaintree2i@yelp.com', '51', 'ABC', 48, 'E', 'voter', 0, 0, 0),
+('742282360v', 'Ingamar Phebey', '0712546325', '1989-12-17', 'Male', 'iphebey2j@si.edu', '66', 'ABC', 14, 'E', 'voter', 0, 0, 0),
+('495321759v', 'Ingeberg Rodear', '0712546325', '1975-01-17', 'Female', 'irodear2k@mlb.com', '31', 'ABC', 129, 'S', 'voter', 0, 0, 0),
+('687283641v', 'Shelby Rumens', '0712546325', '1995-03-20', 'Male', 'srumens2l@cpanel.net', '39', 'ABC', 8, 'E', 'voter', 0, 0, 0),
+('665716593v', 'Connie Kalinke', '0712546325', '1951-12-16', 'Female', 'ckalinke2m@freewebs.com', '99', 'ABC', 34, 'S', 'voter', 0, 0, 0),
+('448404080v', 'Billy Middlehurst', '0712546325', '1970-01-07', 'Female', 'bmiddlehurst2n@dailymotion.com', '75', 'ABC', 22, 'E', 'AEO', 0, 0, 0),
+('988710356v', 'Radcliffe Gilyott', '0712546325', '1969-11-16', 'Male', 'rgilyott2o@discovery.com', '41', 'ABC', 102, 'S', 'AEO', 0, 0, 0),
+('452094787v', 'Paola Falks', '0712546325', '1948-04-16', 'Female', 'pfalks2p@craigslist.org', '48', 'ABC', 83, 'E', 'AEO', 0, 0, 0),
+('974688009v', 'Jerry Bobasch', '0712546325', '1954-06-28', 'Male', 'jbobasch2q@si.edu', '28', 'ABC', 44, 'E', 'AEO', 0, 0, 0),
+('868978766v', 'Saree McGann', '0712546325', '1984-11-23', 'Female', 'smcgann2r@columbia.edu', '13', 'ABC', 38, 'E', 'voter', 0, 0, 0),
+('123456789v', 'Mahinda Deshapriya', '0712546325', '1968-04-05', 'Male', 'tg2017233@gmail.com', '123456789v', '', 46, 'S', 'admin', 0, 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
