@@ -14,9 +14,8 @@
 
 <?php
     $divi_id=$_GET['id'];
-    $party_query="select vt.name as name,SUM(`preference`) as vote from `vote` v, `voter` vt WHERE v.candidate_id=vt.nic AND vt.divi_id={$divi_id} GROUP BY `candidate_id`";
+    $party_query="SELECT vt.name as name ,sum(preference) as vote from `vote` v, `voter` vt WHERE vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
     $party_result=$con->query($party_query);
-    //$party_result=mysqli_query($con,$party_query);
 
 ?>
 
@@ -65,10 +64,10 @@
             var data = google.visualization.arrayToDataTable([
                 ['name','vote'],
                 <?php
-                  /* while($row=$party_result->fetch_assoc()){
+                   while($row=$party_result->fetch_assoc()){
                         echo  "[' ".$row['name']."' ,".$row['vote']."],";
                    }
-                   */
+                   
                 ?>
                 
                /* ['Task', 'Hours per Day'],
@@ -122,7 +121,18 @@
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Division Result</big><br><small>Result</small></span>
+                            <span class="font-weight-bold"><big>
+                                <?php
+                                    $query="SELECT * FROM `division` WHERE id={$divi_id}";
+                                    $divi_result=mysqli_query($con,$query);
+                                    if($divi_result){
+                                        $recode=mysqli_fetch_assoc($divi_result);
+                                        echo "$recode[name]";
+                                    }else{
+                                        echo "error";
+                                    }
+                                ?>
+                                Division Result</big><br><small>Result</small></span>
                         </div>
                     </div>
                     
