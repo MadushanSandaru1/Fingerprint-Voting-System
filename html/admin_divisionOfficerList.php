@@ -35,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Voter List | FVS</title>
+        <title>Division officer List | FVS</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,7 +87,7 @@
                             <i class="fas fa-user fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Division officer</big><br><small>Division officer</small></span>
+                            <span class="font-weight-bold"><big>Division officer List</big><br><small>Division officer</small></span>
                         </div>
                     </div>
 
