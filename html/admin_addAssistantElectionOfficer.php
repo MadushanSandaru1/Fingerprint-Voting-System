@@ -33,7 +33,7 @@
         if(mysqli_num_rows($take_email)==1){
             $recode=mysqli_fetch_assoc($take_email);
             $email=$recode['email'];
-           // echo $email;
+           echo $email;
         }
 		
 	}else{
