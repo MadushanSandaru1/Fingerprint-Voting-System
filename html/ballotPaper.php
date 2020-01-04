@@ -4,11 +4,36 @@
 
     session_start();
 
-    $get_parties = "SELECT `id`, `name_en`, `name_si`, `name_ta`,  `color`, `symbol`  FROM `party` WHERE  `is_deleted` = 0;";
 
+    //calculate_votes
+    if (isset($_POST)) {
+        var_dump($_POST);
+    }
+
+
+
+    if ($_SESSION['election_name_en']=='Presidential Election') {
+        
+        $get_cand_parties =  "SELECT c.`nic`,c.`party_id`, p.`symbol`, v.`name` as 'name_en' , c.`name_si`,c.`name_ta` FROM `candidate`c, `voter` v, `party` p WHERE c.`nic` = v.`nic` AND p.`id` = c.`party_id`";
+
+    }else if ($_SESSION['election_name_en']=='Parliamentary Election') {
+        
+        $get_parties = "SELECT `id`, `name_en`, `name_si`, `name_ta`, `symbol`  FROM `party` WHERE  `is_deleted` = 0";
+
+    } else if ($_SESSION['election_name_en']=='Provincial Council Elections') {
+        
+        $get_parties = "SELECT `id`, `name_en`, `name_si`, `name_ta`, `symbol`  FROM `party` WHERE  `is_deleted` = 0";
+
+    } else if ($_SESSION['election_name_en']=='Local Authorities Election') {
+        
+        $get_parties = "SELECT `id`, `name_en`, `name_si`, `name_ta`, `symbol`  FROM `party` WHERE  `is_deleted` = 0";
+
+    }
+
+   
 
     //Get available parties
-    $resultset = mysqli_query($con,$get_parties);
+    $resultset = mysqli_query($con,$get_cand_parties);
 
 
  ?>
@@ -64,7 +89,7 @@
         
         <script type="application/javascript">
 
-            function highlight(){
+            /*function highlight(){
                 var table = document.getElementById('dataTable');
                 for (var i=0;i < table.rows.length;i++){
                     table.rows[i].onclick= function () {
@@ -79,35 +104,60 @@
                     }
                 }
              }
-            }
+            }*/
 
 
-            mark_vote_btn.vote_count = [3,2,1];
+            mark_vote_btn123.vote_count = [3,2,1];
             
-            function mark_vote_btn(btn_id)
+            function mark_vote_btn123(btn_id)
             {
+                
                 
                 if (document.getElementById(btn_id).value==" ") {
 
-                    if (mark_vote_btn.vote_count.length>=1) {
-                        document.getElementById(btn_id).value=mark_vote_btn.vote_count.pop();
+                    if (mark_vote_btn123.vote_count.length>=1) {
+                        document.getElementById(btn_id).value=mark_vote_btn123.vote_count.pop();
                         document.getElementById(btn_id).className = "btn btn-outline-danger";
+                    }
+                    
+                }
+                else{
+              
+                    mark_vote_btn123.vote_count.push(document.getElementById(btn_id).value);
+                    document.getElementById(btn_id).value=" ";
+                    document.getElementById(btn_id).className = "btn btn-outline-secondary";
+                    mark_vote_btn123.vote_count.sort();
+                    mark_vote_btn123.vote_count.reverse();
+                    
+                                     
+                }
+                
+            }
+
+
+            mark_vote_btnX.X = 0;
+            function mark_vote_btnX(btn_id)
+            {   
+               
+                
+                if (document.getElementById(btn_id).value==" ") {
+
+                    if(mark_vote_btnX.X<=0){
+                        document.getElementById(btn_id).value="X";
+                        document.getElementById(btn_id).className = "btn btn-outline-danger";
+                        mark_vote_btnX.X = 1;
                     }
     
                 }
                 else{
-              
-                    mark_vote_btn.vote_count.push(document.getElementById(btn_id).value);
+                    
                     document.getElementById(btn_id).value=" ";
                     document.getElementById(btn_id).className = "btn btn-outline-secondary";
-                    mark_vote_btn.vote_count.sort();
-                    mark_vote_btn.vote_count.reverse();
-                   
-                    
+                    mark_vote_btnX.X = 0;
+                      
                 }
                 
             }
-
 
 
         </script>
@@ -132,13 +182,22 @@
                                     
                                     echo "<tr>";
                                     echo "<td><img src={$party['symbol']} class='card-img' style='width:100px;'> </td>";
-                                    echo "<td class='align-middle'> 
-                                            <h5> {$party['name_si']} </h5>
-                                            <h5> {$party['name_ta']} </h5>
-                                            <h5> {$party['name_en']} </h5>
-                                         </td>";
-                                    echo " <td class='align-middle text-center'> </td>";
+
+                                    echo "<td class='align-middle'>";
+                                    if ($_SESSION['language']=="S") {
+                                        echo "<h5> {$party['name_si']} </h5>";
+                                    }else if ($_SESSION['language']=="E") {
+                                        echo "<h5> {$party['name_en']} </h5>";
+                                    }else if ($_SESSION['language']=="T") {
+                                        echo "<h5> {$party['name_ta']} </h5>";
+                                    }
+                                    echo "</td>";
+
+                                    echo "<input type='hidden' name='cand_nic' value=\"{$party['nic']}\" >";
+
+                                    echo " <td class='align-middle text-center'> <input class=\"btn btn-outline-secondary\" type=\"button\" id=\"{$party['nic']}\" name='vote_btn' value=' ' onclick='mark_vote_btnX(\"{$party['nic']}\" )' style='width:80px;height:80px;font-size:30px' >  </td>";
                                     echo "</tr>";
+
 
                                 }
                                 echo "</table>";
@@ -164,8 +223,8 @@
 
                                         if($i%6==1){echo "<tr>";}
                                         echo "<div class=\"btn-group\">";
-                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}' onclick='mark_vote_btn({$i})'>";
-                                        echo "<input class=\"btn btn-outline-secondary\" type='button' id={$i} name='vote_btn' value=' ' onclick='mark_vote_btn({$i})' > </td>";
+                                        echo "<td> <input class=\"btn btn-outline-secondary\" type='button' name='vote_btn' value='{$i}' onclick='mark_vote_btn123({$i})'>";
+                                        echo "<input class=\"btn btn-outline-secondary\" type='button' id={$i} name='vote_btn' value=' ' onclick='mark_vote_btn123({$i})' > </td>";
                                         echo "</div>";
                                         if($i%6==0){echo "</tr>";}
 
@@ -247,7 +306,7 @@
                          ?>
                     
                     
-                    <button type="submit" class="btn btn-primary vote float-right"><img src="../img/elections.png"></button>
+                    <input type="submit" class="btn btn-primary vote float-right" name="submit">
                 </form>
             
             </div>
