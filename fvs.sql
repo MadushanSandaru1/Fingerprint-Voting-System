@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 04, 2020 at 04:55 AM
+-- Generation Time: Jan 04, 2020 at 06:35 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -102,14 +102,38 @@ CREATE TABLE IF NOT EXISTS `candidate` (
   `schedule_id` int(11) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `candidate`
 --
 
 INSERT INTO `candidate` (`id`, `nic`, `party_id`, `image`, `name_si`, `name_ta`, `schedule_id`, `is_deleted`) VALUES
-(1, '827152364v', 1, '../img/candidate/candidate_default.png', 'පියුමි දිසානායක', 'பியுமி திசனாநாயக்க', 1, 0);
+(1, '567921439v', 12, '../img/candidate/', 'à¶©à·à¶»à·’à·ƒà·Š à·€à¶»à·Šà¶§à·’à¶œà¶±à·Š', 'à®Ÿà¯‡à®°à®¿à®¸à¯ à®µà¯†à®°à¯à®Ÿà®¿à®•à®©à¯', 1, 0),
+(2, '506712485v', 10, '../img/candidate/', 'à¶©à·šà·€à·’à¶©à·Š à¶¸à·™à¶½à·Šà¶§à·™à¶§à¶½à·Š', 'à®Ÿà¯‡à®µà®¿à®Ÿà¯ à®®à¯†à®²à¯à®Ÿà¯†à®Ÿà¯à®Ÿà®²à¯', 1, 0),
+(3, '452248157v', 1, '../img/candidate/', 'à¶’à¶©à·Šâ€à¶»à·’à¶ºà¶±à·Š à¶œà·œà¶½à·’à¶‚', 'à®…à®Ÿà¯à®°à®¿à®¯à®©à¯ à®•à¯‹à®²à®¿à®™à¯', 1, 0),
+(4, '555859822v', 7, '../img/candidate/', 'à¶¶à·à¶»à¶§à·Š à¶´à·”à·ƒà·Š', 'à®ªà®¾à®°à¯†à®Ÿà¯ à®®à¯‹à®²à¯à®Ÿà¯à®¸à¯', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disabled_card`
+--
+
+DROP TABLE IF EXISTS `disabled_card`;
+CREATE TABLE IF NOT EXISTS `disabled_card` (
+  `card_id` bigint(12) NOT NULL,
+  `pin` int(5) NOT NULL,
+  `nic` char(12) NOT NULL,
+  PRIMARY KEY (`card_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `disabled_card`
+--
+
+INSERT INTO `disabled_card` (`card_id`, `pin`, `nic`) VALUES
+(758241360254, 12345, '988605107v');
 
 -- --------------------------------------------------------
 
@@ -355,8 +379,11 @@ CREATE TABLE IF NOT EXISTS `division_officer` (
 
 INSERT INTO `division_officer` (`nic`, `password`, `work_divi_id`, `is_deleted`) VALUES
 ('542893419v', '63767', 36, 0),
+('596579933v', '73455', 124, 0),
+('634006397v', '85214', 66, 0),
 ('802360140v', '35109', 36, 0),
-('827152364v', '45551', 36, 0);
+('827152364v', '45551', 36, 0),
+('836958912v', '59202', 36, 0);
 
 -- --------------------------------------------------------
 
@@ -397,14 +424,14 @@ CREATE TABLE IF NOT EXISTS `election_schedule` (
   `date_to` datetime NOT NULL,
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `election_schedule`
 --
 
 INSERT INTO `election_schedule` (`id`, `type`, `date_from`, `date_to`, `is_deleted`) VALUES
-(1, 2, '2020-01-01 00:00:00', '2020-01-10 01:30:00', 0);
+(1, 1, '2020-01-04 08:00:58', '2020-01-04 16:00:58', 0);
 
 -- --------------------------------------------------------
 
@@ -426,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `inspector` (
 --
 
 INSERT INTO `inspector` (`nic`, `password`, `schedule_id`, `is_deleted`) VALUES
-('542893419V', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1, 0);
+('966568770v', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -441,14 +468,6 @@ CREATE TABLE IF NOT EXISTS `participate` (
   `voter_nic` char(12) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `participate`
---
-
-INSERT INTO `participate` (`id`, `schedule_id`, `voter_nic`) VALUES
-(1, 1, '902360140v'),
-(2, 1, '827152364v');
 
 -- --------------------------------------------------------
 
@@ -486,13 +505,12 @@ INSERT INTO `party` (`id`, `name_en`, `name_si`, `name_ta`, `secretary_name`, `c
 (7, 'Jathika Hela Urumaya', 'ජාතික හෙළ උරුමය', 'ஜாதிக ஹெல உறுமய ', 'Patalie Champika Ranawaka', '011 286612', '2004-04-02', '964/2, Pannipitiya Road, Battaramulla', '', '../img/partySymbol/7.png', 0),
 (8, 'New Democratic Front', 'නව ප්‍රජාතන්ත්‍රවාදී පෙරමුණ', 'புதிய ஜனநாயக முன்னணி ', 'Shamila Perera', '0112785531', '1995-05-15', '9/6, Jayanthi Mawatha, Pelawatte, Battaramulla', '', '../img/partySymbol/8.png', 0),
 (9, 'Nawa Sama Samaja Party ', 'නව සමසමාජ පක්ෂය', 'நவ சம சமாஜக் கட்சி', 'Wickramabahu Karunaratne', '0112430621', '1997-12-15', '17, Barracks Lane, Colombo 02', '', '../img/partySymbol/9.png', 0),
-(10, 'Frontline Socialist Party', 'පෙරටුගාමී සමාජවාදී පක්ෂය', 'முன்னிலை சோஷலிஸ கட்சி ', 'Senadheera Gunathilake', '  01128374', '2012-04-09', '553/B2, Gemunu Mavatha, Udumulla Road, Battaramulla', '', '../img/partySymbol/10.png', 0),
-(11, 'Muslim National Alliance', 'මුස්ලිම් ජාතික සන්ධානය', 'முஸ்லிம் தேசிய கூட்டமைப்பு', 'Masihudeen Naeemullah', '0112697505', '2018-09-12', '258, Katugastota Road, Kandy', '', '../img/partySymbol/11.png', 0),
-(12, 'Ceylon Worker\'s Congress ', 'ලංකා කම්කරු කොංග්‍රසය ', 'இலங்கை தொழிலாளர் காங்கிரஸ் ', 'Anusha Sivaraja', '0112574524', '1939-05-04', '72, Ananda Coomaraswamy Mawatha, Colombo 07', '', '../img/partySymbol/12.png', 0),
+(10, 'Frontline Socialist Party', 'පෙරටුගාමී සමාජවාදී පක්ෂය', 'முன்னிலை சோஷலிஸ கட்சி ', 'Senadheera Gunathilake', '  01128374', '2012-04-09', '553/B2, Gemunu Mavatha, Udumulla Road, Battaramulla', '', '../img/partySymbol/party_default.png', 0),
+(11, 'Muslim National Alliance', 'මුස්ලිම් ජාතික සන්ධානය', 'முஸ்லிம் தேசிய கூட்டமைப்பு', 'Masihudeen Naeemullah', '0112697505', '2018-09-12', '258, Katugastota Road, Kandy', '', '../img/partySymbol/party_default.png', 0),
+(12, 'Ceylon Worker\'s Congress ', 'ලංකා කම්කරු කොංග්‍රසය ', 'இலங்கை தொழிலாளர் காங்கிரஸ் ', 'Anusha Sivaraja', '0112574524', '1939-05-04', '72, Ananda Coomaraswamy Mawatha, Colombo 07', '', '../img/partySymbol/party_default.png', 0),
 (13, 'Sri Lanka Podujana Peramuna ', 'ශ්‍රී ලංකා පොදුජන පෙරමුණ', 'ஸ்ரீ லங்கா பொதுஜன பெரமுன', 'Sagara Kariyawasam', '0112518565', '2016-11-06', '8/11, Robert Alwis Mawatha, Boralesgamuwa', '', '../img/partySymbol/13.png', 0),
-(14, 'Sri Lanka Muslim Congress', 'ශ්‍රී ලංකා මුස්ලිම් කොංග්‍රසය', 'Sri Lanka Muslim Congress', 'M. Nizam Kariappar', '0112436752', '1981-09-11', '“Darus Salam” 51, Vauxhall Lane, Colombo 02', '', '../img/partySymbol/14.png', 0),
-(15, 'Socialist Alliance', 'සමාජවාදී ජනතා පෙරමුණ', 'சோஷலிஸ மக்கள் முன்னணி', 'D.C. Raja Collure', '0112695328', '2006-07-08', '91, Dr. N.M. Perera Mawatha, Colombo 08', '', '../img/partySymbol/15.png', 0),
-(27, 'Th', 'à¶¢à¶±à·à¶°à·’à¶´à¶­à·’à·€à¶»à¶«à¶º', 'à®œà®©à®¾à®¤à®¿à®ªà®¤à®¿à®¤à¯ à®¤à¯‡à®°à¯à®¤à®²à¯', 'Akila Viraj Kariyawasam', '0775236985', '2020-01-02', 'jdfh', '#c7017f', '../img/partySymbol/', 0);
+(14, 'Sri Lanka Muslim Congress', 'ශ්‍රී ලංකා මුස්ලිම් කොංග්‍රසය', 'Sri Lanka Muslim Congress', 'M. Nizam Kariappar', '0112436752', '1981-09-11', '“Darus Salam” 51, Vauxhall Lane, Colombo 02', '', '../img/partySymbol/party_default.png', 0),
+(15, 'Socialist Alliance', 'සමාජවාදී ජනතා පෙරමුණ', 'சோஷலிஸ மக்கள் முன்னணி', 'D.C. Raja Collure', '0112695328', '2006-07-08', '91, Dr. N.M. Perera Mawatha, Colombo 08', '', '../img/partySymbol/party_default.png', 0);
 
 -- --------------------------------------------------------
 
@@ -536,14 +554,6 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `preference` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`,`schedule_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=965421728 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `vote`
---
-
-INSERT INTO `vote` (`id`, `schedule_id`, `candidate_id`, `preference`) VALUES
-(2, '1', '1', 1),
-(1, '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -596,7 +606,7 @@ INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fing
 ('677701039v', 'Elmer Luckin', '0712546325', '1987-04-02', 'Male', 'eluckin1q@addtoany.com', '90', 'ABC', 140, 'E', 'voter', 0, 0, 0),
 ('454139033v', 'Wenona Shilburne', '0712546325', '1948-06-14', 'Female', 'wshilburne1p@tmall.com', '100', 'ABC', 16, 'T', 'AEO', 0, 0, 0),
 ('711129498v', 'Jade Monro', '0712546325', '1985-09-04', 'Female', 'jmonro1o@umn.edu', '81', 'ABC', 131, 'E', 'voter', 0, 0, 0),
-('596579933v', 'Pavla Laurisch', '0712546325', '1976-12-09', 'Female', 'plaurisch1n@accuweather.com', '16', 'ABC', 8, 'T', 'voter', 0, 0, 0),
+('596579933v', 'Pavla Laurisch', '0712546325', '1976-12-09', 'Female', 'plaurisch1n@accuweather.com', '16', 'ABC', 8, 'T', 'DO', 0, 0, 0),
 ('818915955v', 'Michelina Hurdiss', '0712546325', '1947-12-27', 'Female', 'mhurdiss1m@illinois.edu', '50', 'ABC', 8, 'T', 'voter', 0, 0, 0),
 ('968601431v', 'Nehemiah MacCumeskey', '0712546325', '1964-06-21', 'Male', 'nmaccumeskey1l@istockphoto.com', '88', 'ABC', 38, 'T', 'AEO', 0, 0, 0),
 ('443116652v', 'Elliott Pilfold', '0712546325', '1984-10-26', 'Male', 'epilfold1k@webnode.com', '92', 'ABC', 154, 'T', 'AEO', 0, 0, 0),
@@ -613,7 +623,7 @@ INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fing
 ('719081931v', 'Tracie Oram', '0712546325', '1997-02-27', 'Male', 'toram19@mysql.com', '76', 'ABC', 65, 'T', 'voter', 0, 0, 0),
 ('470845149v', 'Bibbye Arlett', '0712546325', '1979-05-05', 'Female', 'barlett18@va.gov', '37', 'ABC', 100, 'T', 'voter', 0, 0, 0),
 ('693507280v', 'Deeyn Jillis', '0712546325', '1985-01-01', 'Female', 'djillis17@printfriendly.com', '48', 'ABC', 20, 'T', 'AEO', 0, 0, 0),
-('634006397v', 'Humbert Fairlem', '0712546325', '1994-02-11', 'Male', 'hfairlem16@lulu.com', '94', 'ABC', 43, 'T', 'voter', 0, 0, 0),
+('634006397v', 'Humbert Fairlem', '0712546325', '1994-02-11', 'Male', 'hfairlem16@lulu.com', '94', 'ABC', 43, 'T', 'DO', 0, 0, 0),
 ('868727971v', 'Junette Antonelli', '0712546325', '1988-01-15', 'Female', 'jantonelli15@prnewswire.com', '20', 'ABC', 124, 'T', 'voter', 0, 0, 0),
 ('611863961v', 'Walker Kornalik', '0712546325', '1971-01-04', 'Male', 'wkornalik14@eepurl.com', '42', 'ABC', 159, 'T', 'voter', 0, 0, 0),
 ('764874253v', 'Ephrayim Hotson', '0712546325', '1973-01-27', 'Male', 'ehotson13@twitter.com', '41', 'ABC', 17, 'T', 'voter', 0, 0, 0),
@@ -632,7 +642,7 @@ INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fing
 ('554943727v', 'Maribel McDougall', '0712546325', '1961-10-08', 'Female', 'mmcdougallq@scribd.com', '31', 'ABC', 125, 'T', 'voter', 0, 0, 0),
 ('987830651v', 'Jemimah Hugonneau', '0712546325', '1997-11-09', 'Female', 'jhugonneaup@people.com.cn', '16', 'ABC', 45, 'T', 'AEO', 0, 0, 0),
 ('520412498v', 'Thorsten Dunkinson', '0712546325', '1993-09-29', 'Male', 'tdunkinsono@jimdo.com', '50', 'ABC', 125, 'T', 'voter', 0, 0, 0),
-('988605107v', 'Baron Friskey', '0712546325', '1955-01-22', 'Male', 'bfriskeyn@auda.org.au', '54', 'ABC', 119, 'S', 'voter', 0, 0, 0),
+('988605107v', 'Baron Friskey', '0712546325', '1955-01-22', 'Male', 'bfriskeyn@auda.org.au', '54', 'ABC', 119, 'S', 'voter', 1, 0, 0),
 ('894305972v', 'Arel Sayton', '0712546325', '1947-10-30', 'Male', 'asaytonm@patch.com', '70', 'ABC', 2, 'S', 'voter', 0, 0, 0),
 ('923652223v', 'Pip Thyer', '0712546325', '1985-09-17', 'Male', 'pthyerl@miibeian.gov.cn', '93', 'ABC', 38, 'S', 'voter', 0, 0, 0),
 ('472153996v', 'Elnore Bengoechea', '0712546325', '1993-09-07', 'Female', 'ebengoecheak@psu.edu', '7', 'ABC', 158, 'T', 'voter', 0, 0, 0),
@@ -654,7 +664,7 @@ INSERT INTO `voter` (`nic`, `name`, `contact`, `b_day`, `gender`, `email`, `fing
 ('470346999v', 'Daveen Lamdin', '0712546325', '1963-01-26', 'Female', 'dlamdin4@chicagotribune.com', '48', 'ABC', 100, 'S', 'AEO', 0, 0, 0),
 ('582538870v', 'Rosamund Shilliday', '0712546325', '1950-08-03', 'Female', 'rshilliday3@prweb.com', '84', 'ABC', 128, 'S', 'voter', 0, 0, 0),
 ('475696190v', 'Kasey Wills', '0712546325', '1965-07-27', 'Female', 'kwills2@linkedin.com', '57', 'ABC', 133, 'S', 'voter', 0, 0, 0),
-('836958912v', 'Harlan Shillaber', '0712546325', '1980-05-22', 'Male', 'hshillaber1@addthis.com', '16', 'ABC', 109, 'S', 'voter', 0, 0, 0),
+('836958912v', 'Harlan Shillaber', '0712546325', '1980-05-22', 'Male', 'hshillaber1@addthis.com', '16', 'ABC', 109, 'S', 'DO', 0, 0, 0),
 ('676873731v', 'Caria Copozio', '0712546325', '1965-03-24', 'Female', 'ccopozio0@si.edu', '21', 'ABC', 94, 'S', 'voter', 0, 0, 0),
 ('903009121v', 'Gwenette Dowey', '0712546325', '1989-09-19', 'Female', 'gdowey29@dmoz.org', '21', 'ABC', 35, 'E', 'voter', 0, 0, 0),
 ('576536998v', 'Cherye Basterfield', '0712546325', '1954-05-02', 'Female', 'cbasterfield2a@china.com.cn', '7', 'ABC', 53, 'E', 'voter', 0, 0, 0),
