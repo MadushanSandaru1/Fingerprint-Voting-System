@@ -11,8 +11,7 @@
         $nic_code =  mysqli_real_escape_string($con,trim($_POST['nic_code']));
         
         /* login query */
-        //$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
-
+     
         $login_qurey = " SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}' ";
 
         $check_user_is_voted = " SELECT * FROM `participate` WHERE  `schedule_id` = {$_SESSION['inspector_schedule_id']} AND `voter_nic`= '{$nic_code}' ";
@@ -120,9 +119,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="fingerprint mt-5">ඔබගේ රහස් කේතය ඇතුළත් කරන්න</h1>
-                    <h1 class="fingerprint mt-4 mb-4">உங்கள் முள் குறியீட்டை உள்ளிடவும்</h1>
-                    <h1 class="fingerprint mt-4 mb-5">Insert your pin code</h1>
+                    <h1 class="fingerprint mt-5">ඔබගේ e ඡන්ද පත්‍රිකාව පරිලෝකනය කරන්න</h1>
+                    <h1 class="fingerprint mt-4 mb-4">உங்கள் மின் வாக்கு அட்டையை ஸ்கேன் செய்யுங்கள்</h1>
+                    <h1 class="fingerprint mt-4 mb-5">Scan your e voting card</h1>
                     <hr>
                     <form action="scan.php" method="post">
 
