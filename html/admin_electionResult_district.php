@@ -13,9 +13,6 @@
 ?>
 
 <?php
-    $party_query="SELECT * FROM `test`";
-    $party_result=$con->query($party_query);
-    //$party_result=mysqli_query($con,$party_query);
 ?>
 
 <!DOCTYPE html>
@@ -53,42 +50,12 @@
         <link href='https://fonts.googleapis.com/css?family=Baloo Chettan' rel='stylesheet'>
         
         
-        <!--Chart-->
         
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                //document.write('<a href="http://www.w3schools.com/js/js_htmldom_html.asp">['name','visit']</a>');
-                ['name','visit'],
-                <?php
-                   while($row=$party_result->fetch_assoc()){
-                        echo  "[' ".$row['name']."' ,".$row['visit']."],";
-                   }            
-                ?>
-                
-               /* ['Task', 'Hours per Day'],
-                ['Wok',     11],
-                ['Eat',      2],
-                ['Commute',  2],
-                ['Watch TV', 2],
-                ['Sleep',    7]
-                */
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-    </script>
-        
-        <!--*****-->
+        <style>
+            .btn{
+                background-color: #8767db;
+            }
+        </style>
         
         
     </head>
@@ -113,13 +80,38 @@
                             <i class="fas fa-tachometer-alt fa-2x"></i>
                         </div>
                         <div class="col-md-11">
-                            <span class="font-weight-bold"><big>Election Result District</big><br><small>District</small></span>
+                            <span class="font-weight-bold"><big>Election Result</big><br><small>Result</small></span>
                         </div>
                     </div>
                     
-                    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-                    
-                    <!-- -------------------------- -->
+                   <!--result table -->
+                   <form>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">District</th>
+                                    <th scope="col">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $dis_query="SELECT dis.id as id,dis.name as name,di.dist_id as dict_id FROM `district` dis, `division` di WHERE dis.id=di.dist_id GROUP BY dis.id";
+                                    $dis_result=mysqli_query($con,$dis_query);
+                                    if($dis_result){
+                                        while($recode=mysqli_fetch_assoc($dis_result)){
+                                            echo "<tr>";
+                                            echo "<td>".$recode['id']."</td>";
+                                            echo "<td>".$recode['name']."</td>";
+                                            echo "<td>"."<a href='admin_viewDistrict.php?id={$recode['dict_id']}'><input type='button' class='btn' value='View Result'></a>"."</td>";
+                                            echo "</tr>";
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </form>   
+                    <!--result table -->
                     
                     
                 </div>
