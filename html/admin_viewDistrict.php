@@ -238,12 +238,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Name </th>
-                                    <th scope="col">නම </th>
-                                    <th scope="col">பெயர்</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Party</th>
-                                    <th scope="col">පක්ෂය </th>
-                                    <th scope="col">கட்சி </th>
                                     <th scope="col">Vote</th>
                                 </tr>
                             </thead>
@@ -273,7 +269,7 @@
                                         
                                     }
                                 
-                                    $dis_query="SELECT p.name_ta as nameT,p.name_si as nameSi,c.name_si as nameS,c.name_ta as nameT,vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
+                                    $dis_query="SELECT c.name_si as nameS ,vt.name,sum(preference) as vote,p.name_en p_name from `vote` v, `voter` vt, candidate c, party p WHERE p.id=c.party_id AND c.nic=v.candidate_id AND vt.nic=v.candidate_id AND v.divi_id={$divi_id} GROUP by candidate_id";
                                     $dis_result=mysqli_query($con,$dis_query);
                                     if($dis_result){
                                         $c=1;
@@ -283,11 +279,7 @@
                                             echo "<tr>";
                                             echo "<td>".$c."</td>";
                                             echo "<td>".$recode['name']."</td>";
-                                            echo "<td>".$recode['nameS']."</td>";
-                                            echo "<td>".$recode['nameT']."</td>";
                                             echo "<td>".$recode['p_name']."</td>";
-                                            echo "<td>".$recode['nameSi']."</td>";
-                                            echo "<td>".$recode['nameT']."</td>";
                                             echo "<td>".$recode['vote']."</td>";
                                             echo "</tr>";
                                             $c++;
@@ -299,9 +291,7 @@
                                         $presentag=($count_vort/$all)*100;
                                         $last_pr=number_format($presentag, 2,'.','');
                                         echo "<tr>";
-                                        echo "<td colspan='5' style='background-color:#caaee8;'>Total number of votes in Division</td>";
-                                         echo "<td style='background-color:#caaee8;'>වසමේ සිටින මුළු ඡන්ද ප්‍රකාශකයින් ගණන</td>";
-                                         echo "<td style='background-color:#caaee8;'>பிரிவில் மொத்த வாக்குகளின் எண்ணிக்கை</td>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Total number of votes in Division</td>";
                                         echo "<td style='background-color:#caaee8;'> $all</td>";
                                          echo "</tr>";
                                         
@@ -309,9 +299,7 @@
                                         fwrite($fp,"\n");
                                         
                                         echo "<tr>";
-                                        echo "<td colspan='5' style='background-color:#caaee8;'>Total number of votes cast Percentage of votes cast</td>";
-                                         echo "<td style='background-color:#caaee8;'>ඡන්දය ප්‍රකාශ කළ මුළු ඡන්ද සංඛ්‍යාව</td>";
-                                         echo "<td style='background-color:#caaee8;'>மொத்த வாக்குகளின் எண்ணிக்கை பதிவான வாக்குகளின் சதவீதம்</td>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Total number of votes castPercentage of votes cast</td>";
                                         echo "<td style='background-color:#caaee8;'>$count_vort</td>";
                                         echo "</tr>";
                                         
@@ -319,9 +307,7 @@
                                         fwrite($fp,"\n");
                                         
                                         echo "<tr>";
-                                        echo "<td colspan='5' style='background-color:#caaee8;'>Number of invalid election results</td>";
-                                        echo "<td  style='background-color:#caaee8;'>අවලංගු ඡන්ද ප්‍රතිඵල ගණන</td>";
-                                        echo "<td  style='background-color:#caaee8;'>தவறான தேர்தல் முடிவுகளின் எண்ணிக்கை</td>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Number of invalid election results</td>";
                                         echo "<td style='background-color:#caaee8;'>$desable</td>";
                                         echo "</tr>";
                                         
@@ -329,9 +315,7 @@
                                         fwrite($fp,"\n");
                                         
                                         echo "<tr>";
-                                        echo "<td colspan='5' style='background-color:#caaee8;'>Percentage of votes cast</td>";
-                                        echo "<td style='background-color:#caaee8;'>ඡන්දය ප්‍රකාශ කළ ප්‍රතිශතය</td>";
-                                        echo "<td style='background-color:#caaee8;'>பதிவான வாக்குகளின் சதவீதம்</td>";
+                                        echo "<td colspan='3' style='background-color:#caaee8;'>Percentage of votes cast</td>";
                                         echo "<td style='background-color:#caaee8;'>$last_pr%</td>";
                                          echo "</tr>";
                                         
@@ -342,7 +326,7 @@
                                         echo "<tr>";
                                         echo "</tr>";
                                         echo "<tr>";
-                                        echo "<td colspan='5'>";
+                                        echo "<td colspan='3'>";
                                               echo  "<input type=\"submit\" name=\"pdf\" class=\"btn\" value=\"Print Result\">";
                                         echo "</td>";
                                         echo "</tr>";
