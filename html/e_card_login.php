@@ -126,7 +126,7 @@
                     <hr>
                     <form action="scan.php" method="post">
 
-                        <img src="../img/barcode.png" class="mt-5"><br>
+                        <img src="../img/bc.gif" class="mt-2" width="160px" height="160px"><br>
 
                         <input type="text" name="nic_code" placeholder="NIC number" class="mt-3"><br>
                         

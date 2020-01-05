@@ -126,15 +126,15 @@
                     <hr>
                     <form action="scan.php" method="post">
                         
-                        <img src="../img/fingerprint.png" class="mt-5"><br>
+                        <img src="../img/fp.gif" class="mt-2" width="160px" height="160px"><br>
 
-                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-3" autocomplete="off"><br>
+                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-2"  autocomplete="off"><br>
                         
                         <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
                     </form>
 
                     <center>
-                    <a href="disabled_persons_login.php" >
+                    <a href="e_card_login.php" >
                         <div class="mt-5 mb-5" style="border:2px solid #555; font-size:24px; width: 600px; padding:5px;">
                             ඔබ ආබාධිත පුද්ගලයෙක් නම්<br>
                             If you are disabled person<br>
