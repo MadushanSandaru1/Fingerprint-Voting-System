@@ -11,8 +11,7 @@
 		$nic_code =  mysqli_real_escape_string($con,trim($_POST['nic_code']));
         
         /* login query */
-		//$login_qurey = "SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `fingerprint_R` = '$code' OR  `fingerprint_L` = '$code'";
-
+		
         $login_qurey = " SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}' ";
 
         $check_user_is_voted = " SELECT * FROM `participate` WHERE  `schedule_id` = {$_SESSION['inspector_schedule_id']} AND `voter_nic`= '{$nic_code}' ";
@@ -136,9 +135,9 @@
                     <center>
                     <a href="e_card_login.php" >
                         <div class="mt-5 mb-5" style="border:2px solid #555; font-size:24px; width: 600px; padding:5px;">
-                            ඔබ ආබාධිත පුද්ගලයෙක් නම්<br>
-                            If you are disabled person<br>
-                            நீங்கள் ஊனமுற்ற நபராக இருந்தால்
+                            e ඡන්ද කාඩ්පත භාවිතා කරන්න<br>
+                            Use e voting card<br>
+                            மின் வாக்கு அட்டையைப் பயன்படுத்துங்கள்
                         </div>
                     </a>
                     </center>
