@@ -52,7 +52,7 @@
             $altScs = 'block';
             $altReq = 'none';
             
-            require '../email/PHPMailerAutoload.php';
+           /* require '../email/PHPMailerAutoload.php';
             $credential = include('../email/credential.php');   //credentials import
             
             $mail = new PHPMailer;
@@ -83,7 +83,7 @@
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             }else{
                 echo "<script>alert('Your password send your Email')</script>";
-            }
+            }*/
 
         }else{
             $altScs = 'none';
