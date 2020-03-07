@@ -1,9 +1,8 @@
-Adrian Golling;Ilankai Tamil Arasu Kadchi;1
-Davidde Meltetal;Frontline Socialist Party;2
-Barret Moulds;Jathika Hela Urumaya;3
-Darice Vertigan;Ceylon Workers Congress;3
-Total number of votes in Division;;11
-Total number of votes castPercentage of votes cast;;9
-Number of invalid election results;;2
-Percentage of votes cast;;81.82%
+Adrian Golling;Ilankai Tamil Arasu Kadchi;2
+Davidde Meltetal;United National Party;1
+Barret Moulds;Sri Lanka Podujana Peramuna;1
+Total number of votes in Division;;1
+Total number of votes castPercentage of votes cast;;4
+Number of invalid election results;;3
+Percentage of votes cast;;400.00%
 Kelaniya;;
