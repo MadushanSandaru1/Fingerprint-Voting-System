@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 06, 2020 at 05:24 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Jan 04, 2020 at 05:47 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `assistant_election_officer` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
   `dist_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nic`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `candidate` (
   `name_si` varchar(255) CHARACTER SET utf8 NOT NULL,
   `name_ta` varchar(255) CHARACTER SET utf8 NOT NULL,
   `schedule_id` int(11) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `division` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `dist_id` int(11) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
 
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `division_officer` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
   `work_divi_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `election_schedule` (
   `type` int(11) NOT NULL,
   `date_from` datetime NOT NULL,
   `date_to` datetime NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `inspector` (
   `nic` char(12) NOT NULL,
   `password` varchar(255) NOT NULL,
   `schedule_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -500,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `party` (
   `address` varchar(255) CHARACTER SET utf8 NOT NULL,
   `color` varchar(255) NOT NULL,
   `symbol` varchar(255) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
@@ -565,7 +565,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `schedule_id` varchar(255) NOT NULL,
   `candidate_id` varchar(255) DEFAULT NULL,
   `divi_id` int(11) NOT NULL,
-  `preference` tinyint(4) NOT NULL DEFAULT 1,
+  `preference` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`,`schedule_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=965421740 DEFAULT CHARSET=latin1;
 
@@ -602,9 +602,9 @@ CREATE TABLE IF NOT EXISTS `voter` (
   `divi_id` int(11) NOT NULL,
   `language` char(1) NOT NULL,
   `role` varchar(6) NOT NULL DEFAULT 'voter',
-  `is_disabled` tinyint(4) NOT NULL DEFAULT 0,
-  `is_died` tinyint(4) NOT NULL DEFAULT 0,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
+  `is_disabled` tinyint(4) NOT NULL DEFAULT '0',
+  `is_died` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nic`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
