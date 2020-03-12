@@ -1,8 +1,8 @@
-Davidde Meltetal;Frontline Socialist Party;1
-Barret Moulds;Jathika Hela Urumaya;2
-Darice Vertigan;Ceylon Workers Congress;2
+Davidde Meltetal;United Peoples Freedom Alliance;1
+Barret Moulds;Sri Lanka Podujana Peramuna;1
+Darice Vertigan;Ilankai Tamil Arasu Kadchi;2
 Total number of votes in Division;;11
-Total number of votes castPercentage of votes cast;;5
+Total number of votes castPercentage of votes cast;;4
 Number of invalid election results;;1
-Percentage of votes cast;;45.45%
+Percentage of votes cast;;36.36%
 Kelaniya;;
