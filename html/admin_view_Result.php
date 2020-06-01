@@ -293,8 +293,8 @@
                                             $c++;
                                             $count_vort=$count_vort+$recode['vote'];
                                             
-                                        fwrite($fp,$recode['name'].';'.$recode['p_name'].';'.$recode['vote']);
-                            fwrite($fp,"\n");
+                                            fwrite($fp,$recode['name'].';'.$recode['p_name'].';'.$recode['vote']);
+                                            fwrite($fp,"\n");
                                         }
                                         $presentag=($count_vort/$all)*100;
                                         $last_pr=number_format($presentag, 2,'.','');

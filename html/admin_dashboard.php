@@ -31,7 +31,7 @@
 
     $result_set = mysqli_query($con,$query);
 
-    if (mysqli_num_rows($result_set) >= 1) {
+    if (mysqli_num_rows($result_set) >0) {
 
         $partyC = mysqli_fetch_assoc($result_set);
 
