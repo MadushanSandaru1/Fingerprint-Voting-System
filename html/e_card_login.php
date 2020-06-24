@@ -1,61 +1,114 @@
 <?php
 
-    /* database connection page include */
-    require_once('../connection/connection.php');
+    date_default_timezone_set('Asia/Colombo');
+
+    session_start();
+
+    require_once("../connection/connection.php");
+
+    if(!isset($_SESSION['inspector_nic'])){
+        header("location:../index.php");
+    }
     
     require_once("time_scheduler.php");
 
+    $err = "";
+    unset($_SESSION['voter_nic']);
+    unset($_SESSION['voter_divi_id']);
+    unset($_SESSION['voter_language']);
+    unset($_SESSION['voter_email']);
+
+    //setting
+    if(isset($_POST['pwdSubmit'])){
+        
+        $enc_pwd = sha1($_POST['pwd']);
+        
+        $get_inspectors = "SELECT * FROM `inspector` WHERE `nic` = '{$_SESSION['inspector_nic']}' AND `password` = '{$enc_pwd}' AND `schedule_id` = {$_SESSION['election_schedule_id']} AND `is_deleted` = 0";
+        
+        $result_inspectors = mysqli_query($con,$get_inspectors);
+        
+        if(mysqli_num_rows($result_inspectors)==1) {
+            
+            header("location:inspector_setting.php");
+        
+        }
+        else{
+            //$err = "Incorrect Password. Try again.";
+        }
+    }
+
+    //temporary
     if(isset($_POST['login'])) {
 
-        /* data for login */
-        $nic_code =  mysqli_real_escape_string($con,trim($_POST['nic_code']));
+		//data for login
+		$voter_nic =  strtoupper(mysqli_real_escape_string($con,trim($_POST['voter_nic'])));
+        $voter_pin = mysqli_real_escape_string($con,trim($_POST['voter_pin']));
         
-        /* login query */
-     
-        $login_qurey = " SELECT * FROM `voter` WHERE `is_deleted` = 0 AND `is_died` = 0 AND `nic` = '{$nic_code}' ";
+        //login query
+        $login_qurey = "SELECT * FROM `voter` WHERE `is_died` = 0 AND `is_deleted` = 0 AND `nic` = '{$voter_nic}' AND `e_card_pin` = '{$voter_pin}'";
 
-        $check_user_is_voted = " SELECT * FROM `participate` WHERE  `schedule_id` = {$_SESSION['inspector_schedule_id']} AND `voter_nic`= '{$nic_code}' ";
+        $check_user_is_voted = "SELECT * FROM `participate` WHERE  `schedule_id` = {$_SESSION['election_schedule_id']} AND `voter_nic`= '{$voter_nic}'";
 
-        /* query execute */
-        $result_set = mysqli_query($con,$login_qurey);
+        //query execute
+		$login_qurey_result = mysqli_query($con,$login_qurey);
         $check_user_is_voted_result = mysqli_query($con,$check_user_is_voted);
 
-        echo $check_user_is_voted;//mysqli_num_rows($check_user_is_voted_result);
-
-        if (mysqli_num_rows($check_user_is_voted_result)==0) {
+        if (mysqli_num_rows($check_user_is_voted_result) == 0) {
             
-            /* query result */
-            if (mysqli_num_rows($result_set)==1) {
-                $details = mysqli_fetch_assoc($result_set);
+            //query result
+            if (mysqli_num_rows($login_qurey_result) == 1) {
                 
-                /* if user available, user info load to session array */
+                $voter_details = mysqli_fetch_assoc($login_qurey_result);
                 
-                $_SESSION['nic'] = $details['nic'];
-                $_SESSION['divi_id'] = $details['divi_id'];
-                $_SESSION['language'] = $details['language'];
+                //age count
+                $b_day=date_create($voter_details['b_day']);
+                $today=date_create(date("Y-m-d"));
+                $diff=date_diff($b_day,$today);
+                $voter_age = $diff->format("%Y");
                 
-                /* redirect to dashboard page */
-                header("location:ballotPaper.php");
-                
+                //The administrator cannot use vote
+                if($voter_details['role'] == "ADMIN") {
+                    //redirect to error page
+                    header("location:admin_vote_error.php");
+                }
+                //People under the age of 18 cannot use vote
+                else if($voter_age < 18) {
+                    //redirect to error page
+                    header("location:age_vote_error.php");
+                }
+                else {
+                    
+                    //if user available, user info load to session array
+                    $_SESSION['voter_nic'] = $voter_details['nic'];
+                    $_SESSION['voter_divi_id'] = $voter_details['divi_id'];
+                    $_SESSION['voter_language'] = $voter_details['language'];
+                    $_SESSION['voter_email'] = $voter_details['email'];
+
+                    // redirect to dashboard page
+                    header("location:ballot_paper.php");
+                    
+                }
+            
             }
             /* if user not available, displayerror msg */
             else{
                 /* redirect to dashboard page */
-               header("location:try_again.php");
+               header("location:voter_not_exists_error.php");
             }
 
         }else{
-            header("location:already_voted.php");
+            header("location:already_voted_error.php");
         }
         
     }
+    //temporary
 
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>FVS</title>
+        <title>FVS | e-Card Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <!--title icon-->
@@ -65,6 +118,23 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+	
+            $(document).ready( function(){
+                $('#time').load('time.php');
+                refresh();
+            });
+
+            function refresh()
+            {
+                setTimeout( function() {
+                  $('#time').load('time.php');
+                  refresh();
+                }, 1000);
+            }
+
+        </script>
         
         <style>
             body {
@@ -88,65 +158,54 @@
                 bottom: 5px;
                 right: 5px;
             }
+            
+            input.pwd {
+                outline: 0;
+                border-width: 0 0 1px;
+                border-color: #6f2c91;
+            }
+            
+            .myBtn {
+                flex: 1 1 auto;
+                padding: 20px;
+                text-align: center;
+                text-transform: uppercase;
+                transition: 0.5s;
+                color: white;
+                text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+                border-radius: 15px;
+                background-image: linear-gradient(to right, #6f2c91, #c7017f);
+            }
+
+            .myBtn:hover {
+                background-image: linear-gradient(to right, #c7017f, #6f2c91);
+                text-decoration: none;
+                color: white;
+            }
+            
+            #err {
+                color: red;
+            }
         
         </style>
     </head>
     
     <body>
-        <?php
-                                            
-            /*$query = "SELECT es.*, e.`name_si`, e.`name_ta`, e.`name_en` FROM `election_schedule` es,`election` e WHERE es.`id` = {$_SESSION['inspector_schedule_id']} AND es.`type` = e.`id`";
-
-            $result_set = mysqli_query($con,$query);
-
-            if (mysqli_num_rows($result_set) >= 1) {
-
-                $eName = mysqli_fetch_assoc($result_set);
-                $_SESSION['election_name_si'] = $eName['name_si'];
-                $_SESSION['election_name_ta'] = $eName['name_ta'];
-                $_SESSION['election_name_en'] = $eName['name_en'];
-
-            }*/
-            $_SESSION['election_name_si'] = $current_elec_name_array['name_si'];
-            $_SESSION['election_name_ta'] = $current_elec_name_array['name_ta'];
-            $_SESSION['election_name_en'] = $current_elec_name_array['name_en'];
-
-        ?>
-        <nav class="navbar navbar-expand-sm navbar-dark justify-content-center">
-            <marquee class="navbar-brand lead" href="#"><img src="../img/elections.png"> | <?php echo $_SESSION['election_name_si']; ?> &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | <?php echo $_SESSION['election_name_ta']; ?>  &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | <?php echo $_SESSION['election_name_en']; ?></marquee>
-        </nav>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h1 class="fingerprint mt-5">ඔබගේ e ඡන්ද පත්‍රිකාව පරිලෝකනය කරන්න</h1>
-                    <h1 class="fingerprint mt-4 mb-4">உங்கள் மின் வாக்கு அட்டையை ஸ்கேன் செய்யுங்கள்</h1>
-                    <h1 class="fingerprint mt-4 mb-5">Scan your e voting card</h1>
-                    <hr>
-                    <form action="scan.php" method="post">
-
-                        <img src="../img/bc.gif" class="mt-2" width="160px" height="160px"><br>
-
-                        <input type="text" name="nic_code" placeholder="NIC number" class="mt-3"><br>
-                        
-                        <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
-                    </form>
-                </div>
-            </div>
-        </div>
         
         <!-- The Modal -->
-        <div class="modal" id="setting">
+        <div class="modal" id="inspectorSetting">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form action="setting.php" method="post" name="setting">
+                        <form action="e_card_login.php" method="post" name="setting">
                             <div class="form-group">
-                                <input type="password" class="form-control pwd" id="pwd" placeholder="Enter password" name="pwd">
+                                <input type="password" class="form-control pwd" id="pwd" placeholder="Enter password" name="pwd" required>
                             </div>
-                            <button type="submit" class="btn btn-primary"><img src="../img/ok.png"></button>
+                            <center>
+                                <button type="submit" class="btn btn-primary w-50" name="pwdSubmit"><img src="../img/ok.png"></button>
+                            </center>
                         </form>
                     </div>
 
@@ -154,6 +213,50 @@
             </div>
         </div>
         
+        <nav class="navbar navbar-expand-sm navbar-dark justify-content-center">
+            <marquee class="navbar-brand lead" href="#"><img src="../img/elections.png"> | <?php echo $_SESSION['election_name_si']." - ".date('Y'); ?> &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | <?php echo $_SESSION['election_name_ta']." - ".date('Y'); ?>  &ensp; &ensp; &ensp;  &ensp; &ensp; &ensp;<img src="../img/elections.png"> | <?php echo $_SESSION['election_name_en']." - ".date('Y'); ?></marquee>
+        </nav>
+        
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-between px-5">
+
+                <div id="time" class="d-flex flex-row">
+                </div>
+
+                <div id="setting" class="d-flex flex-row">
+                    <a href=""  data-toggle="modal" data-target="#inspectorSetting"><img src="../img/settings.png"></a>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="fingerprint mt-5">ඔබගේ e කාඩ්පත් විස්තර ඇතුළත් කරන්න</h1>
+                    <h1 class="fingerprint mt-4 mb-4">உங்கள் e அட்டை விவரங்களை உள்ளிடவும்</h1>
+                    <h1 class="fingerprint mt-4 mb-5">Insert your e-card details</h1>
+                    <hr>
+                    
+                    <img src="../img/e_pin.gif" height="160px"><br>
+                    
+                    <!-- temporary -->
+                    <form action="e_card_login.php" method="post">
+                        
+                        <input type="text" name="voter_nic" placeholder="NIC number" autocomplete="off" required><br>
+                        
+                        <input type="password" name="voter_pin" placeholder="e Pin" class="mt-2"  autocomplete="off" required><br>
+                        
+                        <input type="submit" class="btn btn-success mt-3" name="login" value="login" style="width:150px">
+                        
+                    </form>
+                    <!-- temporary -->
+                    
+                    <p class="mt-4"><a href="fingerprint_login.php" class="btn btn-primary">ඇඟිලි සලකුණු පිවිසුම | கைரேகை அணுகல் | Fingerprint Access</a></p>
+
+                </div>
+            </div>
+        </div>        
         
     </body>
 </html>

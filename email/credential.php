@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'user' => '',
-    'pass' => ''
+    'user' => 'chefguruhotel@gmail.com',
+    'pass' => 'Admin@chefguru'
 ];
 
 ?>

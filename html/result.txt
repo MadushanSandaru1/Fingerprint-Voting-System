@@ -1,5 +1,0 @@
-Total number of votes in Division;;0
-Total number of votes castPercentage of votes cast;;0
-Number of invalid election results;;3
-Percentage of votes cast;;nan%
-Ampara;;
