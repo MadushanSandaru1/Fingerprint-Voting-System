@@ -1,5 +1,4 @@
-# FVS-NextGen
-Fingerprint Voting System for NextGen IoT Hackathon
+# Fingerprint Voting System
 
 * Import the fvs_database.sql file in the sql directory into the database...
 
@@ -28,7 +27,6 @@ Fingerprint Voting System for NextGen IoT Hackathon
 - The inspector can only login to accpunt during the election time.
 
 ---------------------------------------------------------------------------
-*** project proposal included in Documentation directory...
 
 * Tips for operating the system
 - First you need to log in from the admin account and set an election schedule.
